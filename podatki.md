@@ -42,8 +42,8 @@
 ## Ocena
 
 - 50 % iz petih domačih nalog
-  - naloge zagovarjate na vajah, za vsako nalogo dobite od 0 do 5 točk
-  - naloga je ustrezno izdelana, če zanjo dobite vsaj 1 točko
-  - za pozitivno oceno morate ustrezno izdelati 4 naloge, iz vseh nalog pa zbrati vsaj 10 točk
+  - naloge zagovarjate na vajah
+  - za vsako uspešno zagovorjeno nalogo dobite od 1 do 5 točk
+  - za pozitivno oceno morate uspešno zagovarjati vsaj 4 naloge in zbrati vsaj 10 točk
 - 50 % pisni izpit
   - izpit opravite, če zberete vsaj 50 % točk
