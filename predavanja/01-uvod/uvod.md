@@ -46,7 +46,7 @@
 - dve procesorski jedri lahko delata pri nižji napetosti, imata pa višjo kapacitivnost
 - ker imamo dve procesorski jedri, lahko s polovično frekvenco ure opravimo približno enako količino dela
 
-  ![poraba energije: eno in dve jedri](slike/poraba-eno-dve-jedri.png)
+  ![poraba energije: eno in dve jedri](slike/poraba-eno-dve-jedri.png | width=100)
 
 ## Vzporedenje postane ključno
 
