@@ -12,3 +12,4 @@
       [arhitekture](predavanja/02-arhitekture/arhitekture.md)
   - vaje:
     odpadejo
+  
