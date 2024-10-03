@@ -78,7 +78,7 @@
 - bolj učinkovito izvajanje algoritmov (hitrejše, manjša poraba energije)
 - večja zanesljivost
 - programska oprema kot množica mikrostoritev
-- superrračunalniški sistemi v Evropi in svetu ([www.top500.org](https://www.top500.org/))
+- superračunalniški sistemi v Evropi in svetu ([www.top500.org](https://www.top500.org/))
 - prosto dostopne superračunalniške gruče v Sloveniji ([https://doc.sling.si/navodila/clusters/](https://doc.sling.si/navodila/clusters/))
 
 ## Razlogi za delo na superračunalniški gruči

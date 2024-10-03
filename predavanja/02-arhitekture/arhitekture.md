@@ -141,7 +141,7 @@
 
 <img src="slike/pospesevalnik.png" width="50%">
 
-- nekoč matematični koprocesorji, danes grafične kartice
+- nekoč matematični soprocesorji, danes grafične kartice
 - danes imajo notranjo hierarhično pomnilniško strukturo in mnogo enostavnih procesnih elementov
 - niso popolnoma samostojni
 - razbremenjevanje glavnega procesorja
