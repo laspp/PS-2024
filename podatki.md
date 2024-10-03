@@ -42,5 +42,8 @@
 ## Ocena
 
 - 50 % iz petih domačih nalog
-  - pogoj za opravljene vaje so narejene vsaj 4 naloge in zbranih vsaj 10 točk. Narejena naloga pomeni, da je ocenjena z več kot 0 točkami. Pri vsaki nalogi dobite največ 5 točk. Naloge za oceno zagovarjate na vajah.
-- 50 % ustni izpit
+  - naloge zagovarjate na vajah, za vsako nalogo dobite od 0 do 5 točk
+  - naloga je ustrezno izdelana, če zanjo dobite vsaj 1 točko
+  - za pozitivno oceno morate ustrezno izdelati 4 naloge, iz vseh nalog pa zbrati vsaj 10 točk
+- 50 % pisni izpit
+  - izpit opravite, če zberete vsaj 50 % točk
