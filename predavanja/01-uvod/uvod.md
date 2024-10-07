@@ -1,4 +1,4 @@
-# Uvod [IPP, 1]
+# Uvod [IPP, (1)]
 
 ## Zakaj potrebujemo vzporedno in porazdeljeno procesiranje
 

@@ -1,4 +1,4 @@
-# Arhitekture računalniških sistemov [IPP]
+# Arhitekture računalniških sistemov [IPP (2.1 - 2.3)]
 
 ## von Neumannova arhitektura in izboljšave
 
