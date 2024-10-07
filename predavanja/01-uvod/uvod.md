@@ -1,4 +1,4 @@
-# Uvod [IPP]
+# Uvod [IPP, 1]
 
 ## Zakaj potrebujemo vzporedno in porazdeljeno procesiranje
 
@@ -14,15 +14,15 @@
   - stranke želijo učinkovite in robustne rešitve
   - računalništvo v oblaku
 - naprave na robu (*angl.* Edge computing)
-  - Industrija 4.0, senzorska omrežja
+  - paradigma Tovarna 4.0, senzorska omrežja
 
 ## Razvoj računalniških sistemov
 
 - von Neumannova arhitektura: CPE, pomnilnik, V/I naprave
 - dolgo časa (do 2004) je zmogljivost računalniških sistemov naraščala z miniaturizacijo (releji, elektronke, vedno manjši in več tranzistorjev, zviševanje frekvence ure) in izboljševanjem strojne opreme
+- veljalo je Dennardovo pravilo: zmanjšanje velikosti tranzistorja na pol, poveča njihovo število za štirikrat, vsak tranzistor dela dvakrat hitreje (krajše povezave) ob nespremenjeni količini odvedene toplote
 - karakteristike procesorjev skozi čas ([graf](https://www.karlrupp.net/2018/02/42-years-of-microprocessor-trend-data/))
 - Moorov zakon: zmogljivost sistemov se vsakih 18 mesecev podvoji ([graf](https://en.wikipedia.org/wiki/Transistor_count#/media/File:Moore's_Law_Transistor_Count_1970-2020.png))
-- Dennardovo pravilo: zmanjšanje velikosti tranzistorja na pol, poveča njihovo število za štirikrat, vsak tranzistor dela dvakrat hitreje ob nespremenjeni količini odvedene toplote
 - težava z odvajanjem energije pri več kot 130 W porabe na procesor
 - pojavljati se začnejo večjedrne arhitekture (po 2004), ki so energijsko bolj učinkovite
 - s povečevanjem števila procesorskih jeder se ohranja veljavnost Moorovega zakona
