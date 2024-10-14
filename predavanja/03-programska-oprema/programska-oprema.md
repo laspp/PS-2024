@@ -4,7 +4,7 @@
 
 - most med strojno in uporabniško programsko opremo
 
-  <img src="slike/vozlisce-programska-oprema.png" width="25%"/>
+    <img src="slike/vozlisce-programska-oprema.png" width="25%"/>
 
 - je programska oprema, ki izvaja osnova opravila, kot so:
   - upravljanje procesorjev
