@@ -79,4 +79,4 @@
 ## Uporaba SLURM
 
 - delavnica [Osnove superračunalnišva](https://doc.sling.si/workshops/supercomputing-essentials/)
-- rezervacija `--reservation=psistemi`
+- rezervacija `--reservation=fri`

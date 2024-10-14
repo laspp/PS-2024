@@ -60,7 +60,7 @@
   - če niti izvajajo neodvisne programske tokove na več jedrih hkrati, govorimo o vzporednem procesiranju
 - programske in strojne niti
   - strojne niti omogočajo hkratno izvajanje več ločenih programskih tokov
-  - operacijski sistem določi katera strojno nit bo izvajala neko programska nit
+  - operacijski sistem določi katera strojna nit bo izvajala neko programska nit
 
 ### Organizacija pomnilnika v večnitnem procesu
 
