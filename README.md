@@ -11,5 +11,11 @@
       [uvod](predavanja/01-uvod/uvod.md),
       [arhitekture](predavanja/02-arhitekture/arhitekture.md)
   - vaje: odpadejo
-- Teden 02:
-  - vaje: [SLURM](vaje/01-uporaba_gruce/Uporaba_gruce.md)
+
+  ### Sistemi s skupnim pomnilnikom
+  
+  - Teden 02:
+    - predavanja:
+      [programska oprema](predavanja/03-programska-oprema/programska-oprema.md)
+      [SLURM](vaje/01-uporaba_gruce/Uporaba_gruce.md)
+    - vaje: [SLURM](vaje/01-uporaba_gruce/Uporaba_gruce.md)
