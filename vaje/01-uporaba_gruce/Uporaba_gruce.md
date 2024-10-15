@@ -30,7 +30,10 @@ Pri uporabi VSCode so težave s 2FA avtentikacijo. Priporočamo uporabo žetonov
 ```
 wsl --exec ssh %*
 ``` 
-Nato pa v okolju VSCode spremenite nastavitev `Remote.SSH: Path` tako, da vsebuje absolutno pot do vaše datoteke `ssh.bat`. Vaš privatni ključ morate pred tem prenesti v mapo `~/.ssh` v okolju WSL.
+Nato pa v okolju VSCode spremenite nastavitev `Remote.SSH: Path` tako, da vsebuje absolutno pot do vaše datoteke `ssh.bat`. Vaš privatni ključ in konfiguracijsko datoteko `config`, ki se običajno nahajata v mapi `C:\Users\<uporabnik>\.ssh\` morate prenesti v mapo `~/.ssh` v okolju WSL. Popraviti morate tudi pravice za dostop vašega privatnega ključa:
+```
+chmod 600 ~/.ssh/<privatni kljuc>
+```
 
 ## Zaganjanje poslov na gruči
 
