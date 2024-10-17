@@ -83,7 +83,7 @@ Niti izvajajo neodvisne programske tokove, zato ima vsaka svoje:
 
   - ob klicu funkcije na sklad shranimo povratni naslov in argumente, nato tudi vse spremenljivke
   - ob vračanju se vse lokalne spremenljivke in argumenti odstranijo iz sklada, program nadaljuje izvajanje na povratnem naslovu
-- če ima proces več niti, kot ima procesor jeder, operacijski sistem preklaplja med nitmi
+- če ima proces več niti kot ima procesor jeder, operacijski sistem preklaplja med nitmi
 - preklapljanje med nitmi je učinkovitejše od preklapljanja med procesi, saj ni treba shranjevati stanja virov, ki so na voljo vsem nitim
 - niti so "lahki" procesi s poenostavljenim upravljanjem virov
 - lahko jih razumemo tudi kot "napredne" funkcije, ki imajo svoje izvajalno okolje
@@ -163,4 +163,4 @@ Niti izvajajo neodvisne programske tokove, zato ima vsaka svoje:
 
 - prednosti nalog:
   - znebimo se visokih stroškov ob ustvarjanju, zaključevanju, preklapljanju niti
-  - programi se lahko poenostavijo -- lahko privzamemo, da imamo neomejeno število nalog
+  - programi se lahko poenostavijo - lahko privzamemo, da imamo neomejeno število nalog
