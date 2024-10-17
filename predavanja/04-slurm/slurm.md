@@ -1,13 +1,13 @@
 # SLURM (Simple Linux Utility for Resource Management)
 
-- vmesna programska oprema
+- vmesna programska oprema [https://slurm.schedmd.com](https://slurm.schedmd.com)
   - upravljanje virov na gruči in razvrščanje poslov
   - upravlja s čakalno vrsto
   - uporabnikom dodeljuje računske vire
   - okolje za zaganjanje, izvajanje in nadziranje dela (poslov)
   - sklad programske opreme na gruči
 
-        <img src="slike/vmesna-programska-oprema.png" width="75%">
+    <img src="slike/vmesna-programska-oprema.png" width="75%">
 
 - glavne lastnosti
   - odprtokodni projekt

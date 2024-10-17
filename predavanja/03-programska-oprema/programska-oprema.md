@@ -1,4 +1,4 @@
-# Programska oprema
+# Programska oprema [SMAP:2]
 
 ## Operacijski sistem
 
