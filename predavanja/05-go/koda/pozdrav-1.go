@@ -1,9 +1,9 @@
 // pozdrav
 // 		module load Go
-// 		srun --reservation=psistemi --tasks=1 --cpus-per-task=2 go run pozdrav-1.go
+// 		srun --reservation=fri --tasks=1 --cpus-per-task=2 go run pozdrav-1.go
 //
 // 		go build pozdrav-1.go
-// 		srun --reservation=psistemi --tasks=1 --cpus-per-task=2 ./pozdrav-1
+// 		srun --reservation=fri --tasks=1 --cpus-per-task=2 ./pozdrav-1
 
 package main
 
