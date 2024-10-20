@@ -1,6 +1,7 @@
 // povezovanje kanalov s stavkom select
 // gorutini writer neprestano pišeta vsaka v svoj kanal
 // gorutina reader bere in obdeluje sporočila iz več kanalov
+// program zaženemo na dveh nitih
 
 package main
 

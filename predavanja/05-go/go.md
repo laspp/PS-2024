@@ -8,7 +8,7 @@
 - niša: zmogljiv, prevajan, večplatformni jezik z vgrajeno podporo za vzporedenje (sistemsko programiranje)
 - statično tipiziran jezik, ni objekten, podpora za pisanje vmesnikov
 
-## Glavne lastnosti
+## Glavne lastnosti [OPG:1-9]
 
 - ima zelo čisto in enostavno sintakso, malo ključnih besed in vrst ločil
 - strikten pri pisanju kode, večja berljivost
@@ -26,7 +26,7 @@
 
 [Primerjava jezikov go in java](https://www.turing.com/blog/golang-vs-java-which-language-is-best/#comparison)
 
-## Podpora za sočasnost
+## Podpora za sočasnost [CG:2]
 
 - model opravilo kanal (Foster, 1995), model CSP, *angl.* Communicating Sequential Processes (Hoare, 1978)
 
@@ -51,7 +51,7 @@
     - s kanali lahko sinhroniziramo delovanje gorutin
     - kanali so blokirajoči - gorutina bo čakala, dokler se na kanalu ne pojavi sporočilo
 
-## Gorutine
+## Gorutine [OPG:10.1]
 
 - sinonimi: naloga, sorutina in gorutina
 - osnovna enota programa v jeziku go
@@ -112,7 +112,7 @@
   - gorutino lahko kličemo z argumenti
   - glavna gorutina tudi opravi delo
 
-## Kanali
+## Kanali [OPG:10.2]
 
 - sinhronizacijski konstrukt, ki ga je predvidel model CSP
 - njihova primarna naloga je zagotavljanje komunikacije med gorutinami
@@ -162,6 +162,8 @@
   - nepravilna uporaba kanalov lahko pripelje do smrtnega objema ([smrtni-objem.go](koda/smrtni-objem.go))
 
     ```go
+    var dataStream = make(chan int)
+
     func writer() {
         return
         dataStream <- 13                // gorutina nikoli ne zapiše vrednosti v kanal
@@ -243,7 +245,7 @@
 - gorutina, ki je lastnik kanala
 
   - kanal vzpostavi
-  - piše vanj
+  - vanj piše
   - ga zapre
 
     na ta način preprečimo delo z zaprtim kanalom (vzpostavitev, pisanje, večkratno zapiranje)
@@ -268,7 +270,7 @@
 - primer: [razglas.go](koda/razglas.go)
 
   - poslušalci (`listener`) se zaženejo in čakajo na sporočilo na kanalu
-  - ko razglaševalec (`speaker`) izpiše novico, zapre kanal ne da bi karkoli vanj poslal
+  - ko govorec (`speaker`) sporoči (izpiše) novico, zapre kanal, ne da bi karkoli vanj poslal
   - ko je kanal zaprt, poslušalci iz kanala nemudoma preberejo privzeto vrednost in nadaljujejo
 
 ### Delo z več kanali
@@ -284,7 +286,7 @@
   - če ni pogojev za branje ali pisanje, stavek `select` blokira izvajanje
 - čakanje na dogodek tako ne poteka v neskončni zanki in zato le malenkostno obremenjuje procesor
 - s stavkom `select` čakamo na sporočila, poskrbimo za njihovo obdelavo, prekličemo gorutino zaradi napake ali izteka časa 
-- če ima pri stavku `select` več vej pogoje za izvajanje, izvajalni sistem jezika go naključno izbere in izvede enega od njih
+- če ima pri stavku `select` več vej pogoje za izvajanje, izvajalni sistem jezika go naključno izbere in izvede eno od njih
   - jezik go ne pozna vsebine naše programske kode, zato ne more vedeti katera veja ima prioriteto
   - brez poznavanja ozadja je zato pri izvajanju najrazličnejših programov najbolj enostavno in sprejemljivo naključno izbiranje
 - če nobena veja v stavku `select` nima pogojev za izvajanje, se, če je napisana, izvede privzeta koda

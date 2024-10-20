@@ -5,7 +5,7 @@
 // 		go build pozdrav-1.go
 // 		srun --reservation=fri --tasks=1 --cpus-per-task=2 ./pozdrav-1
 
-package main
+package main // tako imamo lahko več main funkcij v isti mapi
 
 import (
 	"fmt"
