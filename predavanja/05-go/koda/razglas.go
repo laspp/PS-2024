@@ -1,4 +1,4 @@
-// sihronizacija
+// sinhronizacija
 // funkcija speaker da gorutinam listener signal kdaj lahko nadaljujejo
 // s struct{} poudarimo, da kanal ni namenjen prenašanju sporočil
 
@@ -23,7 +23,10 @@ func speaker(message string) <-chan struct{} {
 
 func listener(id int, broadcastStream <-chan struct{}) {
 	fmt.Println("Listener", id, "is waiting for an announcement.")
+
 	<-broadcastStream
+
+	fmt.Println("Listener", id, "completed.")
 }
 
 func main() {
@@ -35,4 +38,6 @@ func main() {
 	listener(0, broadcastStream)
 
 	fmt.Println("Great!")
+
+	time.Sleep(1 * time.Second)
 }

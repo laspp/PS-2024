@@ -148,7 +148,7 @@
     dataStremWrite = dataStream
     ```
 
-- pri delu s kanali operator `<-` uporabljamo za pisanje vrednosti v kanal in za branje vrednosti iz kanala
+- operator `<-` uporabljamo za pisanje vrednosti v kanal in za branje vrednosti iz kanala
 
     ```go
     dataStream <- 314       // pisanje
@@ -270,7 +270,7 @@
 - primer: [razglas.go](koda/razglas.go)
 
   - poslušalci (`listener`) se zaženejo in čakajo na sporočilo na kanalu
-  - ko govorec (`speaker`) sporoči (izpiše) novico, zapre kanal, ne da bi karkoli vanj poslal
+  - ko govorec (`speaker`) izpiše novico na zaslon, zapre kanal, ne da bi karkoli vanj poslal
   - ko je kanal zaprt, poslušalci iz kanala nemudoma preberejo privzeto vrednost in nadaljujejo
 
 ### Delo z več kanali

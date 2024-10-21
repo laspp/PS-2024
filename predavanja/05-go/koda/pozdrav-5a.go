@@ -5,8 +5,8 @@ package main
 
 import (
 	"fmt"
-	"time"
 	"sync"
+	"time"
 )
 
 const printouts = 10
@@ -27,5 +27,5 @@ func main() {
 	wg.Add(1)
 	go hello("world")
 	wg.Wait()
-	fmt.Println()	
+	fmt.Println()
 }

@@ -1,6 +1,7 @@
 // pozdrav
 // dve gorutini, argument, vrstni red izpisov se od zagona do zagona spreminja
 // glavna gorutina tudi dela
+// trikrat kličemo wg.Done(), zato rabimo wg.Add(1) tudi za glavno gorutino
 
 package main
 
