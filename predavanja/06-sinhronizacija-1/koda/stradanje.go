@@ -1,5 +1,5 @@
 // Demonstracija stradanja gorutin
-// 	- obe gorutini opravita približno enako dela
+//  - obe gorutini opravita približno enako dela
 //  - gorutina greedyWorker si prilasti vir enkrat za dlje časa
 //  - gorutina politeWorker si vir prilasti večkrat za krajši čas
 
