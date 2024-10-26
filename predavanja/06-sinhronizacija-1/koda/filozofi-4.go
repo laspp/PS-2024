@@ -35,7 +35,7 @@ func session(dishes int, id int) {
 				break
 			}
 			fork[forkId1].Unlock()
-			time.Sleep(100 * time.Millisecond)
+			time.Sleep(time.Duration(100+10*(id+1)) * time.Millisecond)
 		}
 		fmt.Println("Philosopher", id, "is eating", dish, ".")
 		time.Sleep(100 * time.Millisecond)

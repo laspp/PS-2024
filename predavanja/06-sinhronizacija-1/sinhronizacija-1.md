@@ -232,8 +232,11 @@
   - dve gorutini se ne ustavita, ampak ves čas izvajata program, vendar se ta ne premakne v naslednje stanje
   - gorutini neprestano ponavljata isto operacijo kot odgovor na spremembe v drugi gorutini in pri tem ne počneta nič uporabnega
   - primer: dve osebi se približujeta v ozkem hodniku, da se ne zaletita se obe umakneta na isto stran, potem se obe umakneta na drugo stran, ..., ves čas nekaj počneta, vendar ne znata razrešiti konflikta
+  - primer: [zivi-objem.go](koda/zivi-objem.go)
+    - poenostavljen primer [filozofi-4](koda/filozofi-4.go)
+    - poskrbimo, da obe niti hkrati začneta z zaklepanjem ključavnic
 - stradanje
   - o stradanju govorimo, kadar gorutina ne more dobiti vseh virov, ki jih potrebuje za delo
   - običajno ene gorutine bolj intenzivno zahtevajo vire in ostalim onemogočajo, da bi delo opravile učinkovito
-  - [stradanje.go](koda/stradanje.go)
+  - primer: [stradanje.go](koda/stradanje.go)
     - dve gorutini z enako količino dela, pohlepna gorutina bo kritični odsek zaklenila enkrat za dlje časa, prijazna gorutina pa večkrat, vsakič za krajši čas
