@@ -1,6 +1,6 @@
 # Sinhronizacija
 
-## Tvegano stanje in kritični odsek
+## Tvegano stanje in kritični odsek [IPP:4.4]
 
 - gorutine komunicirajo preko spremenljivk v skupnem pomnilniku (*angl.* shared variables)
 
@@ -55,7 +55,7 @@
   - jezik go zazna tvegano stanje ob hkratnem branju in pisanju ([https://go.dev/ref/mem](https://go.dev/ref/mem))
   - računanje je počasno, saj vrednosti krožno pobiramo iz gorutin; gorutine precej čakajo
 
-### Ključavnice
+### Ključavnice [IPP:4.5-4.6]
 
 - *angl.* mutex (MUTual EXclusion), **medsebojno izključevanje**
 - s ključavnicami zaklepamo dostop do kritičnega odseka
@@ -67,7 +67,7 @@
 - po izstopu iz kritičnega odseka mora gorutina odkleniti ključavnico, da omogoči vstop drugim gorutinam
 - branje, nastavljanje in zaklepanje ključavnice mora biti **atomarna operacija**
 
-### Nedeljive ali atomarne operacije
+### Nedeljive ali atomarne operacije [CG:1]
 
 - operacija je nedeljiva ali atomarna, če je v obsegu delovanja ne moremo razdeliti na manjše dele ali prekiniti
 - obseg delovanja: operacija, ki je atomarna za proces, morda ni atomarna za operacijski sistem; operacija, ki je atomarna za operacijski sistem, lahko ni atomarna za procesor ali dostop procesorja do pomnilnika
@@ -81,20 +81,21 @@
 
 - večjedrni procesorji imajo posebne atomarne ukaze
 
-- preveri in nastavi (*angl.* test-and-set, TAS)
+- preveri in nastavi (*angl.* [test-and-set](https://en.wikipedia.org/wiki/Test-and-set), TAS)
   - procesor hkrati (atomarno) vrne staro vrednost bita in nastavi njegovo vrednost na 1
   - zaklepanje pomnilniškega vodila ali rešitev v pomnilniku
   - če je stara vrednost 0, program po ukazu lahko nadaljuje
   - če je stara vrednost 1, potem je ključavnica nastavljena in mora ponovno poskusiti (*angl.* spin lock)
-- primerjaj in zamenjaj (*angl.* compare-and-swap, CAS)
-  - primerja trenutno vrednost in pričakovano vrednost; če sta enaki vrednost nastavi na novo vrednost
+- primerjaj in zamenjaj (*angl.* [compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap), CAS)
+  - primerja trenutno vrednost, zapisano na pomnilniški lokaciji, in pričakovano vrednost; če sta enaki, trenutno vrednost nastavi na novo vrednost
   - podobna rešitev kot preveri in nastavi
-  - Intel: `lock`: v okviru protokola MESI: najprej se uskladi predpomnilniški blok med vsemi procesorskimi jedri, nato je v ekskluzivni lasti procesorskega jedra, ki je izdalo ukaz z `lock`, dokler se izvaja ukaz ga ne more uporabljati nobeno drugo procesorsko jedro
-- prevzemi in dodaj (*angl.* fetch-and-add, FAA)
+  - Intel: `lock`: v okviru protokola MESI: najprej se uskladi predpomnilniški blok med vsemi procesorskimi jedri, nato je v ekskluzivni lasti procesorskega jedra, ki je izdalo ukaz z `lock`; dokler se izvaja ukaz, ga ne more uporabljati nobeno drugo procesorsko jedro
+- prevzemi in dodaj (*angl.* [fetch-and-add](https://en.wikipedia.org/wiki/Fetch-and-add), FAA)
   - vrne staro vrednost in na pomnilniškem naslovu atomarno poveča vrednost
+  - ker je operacija atomarna, je stara vrednost dodeljena eni sami niti
   - podobna rešitev kot preveri in nastavi
-- nalaganje in pogojno shranjevanje (*angl.* load-liked/store-conditional, LL/SC)
-  - prvič se pojavi pri procesorjih RISC, danes ARM, RISC V
+- nalaganje in pogojno shranjevanje (*angl.* [load-liked/store-conditional](https://en.wikipedia.org/wiki/Load-link/store-conditional), LL/SC)
+  - prvič se pojavi pri procesorjih RISC, danes v ARM in RISC V
   - s parom nalaganje in pogojno shranjevanje procesor zagotavlja atomarno posodabljanje pomnilnika v večjedrnih sistemih
   - ni potrebno zaklepanje pomnilniških lokacij za izključni dostop enega procesorja
   - z ukazom LL naložimo vrednost iz pomnilniške lokacije v register, jo spremenimo in s ukazom SC novo vrednost napišemo nazaj v pomnilnik
@@ -136,7 +137,7 @@
 
   - ustvarimo rezino (*angl.* slice) za strukture `pi`, za vsako gorutino svojo
   - rezultat je slabši, saj so pomnilniške lokacije v rezini skupaj in prihaja do usklajevanja predpomnilnikov (lažni skupni podatki, *angl.* false sharing)
-    - po pridruževanju gorutin, delne vsote zaporedno seštejemo
+  - po pridruževanju gorutin, delne vsote zaporedno seštejemo
 
   [pi-9.go](koda/pi-9.go)
 
@@ -145,7 +146,7 @@
 
 - rešitev s kanali
 
-    [pi-10.go](koda/pi-10.go)
+  [pi-10.go](koda/pi-10.go)
 
   - odpremo kanal
   - vsaka gorutina pošlje sporočilo z delnim rezultatom v kanal
@@ -156,7 +157,7 @@
 
 ### Hkratna uporaba več ključavnic in smrtni objem
 
-- Primer: 5 filozofov pri večerji
+- Primer: 5 filozofov pri večerji [LBS:4.4]
 
   <img src="slike/filozofi.png" width="40%" />
 
@@ -225,7 +226,7 @@
     - zaklenemo prvo ključavnico, potem poskusimo zakleniti še vse ostale
     - če katere od ključavnic ne uspemo zakleniti, sprostimo vse, nato ponovno poskusimo od začetka, z zaklepanjem prve ključavnice
 
-### Tipi zastojev v programu
+### Tipi zastojev v programu [CG:1]
 
 - smrtni objem (glej prejšnji razdelek)
 - živi objem (*angl.* livelock)
