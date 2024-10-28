@@ -55,4 +55,6 @@ func main() {
 	timeElapsed := time.Since(timeStart)
 	// izpišemo
 	fmt.Println("pi:", pi, "goroutines:", *gPtr, "time:", timeElapsed)
+	// zapremo kanal
+	close(piStream)
 }

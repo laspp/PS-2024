@@ -1,6 +1,6 @@
 // računanje pi po metodi Monte Carlo
 // vzporedno, uporabimo ključavnico (mutex)
-// uopabimo lokalne spremenljivke
+// uporabimo lokalne spremenljivke
 
 package main
 

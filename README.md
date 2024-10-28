@@ -27,4 +27,5 @@
 
   - Teden 04:
     - predavanja:
+      [sinhronizacija: ključavnice](predavanja/06-sinhronizacija-1/sinhronizacija-1.md)
     - vaje: odpadejo

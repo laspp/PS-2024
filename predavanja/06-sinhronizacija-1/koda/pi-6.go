@@ -1,5 +1,5 @@
 // računanje pi po metodi Monte Carlo
-// vzporedno, uporabimo atomično seštevanje
+// vzporedno, uporabimo atomarno seštevanje
 
 package main
 

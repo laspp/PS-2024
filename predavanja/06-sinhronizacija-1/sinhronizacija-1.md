@@ -85,7 +85,7 @@
   - procesor hkrati (atomarno) vrne staro vrednost bita in nastavi njegovo vrednost na 1
   - zaklepanje pomnilniškega vodila ali rešitev v pomnilniku
   - če je stara vrednost 0, program po ukazu lahko nadaljuje
-  - če je stara vrednost 1, potem je ključavnica nastavljena in mora ponovno poskusiti (*angl.* spin lock)
+  - če je stara vrednost 1, potem je ključavnica nastavljena od prej in mora ponovno poskusiti (*angl.* spin lock)
 - primerjaj in zamenjaj (*angl.* [compare-and-swap](https://en.wikipedia.org/wiki/Compare-and-swap), CAS)
   - primerja trenutno vrednost, zapisano na pomnilniški lokaciji, in pričakovano vrednost; če sta enaki, trenutno vrednost nastavi na novo vrednost
   - podobna rešitev kot preveri in nastavi
@@ -169,31 +169,31 @@
     - vilice so omejen vir, ene lahko uporablja samo en filozof na enkrat, zato jih predstavimo s ključavnicami
     - vsak filozof mora dobiti par vilic
 
-  - [filozofi-1](koda/filozofi-1.go)
+  - [filozofi-1.go](koda/filozofi-1.go)
 
     - nepravilna rešitev: nobenega nadzora nad jemanjem vilic
 
-  - [filozofi-2](koda/filozofi-2.go)
+  - [filozofi-2.go](koda/filozofi-2.go)
 
     - vilice predstavimo s ključavnicami,
     - nepravilna rešitev: pride do **smrtnega objema** (*angl.* deadlock)
 
-  - [filozofi-3](koda/filozofi-3.go)
+  - [filozofi-3.go](koda/filozofi-3.go)
 
     - posebna ključavnica za jemanje vilic
     - smrtnega objema ni več, samo en filozof lahko jemlje naenkrat
 
-  - [filozofi-4](koda/filozofi-4.go)
+  - [filozofi-4.go](koda/filozofi-4.go)
 
     - delujoča rešitev
     - če filozof ne uspe dobiti drugih vilic, odloži tudi prve in nato še enkrat poskusi
 
-  - [filozofi-5](koda/filozofi-5.go)
+  - [filozofi-5.go](koda/filozofi-5.go)
 
     - delujoča rešitev
     - vilice vedno pobirajo v enakem vrstnem redu - vedno najprej vzamejo vilice z nižjim indeksom
 
-  - [filozofi-6](koda/filozofi-6.go)
+  - [filozofi-6.go](koda/filozofi-6.go)
 
     - delujoča rešitev s kanali
     - vilice vedno pobirajo v enakem vrstnem redu - vedno najprej vzamejo vilice z nižjim indeksom
@@ -204,16 +204,16 @@
   - lastnik ima izključno pravico do sproščanja vira
   - obstaja krožna odvisnost med lastniki - prvi čaka drugega, drugi tretjega, ..., zadnji spet prvega
 
-  - primer smrtnega objema s parom ključavnic
+- primer smrtnega objema s parom ključavnic
 
-    ```go
-    // gorutina 1           // gorutina 2
-    lock1.Lock()           lock2.Lock()
-    lock2.Lock()           lock1.Lock()
-    ...                     ...
-    lock1.Unlock()         lock1.Unlock()
-    lock2.Unlock()         lock2.Unlock()
-    ```
+  ```go
+  // gorutina 1           // gorutina 2
+  lock1.Lock()           lock2.Lock()
+  lock2.Lock()           lock1.Lock()
+  ...                     ...
+  lock1.Unlock()         lock1.Unlock()
+  lock2.Unlock()         lock2.Unlock()
+  ```
 
 - preprečevanje smrtnega objema:
 
@@ -234,7 +234,7 @@
   - gorutini neprestano ponavljata isto operacijo kot odgovor na spremembe v drugi gorutini in pri tem ne počneta nič uporabnega
   - primer: dve osebi se približujeta v ozkem hodniku, da se ne zaletita se obe umakneta na isto stran, potem se obe umakneta na drugo stran, ..., ves čas nekaj počneta, vendar ne znata razrešiti konflikta
   - primer: [zivi-objem.go](koda/zivi-objem.go)
-    - poenostavljen primer [filozofi-4](koda/filozofi-4.go)
+    - poenostavljen primer pogojnega zaklepanja iz primera [filozofi-4.go](koda/filozofi-4.go)
     - poskrbimo, da obe niti hkrati začneta z zaklepanjem ključavnic
 - stradanje
   - o stradanju govorimo, kadar gorutina ne more dobiti vseh virov, ki jih potrebuje za delo
