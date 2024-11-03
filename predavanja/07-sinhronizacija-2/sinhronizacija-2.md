@@ -20,7 +20,7 @@
 - če jo zaklenemo za branje, lahko vstopi več gorutin z željo po branju, ne morejo pa vstopiti gorutine za pisanje
   - mnogo gorutin želi hkrati brati skupno spremenljivko
 - če jo zaklenemo za pisanje, ne more vstopiti nobena druga gorutina
-  - nobena gorutina ne sme dostopati do skupne spremenljivke medtem, ko ena gorutina vanjo piše
+  - nobena gorutina ne sme dostopati do skupne spremenljivke, medtem ko ena gorutina vanjo piše
 - zaklepanje za pisanje ima prednost pred zaklepanjem za branje
   - vzemimo, da je kritični odsek zaklenjen za branje
   - potem, ko ena od gorutin zahteva pisanje, ne more v kritični odsek vstopiti nobena druga gorutina z zahtevo za branje
@@ -62,3 +62,4 @@
   - [pisatelji-bralci-4.go](koda/pisatelji-bralci-4.go)
     - uporabimo bralno-pisalno ključavnico
     - bralcev nam ni treba šteti
+    - pisatelji pridejo prej na vrsto kot v prejšnjih dveh primerih

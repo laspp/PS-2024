@@ -13,13 +13,13 @@ import (
 var wg sync.WaitGroup
 var activeReaders int = 0
 var lockReaders sync.Mutex
-var semBook = make(chan int, 1)
+var semBook = make(chan struct{}, 1)
 
 func writer(id int, cycles int) {
 	defer wg.Done()
 
 	for i := 0; i < cycles; i++ {
-		semBook <- 1
+		semBook <- struct{}{}
 		fmt.Println("Writer", id, "start", i)
 		time.Sleep(time.Duration(id) * time.Millisecond)
 		fmt.Println("Writer", id, "finish", i)
@@ -34,7 +34,7 @@ func reader(id int) {
 		lockReaders.Lock()
 		activeReaders++
 		if activeReaders == 1 {
-			semBook <- 1
+			semBook <- struct{}{}
 		}
 		lockReaders.Unlock()
 

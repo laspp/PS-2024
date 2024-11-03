@@ -32,15 +32,17 @@ func barrier(id int, printouts int) {
 		// pregrada - začetek
 		lock.Lock()
 		g++
-		lock.Unlock()
 		phaseLocal = 1 - phaseLocal
 		if g < goroutines {
+			lock.Unlock()
 			for phaseGlobal != phaseLocal {
 			}
+			lock.Lock()
 		} else {
 			g = 0
 			phaseGlobal = phaseLocal
 		}
+		lock.Unlock()
 		// pregrada - konec
 	}
 }

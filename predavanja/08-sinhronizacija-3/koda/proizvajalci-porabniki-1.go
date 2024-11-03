@@ -13,10 +13,10 @@ type productData struct {
 	Id int
 }
 
-var buffer []productData
-var bufferIdxPut int = 0
-var bufferIdxGet int = 0
-var bufferNumProducts int = 0
+var buffer []productData      // medpomnilnik (krožna vrsta)
+var bufferIdxPut int = 0      // mesto v krožni vrsti, kamor bomo odložili naslednji izdelek
+var bufferIdxGet int = 0      // mesto v krožni vrsti, s katerega bomo pobrali naslednji izdelek
+var bufferNumProducts int = 0 // število izdelkov v skladišču
 
 var wgProducer, wgConsumer sync.WaitGroup
 

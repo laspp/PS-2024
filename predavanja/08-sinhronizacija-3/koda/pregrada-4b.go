@@ -1,9 +1,5 @@
 // Pregrada
-// dva kanala, princip dvojih vrat
-// 		najprej počakamo, da vse gorutine pridejo čez prva vrata (arrived)
-//      nato počakamo, da vse gorutine pridejo čez druga vrata (left)
-// 		kanala imata kapaciteto 1, da zadnja gorutina lahko sprosti sama sebe
-//		kanala sta tipa struct{}, s čimer poudarimo, da jih uporabljamo za sinhronizacijo
+// ključavnica, sodi in lihi obhodi zank
 
 package main
 
@@ -18,11 +14,12 @@ import (
 var wg sync.WaitGroup
 var goroutines int
 var g int = 0
+var phaseGlobal int = 0 // sodi, lihi obhod zanke
 var lock sync.Mutex
-var arrived = make(chan struct{}, 1)
-var left = make(chan struct{}, 1)
 
 func barrier(id int, printouts int) {
+
+	var phaseLocal int = 0
 
 	defer wg.Done()
 
@@ -33,27 +30,25 @@ func barrier(id int, printouts int) {
 		fmt.Println("Gorutine", id, "printout", i)
 
 		// pregrada - začetek
-		// vrata 0
 		lock.Lock()
 		g++
-		if g == goroutines {
-			for i := 0; i < goroutines; i++ {
-				arrived <- struct{}{}
+		phaseLocal = 1 - phaseLocal
+		if g < goroutines {
+			lock.Unlock()
+			for {
+				lock.Lock()
+				cnd := phaseGlobal == phaseLocal
+				lock.Unlock()
+				if cnd == true {
+					break
+				}
 			}
+			lock.Lock()
+		} else {
+			g = 0
+			phaseGlobal = phaseLocal
 		}
 		lock.Unlock()
-		<-arrived
-
-		// vrata 1
-		lock.Lock()
-		g--
-		if g == 0 {
-			for i := 0; i < goroutines; i++ {
-				left <- struct{}{}
-			}
-		}
-		lock.Unlock()
-		<-left
 		// pregrada - konec
 	}
 }
@@ -67,7 +62,7 @@ func main() {
 	goroutines = *gPtr
 
 	// zaženemo gorutine
-	wg.Add(*gPtr)
+	wg.Add(goroutines)
 	for i := 0; i < goroutines; i++ {
 		go barrier(i, *pPtr)
 	}
