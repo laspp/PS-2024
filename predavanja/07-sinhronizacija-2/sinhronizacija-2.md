@@ -48,17 +48,17 @@
         - dovoljuje, vendar potem prevajalnik ne zna zaznati smrtnega objema, ne more dobro optimizirati kode, ...
         - v jeziku go2 zaklepanje z eno in odklepanje z drugo gorutino verjetno ne bo več dovoljeno
 
-    - [pisatelji-bralci-3.go](koda/pisatelji-bralci-3.go)
-      - boljša rešitev je z uporabo **semaforjev** (*angl.* semaphores)
-        - za razliko od ključavnice, ki je binarna (odklenjena ali zaklenjena), je semafor števen, njegova vrednost je pozitivna ali enaka nič
-        - semafor pozna dve atomarni operaciji:
-          - poskusi vstopiti:
-            - vstop je mogoč, če je vrednost semaforja večja od 0
-            - ob vstopu se vrednost semaforja zmanjša za ena  
-          - sprosti
-            - vrednost semaforja se poveča za ena
-        - v jeziku go lahko semafor enostavno naredimo s kanali
+  - [pisatelji-bralci-3.go](koda/pisatelji-bralci-3.go)
+    - boljša rešitev je z uporabo **semaforjev** (*angl.* semaphores)
+      - za razliko od ključavnice, ki je binarna (odklenjena ali zaklenjena), je semafor števen, njegova vrednost je pozitivna ali enaka nič
+      - semafor pozna dve atomarni operaciji:
+        - poskusi vstopiti:
+          - vstop je mogoč, če je vrednost semaforja večja od 0
+          - ob vstopu se vrednost semaforja zmanjša za ena  
+        - sprosti
+          - vrednost semaforja se poveča za ena
+      - v jeziku go lahko semafor enostavno naredimo s kanali
 
-    - [pisatelji-bralci-4.go](koda/pisatelji-bralci-4.go)
-      - uporabimo bralno-pisalno ključavnico
-      - bralcev nam ni treba šteti
+  - [pisatelji-bralci-4.go](koda/pisatelji-bralci-4.go)
+    - uporabimo bralno-pisalno ključavnico
+    - bralcev nam ni treba šteti
