@@ -37,9 +37,9 @@ func barrier(id int, printouts int) {
 			lock.Unlock()
 			for {
 				lock.Lock()
-				cnd := phaseGlobal == phaseLocal
+				pg := phaseGlobal
 				lock.Unlock()
-				if cnd == true {
+				if pg == phaseLocal {
 					break
 				}
 			}
