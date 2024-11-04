@@ -16,8 +16,8 @@
   
   - Teden 02:
     - predavanja:
-      [programska oprema](predavanja/03-programska-oprema/programska-oprema.md)
-      [SLURM](predavanja/04-slurm/slurm.md),
+      [programska oprema](predavanja/03-programska-oprema/programska-oprema.md),
+      [SLURM](predavanja/04-slurm/slurm.md)
     - vaje: [SLURM](vaje/01-uporaba_gruce/Uporaba_gruce.md)
 
   - Teden 03:
@@ -29,3 +29,9 @@
     - predavanja:
       [sinhronizacija: ključavnice](predavanja/06-sinhronizacija-1/sinhronizacija-1.md)
     - vaje: odpadejo
+
+  - Teden 05:
+    - predavanja:
+      [sinhronizacija: semaforji in bralno-pisalne ključavnice](predavanja/07-sinhronizacija-2/sinhronizacija-2.md),
+      [sinhronizacija: pogojne spremenljivke](predavanja/08-sinhronizacija-3/sinhronizacija-3.md)
+    - vaje:

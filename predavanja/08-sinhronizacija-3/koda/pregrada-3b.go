@@ -23,6 +23,7 @@ var phase int = 0
 
 func barrier(id int, printouts int) {
 	defer wg.Done()
+	var p int
 
 	for i := 0; i < printouts; i++ {
 
@@ -36,13 +37,11 @@ func barrier(id int, printouts int) {
 		if phase == 1 { // ko gorutine prvič prihajajo do pregrade, je phase == 0
 			if g > 0 {
 				lock.Unlock()
-				for {
+				p = 1
+				for p == 1 {
 					lock.Lock()
-					p := phase
+					p = phase
 					lock.Unlock()
-					if p == 1 {
-						break
-					}
 				}
 				lock.Lock()
 			} else {
@@ -56,13 +55,11 @@ func barrier(id int, printouts int) {
 		lock.Lock()
 		if g < goroutines {
 			lock.Unlock()
-			for {
+			p = 0
+			for p == 0 {
 				lock.Lock()
-				p := phase
+				p = phase
 				lock.Unlock()
-				if p == 0 {
-					break
-				}
 			}
 			lock.Lock()
 		} else {
