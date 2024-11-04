@@ -19,6 +19,7 @@ func writer(id int, cycles int) {
 		fmt.Println("Writer", id, "start", i)
 		time.Sleep(time.Duration(id) * time.Millisecond)
 		fmt.Println("Writer", id, "finish", i)
+
 		time.Sleep(time.Duration(id) * time.Millisecond)
 	}
 }

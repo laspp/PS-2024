@@ -1,5 +1,5 @@
 // Problem pisateljev in bralcev
-// rešitev s semaforjem, ki ga izvedemo s kanalom
+// uporabimo ključavnice, bralce štejemo
 
 package main
 
@@ -13,17 +13,20 @@ import (
 var wg sync.WaitGroup
 var activeReaders int = 0
 var lockReaders sync.Mutex
-var semBook = make(chan struct{}, 1)
+var lockBook sync.Mutex
 
 func writer(id int, cycles int) {
 	defer wg.Done()
 
 	for i := 0; i < cycles; i++ {
-		semBook <- struct{}{}
+		lockBook.Lock()
+
 		fmt.Println("Writer", id, "start", i)
 		time.Sleep(time.Duration(id) * time.Millisecond)
 		fmt.Println("Writer", id, "finish", i)
-		<-semBook
+
+		lockBook.Unlock()
+
 		time.Sleep(time.Duration(id) * time.Millisecond)
 	}
 }
@@ -34,7 +37,7 @@ func reader(id int) {
 		lockReaders.Lock()
 		activeReaders++
 		if activeReaders == 1 {
-			semBook <- struct{}{}
+			lockBook.Lock()
 		}
 		lockReaders.Unlock()
 
@@ -45,7 +48,7 @@ func reader(id int) {
 		lockReaders.Lock()
 		activeReaders--
 		if activeReaders == 0 {
-			<-semBook
+			lockBook.Unlock()
 		}
 		lockReaders.Unlock()
 
@@ -66,7 +69,6 @@ func main() {
 		go writer(i, *cyclesPtr)
 	}
 	// zaženemo bralce
-	activeReaders = 0
 	for i := 1; i <= *readersPtr; i++ {
 		go reader(i)
 	}

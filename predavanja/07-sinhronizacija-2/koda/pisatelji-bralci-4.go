@@ -1,5 +1,5 @@
 // Problem pisateljev in bralcev
-// uporabimo bralno-pisalno ključavnico, štetje ni potrebno
+// rešitev s semaforjem, ki ga izvedemo s kanalom
 
 package main
 
@@ -11,17 +11,22 @@ import (
 )
 
 var wg sync.WaitGroup
-var lockBook sync.RWMutex
+var activeReaders int = 0
+var lockReaders sync.Mutex
+var semBook = make(chan int, 1)
 
 func writer(id int, cycles int) {
 	defer wg.Done()
 
 	for i := 0; i < cycles; i++ {
-		lockBook.Lock()
+		semBook <- 1
+
 		fmt.Println("Writer", id, "start", i)
 		time.Sleep(time.Duration(id) * time.Millisecond)
 		fmt.Println("Writer", id, "finish", i)
-		lockBook.Unlock()
+
+		<-semBook
+
 		time.Sleep(time.Duration(id) * time.Millisecond)
 	}
 }
@@ -29,11 +34,24 @@ func writer(id int, cycles int) {
 func reader(id int) {
 
 	for {
-		lockBook.RLock()
+		lockReaders.Lock()
+		activeReaders++
+		if activeReaders == 1 {
+			semBook <- 1
+		}
+		lockReaders.Unlock()
+
 		fmt.Println("Reader", id, "start")
 		time.Sleep(time.Duration(id) * time.Millisecond)
 		fmt.Println("Reader", id, "finish")
-		lockBook.RUnlock()
+
+		lockReaders.Lock()
+		activeReaders--
+		if activeReaders == 0 {
+			<-semBook
+		}
+		lockReaders.Unlock()
+
 		time.Sleep(time.Duration(id) * time.Millisecond)
 	}
 }
@@ -51,6 +69,7 @@ func main() {
 		go writer(i, *cyclesPtr)
 	}
 	// zaženemo bralce
+	activeReaders = 0
 	for i := 1; i <= *readersPtr; i++ {
 		go reader(i)
 	}

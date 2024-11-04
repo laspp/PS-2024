@@ -16,7 +16,7 @@ var fork [2]sync.Mutex
 
 func ticker() <-chan struct{} {
 
-	signalChan := make(chan struct{}, 2)
+	signalChan := make(chan struct{})
 
 	go func() {
 		for {

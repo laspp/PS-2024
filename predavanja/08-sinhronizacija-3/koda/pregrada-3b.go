@@ -3,7 +3,7 @@
 // 		faza (phase) = 0: prehajanje čez prva vrata
 //		faza 		 = 1: prehajanje čez druga vrata
 //		g				: število gorutin za prvimi in pred drugimi vrati
-// tvegano stanje zaradi hkratnega branja in pisanja (vrtenje v neskončni zanki)
+// tveganega stanja ni več
 
 package main
 

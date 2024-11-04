@@ -11,7 +11,8 @@
   - sprosti
     - vrednost semaforja se poveča za ena
 - katerakoli gorutina lahko spreminja stanje semaforja
-  - za razliko od semaforjev je pri ključavnicah priporočljivo, da gorutina, ki ključavnico zaklene, ključavnico tudi odklene
+  - pri delu s ključavnicami je priporočljivo, da gorutina, ki ključavnico zaklene, ključavnico tudi odklene
+  - pri semaforjih in kanalih te omejitve ni
 - semaforje lahko uporabimo za komunikacijo med nitmi/gorutinami v procesu ali za komunikacijo med procesi (jezik C)
 
 ## Bralno-pisalne ključavnice
@@ -41,6 +42,10 @@
     - nobenega nadzora nad dostopom do knjige
 
   - [pisatelji-bralci-2.go](koda/pisatelji-bralci-2.go)
+    - naenkrat lahko piše en pisatelj ali bere en bralec
+    - prehude omejitve
+
+  - [pisatelji-bralci-3.go](koda/pisatelji-bralci-3.go)
     - ključavnico `lockBook` lahko odklene ena, zaklene pa druga gorutina
     - običajno želimo, da jo zaklene in odklene ista gorutina (nit)
       - jezik C: če zaklepa ena, odklepa pa druga nit, obnašanje ni definirano
@@ -48,7 +53,7 @@
         - dovoljuje, vendar potem prevajalnik ne zna zaznati smrtnega objema, ne more dobro optimizirati kode, ...
         - v jeziku go2 zaklepanje z eno in odklepanje z drugo gorutino verjetno ne bo več dovoljeno
 
-  - [pisatelji-bralci-3.go](koda/pisatelji-bralci-3.go)
+  - [pisatelji-bralci-4.go](koda/pisatelji-bralci-4.go)
     - boljša rešitev je z uporabo **semaforjev** (*angl.* semaphores)
       - za razliko od ključavnice, ki je binarna (odklenjena ali zaklenjena), je semafor števen, njegova vrednost je pozitivna ali enaka nič
       - semafor pozna dve atomarni operaciji:
@@ -59,7 +64,7 @@
           - vrednost semaforja se poveča za ena
       - v jeziku go lahko semafor enostavno naredimo s kanali
 
-  - [pisatelji-bralci-4.go](koda/pisatelji-bralci-4.go)
+  - [pisatelji-bralci-5.go](koda/pisatelji-bralci-5.go)
     - uporabimo bralno-pisalno ključavnico
     - bralcev nam ni treba šteti
-    - pisatelji pridejo prej na vrsto kot v prejšnjih dveh primerih
+    - pisatelji pridejo na vrsto prej, kot v prejšnjih dveh primerih

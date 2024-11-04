@@ -237,7 +237,7 @@
     - poenostavljen primer pogojnega zaklepanja iz primera [filozofi-4.go](koda/filozofi-4.go)
     - poskrbimo, da obe niti hkrati začneta z zaklepanjem ključavnic
 - stradanje
-  - o stradanju govorimo, kadar gorutina ne more dobiti vseh virov, ki jih potrebuje za delo
+  - o stradanju govorimo, kadar gorutina ne more takoj dobiti vseh virov, ki jih potrebuje za delo
   - običajno ene gorutine bolj intenzivno zahtevajo vire in ostalim onemogočajo, da bi delo opravile učinkovito
   - primer: [stradanje.go](koda/stradanje.go)
     - dve gorutini z enako količino dela, pohlepna gorutina bo kritični odsek zaklenila enkrat za dlje časa, prijazna gorutina pa večkrat, vsakič za krajši čas

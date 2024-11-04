@@ -1,5 +1,5 @@
 // Problem pisateljev in bralcev
-// uporabimo ključavnice, bralce štejemo
+// uporabimo bralno-pisalno ključavnico, štetje ni potrebno
 
 package main
 
@@ -11,7 +11,7 @@ import (
 )
 
 var wg sync.WaitGroup
-var lockBook sync.Mutex
+var lockBook sync.RWMutex
 
 func writer(id int, cycles int) {
 	defer wg.Done()
@@ -32,13 +32,13 @@ func writer(id int, cycles int) {
 func reader(id int) {
 
 	for {
-		lockBook.Lock()
+		lockBook.RLock()
 
 		fmt.Println("Reader", id, "start")
 		time.Sleep(time.Duration(id) * time.Millisecond)
 		fmt.Println("Reader", id, "finish")
 
-		lockBook.Unlock()
+		lockBook.RUnlock()
 
 		time.Sleep(time.Duration(id) * time.Millisecond)
 	}
