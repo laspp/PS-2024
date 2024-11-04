@@ -43,23 +43,16 @@
   - [pregrada-3b.go](koda/pregrada-3b.go)
     - rešitev z dvojimi vrati v kateri ne dovolimo hkratnih pisanj in branj 
 
-  - [pregrada-4a.go](koda/pregrada-4a.go) in [pregrada-4b.go](koda/pregrada-4b.go)
-    - z zastavicama `phaseGlobal` in `phaseLocal` ločimo sode in lihe obhode zank
-    - ob vstopu v pregrado vsaka gorutina obrne svojo zastavico
-    - zadnja gorutina, ki vstopi v pregrado, obrne globalno zastavico in izniči števec
-    - gorutina lahko pregrado zapusti šele, ko je lokalna zastavica enaka globalni
-    - podobni rešitev kot [pregrada-3a.go](koda/pregrada-3a.go) in [pregrada-3b.go](koda/pregrada-3b.go)
+  - [pregrada-4.go](koda/pregrada-4.go)
+    - podobna rešitev kot [pregrada-3b.go](koda/pregrada-3b.go)
+    - rešitev s kanali je bolj elegantna: gorutina je blokirana medtem ko čaka, da se v kanalu pojavi podatek
+    - dva kanala, z enim nadziramo prihajanje niti k pregradi (vrata 0), z drugim odhajanje niti od pregrade (vrata 1)
+    - kanala sta tipa `struct{}`, s čimer poudarimo, da jih uporabljamo samo za sinhronizacijo
 
   - [pregrada-5.go](koda/pregrada-5.go)
     - ustvarimo pogojno spremenljivko in jo povežemo s ključavnico
     - vse gorutine, razen zadnje, damo na čakanje
     - ko preštejemo zadnjo gorutino, postavimo števec na 0 in zbudimo ostale gorutine
-
-  - [pregrada-6.go](koda/pregrada-6.go)
-    - podobna rešitev kot [pregrada-3.go](koda/pregrada-3.go)
-    - rešitev s kanali je bolj elegantna: gorutina je blokirana medtem ko čaka, da se v kanalu pojavi podatek
-    - dva kanala, z enim nadziramo prihajanje niti k pregradi (vrata 0), z drugim odhajanje niti od pregrade (vrata 1)
-    - kanala sta tipa `struct{}`, s čimer poudarimo, da jih uporabljamo samo za sinhronizacijo
 
 - primer: proizvajalci in porabniki (*angl.* producer-consumer)
 
