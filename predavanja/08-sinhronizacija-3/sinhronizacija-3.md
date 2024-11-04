@@ -1,6 +1,6 @@
 # Sinhronizacija
 
-## Pogojne spremenljivke
+## Pogojne spremenljivke [SMAP:6.2]
 
 - uporabimo jih za zaustavitev in ponovni zagon gorutin glede na stanje pripadajoče ključavnice
 
@@ -15,7 +15,7 @@
 
 - pogojne spremenljivke ne hranijo vrednosti; bolj gre za vrsto spečih gorutin, ki gredo v izvajanje ob izpolnjenem pogoju
 
-- primer: pregrada (*angl.* barrier)
+- primer: pregrada (*angl.* barrier) [LBS:3.6]
 
   - želimo, da se na neki točki vse gorutine počakajo in potem skupaj nadaljujejo
 
@@ -54,7 +54,7 @@
     - vse gorutine, razen zadnje, damo na čakanje
     - ko preštejemo zadnjo gorutino, postavimo števec na 0 in zbudimo ostale gorutine
 
-- primer: proizvajalci in porabniki (*angl.* producer-consumer)
+- primer: proizvajalci in porabniki (*angl.* producer-consumer) [LBS:4.1]
 
   - izmenjava podatkov med gorutinami preko medpomnilnika
   - proizvajalci pošiljajo podatke v medpomnilnik

@@ -1,6 +1,6 @@
 # Sinhronizacija
 
-## Semaforji
+## Semaforji [LBS:2]
 
 - semafor (*angl.* semaphore) je struktura, podobna ključavnici
 - za razliko od ključavnice, ki je binarna (odklenjena ali zaklenjena), je semafor števen, njegova vrednost je pozitivna ali enaka nič
@@ -15,7 +15,7 @@
   - pri semaforjih in kanalih te omejitve ni
 - semaforje lahko uporabimo za komunikacijo med nitmi/gorutinami v procesu ali za komunikacijo med procesi (jezik C)
 
-## Bralno-pisalne ključavnice
+## Bralno-pisalne ključavnice [SMAP:9.10]
 
 - bralno-pisalno ključavnico (*angl.* reader-writer lock) lahko zaklenemo in odklenemo za branje ali za pisanje
 - če jo zaklenemo za branje, lahko vstopi več gorutin z željo po branju, ne morejo pa vstopiti gorutine za pisanje
@@ -29,7 +29,7 @@
   - branje in pisanje datotek
   - metodi *get* in *set* pri dostopanju do lastnosti objektov
 
-- primer: pisatelji in bralci
+- primer: pisatelji in bralci [LBS:4.2]
 
   <img src="slike/pisatelji-bralci.png" width="60%" />
 
