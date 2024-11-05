@@ -34,4 +34,4 @@
     - predavanja:
       [sinhronizacija: semaforji in bralno-pisalne ključavnice](predavanja/07-sinhronizacija-2/sinhronizacija-2.md),
       [sinhronizacija: pogojne spremenljivke](predavanja/08-sinhronizacija-3/sinhronizacija-3.md)
-    - vaje:
+    - vaje: [sočasno programiranje v go (1. domača naloga)](vaje/03-gorutine/Socasno_programiranje_go.md)

@@ -36,7 +36,7 @@ Nekatera polja se ne uporabljajo in so vedno prazna, npr. *news* in *link*. Prim
 }
 ```
 
-V repozitoriju na povezavi [github.com/laspp/PS-2023/vaje/naloga-1/koda/xkcd](https://github.com/laspp/PS-2024/tree/main/vaje/naloga-1/koda/xkcd) najdete modul xkcd, ki vsebuje funkcijo: 
+V repozitoriju na povezavi [github.com/laspp/PS-2024/vaje/naloga-1/koda/xkcd](https://github.com/laspp/PS-2024/tree/main/vaje/naloga-1/koda/xkcd) najdete modul xkcd, ki vsebuje funkcijo: 
 ```Go
 func FetchComic(id int) (Comic, error)
 ```
@@ -54,7 +54,7 @@ type Comic struct {
 Paket si namestite tako, da v mapi, kjer boste pisali vaš program, zaženete ukaze
 ```Bash
 $ go mod init <ime_vasega_modula>
-$ go get github.com/laspp/PS-2023/vaje/naloga-1/koda/xkcd
+$ go get github.com/laspp/PS-2024/vaje/naloga-1/koda/xkcd
 ```
 V vaši datoteki .go potem uvozite modul tako, da v sekcijo `import` dodate vrstico `github.com/laspp/PS-2024/vaje/naloga-1/koda/xkcd`
 
