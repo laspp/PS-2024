@@ -166,7 +166,7 @@ func main() {
 ```
 [tipi_spremenljivke.go](koda/tipi_spremenljivke.go)
 
-Posebnost programskega jezika **go** je operator `:=`, ki omogoča hitro definicijo nove spremenljivke, brez navedbe ključne besede `var` in podatkovnega tipa. Slednji se izpelje iz prirejene vrednosti. Ta operator lahko uporabimo samo znotraj funkcij. **Go** ima vgrajeno podporo za znake unicode znotraj nizov. Posamezni znak se obravnava kot podatkovni tip `rune`. V zgorni kodi smo uporabili funkcijo `Printf`, ki nudi formatirano izpisovaje na zaslon. Seznam podprtih formatov najdete na [povezavi](https://pkg.go.dev/fmt).
+Posebnost programskega jezika **go** je operator `:=`, ki omogoča hitro definicijo nove spremenljivke, brez navedbe ključne besede `var` in podatkovnega tipa. Slednji se izpelje iz prirejene vrednosti. Ta operator lahko uporabimo samo znotraj funkcij. **Go** ima vgrajeno podporo za znake unicode znotraj nizov. Posamezni znak se obravnava kot podatkovni tip `rune`. V zgornji kodi smo uporabili funkcijo `Printf`, ki nudi formatirano izpisovaje na zaslon. Seznam podprtih formatov najdete na [povezavi](https://pkg.go.dev/fmt).
 
 # Funkcije
 
