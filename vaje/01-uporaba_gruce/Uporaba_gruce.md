@@ -6,7 +6,7 @@ Pri predmetu Porazdeljeni sistemi bomo za delo uporabljali računsko gručo [Arn
 | *Računska gruča Arnes*|
 
 ### Specifikacije
-- 4256 procesorskih jeder
+- 4480 procesorskih jeder
   - 62 x 64 jeder, [AMD Epyc 7702P](https://www.amd.com/en/products/cpu/amd-epyc-7702p)
   - 24 x 12 jeder, [AMD Epyc 7272](https://www.amd.com/en/products/cpu/amd-epyc-7272), 2x [Nvidia V100](https://www.nvidia.com/en-us/data-center/v100/)
   - 7 x 32 jeder, [AMD Epyc 9124](https://www.amd.com/en/products/processors/server/epyc/4th-generation-9004-and-8004-series/amd-epyc-9124.html), 2x [Nvidia H100](https://www.nvidia.com/en-us/data-center/h100/)

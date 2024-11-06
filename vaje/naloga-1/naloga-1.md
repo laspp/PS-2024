@@ -79,22 +79,22 @@ barrel part 1 a boy sits in a barrel which is floating in an ocean boy i wonder 
 Primer preštetih besed dolgih vsaj 4 znake za strip 1:
 ```
 barrel, 3
-float, 1
-part, 1
-which, 1
-drifts, 1
-next, 1
-into, 1
-sits, 1
-else, 1
 distance, 1
+drifts, 1
+else, 1
+float, 1
 floating, 1
+into, 1
+next, 1
+nothing, 1
 ocean, 1
-wonder, 1
+part, 1
 seen, 1
+sits, 1
 where, 1
+which, 1
 ```
 
-**Na koncu besede sortirajte glede na frekvenco in izpišite 15 najpogostejših besed in njihovih frekvenc za celoten nabor stripov**. Pomagajte si s paketom [`sort`](https://pkg.go.dev/sort). Nalogo do roka oddajte preko [spletne učilnice](https://ucilnica.fri.uni-lj.si/mod/assign/view.php?id=37715).
+**Na koncu besede sortirajte glede na frekvenco, če je frekvenca ista pa po abecedi in izpišite 15 najpogostejših besed in njihovih frekvenc za celoten nabor stripov**. Pomagajte si s paketom [`sort`](https://pkg.go.dev/sort). Nalogo do roka oddajte preko [spletne učilnice](https://ucilnica.fri.uni-lj.si/mod/assign/view.php?id=37715).
 
 
