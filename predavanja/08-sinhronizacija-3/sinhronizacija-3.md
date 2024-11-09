@@ -59,9 +59,9 @@
   - izmenjava podatkov med gorutinami preko medpomnilnika
   - proizvajalci pošiljajo podatke v medpomnilnik
   - porabniki podatke pobirajo iz medpomnilnika
-  - proizvajalec ne sme dodajati podatkov v medpomnilnik, če je ta poln
-  - porabnik ne sme jemati podatkov iz medpomnilnika, če je ta prazen
   - proizvajalci in porabniki morajo usklajeno dostopati do medpomnilnika
+    - proizvajalec ne sme dodajati podatkov v medpomnilnik, če je ta poln
+    - porabnik ne sme jemati podatkov iz medpomnilnika, če je ta prazen
 
     <img src="slike/proizvajalci-porabniki.png" width="80%">
 

@@ -1,7 +1,6 @@
 // računanje pi po metodi Monte Carlo
 // vzporedno, rešitev s kanali
-// uporabljamo samo eno strukturo rnd tipa *rand.Rand, dostop do nje zaščitimo s ključavnico
-// seme je fiksna vrednost, rezultati niso ponovljivi
+// seme je fiksna vrednost, pri fiksnem številu gorutin so rezultati ponovljivi
 
 package main
 
@@ -9,7 +8,6 @@ import (
 	"flag"
 	"fmt"
 	"math/rand"
-	"sync"
 	"time"
 )
 
@@ -20,18 +18,13 @@ type experiment struct {
 }
 
 var pi experiment
-var rnd *rand.Rand
-var lock sync.Mutex
 
-func piCalc(iterations int, result chan experiment) {
+func piCalc(iterations int, seed int64, result chan experiment) {
+	rnd := rand.New(rand.NewSource(seed))
 	var mypi experiment
 	for i := 0; i < iterations; i++ {
-		lock.Lock()
 		x := rnd.Float64()
-		lock.Unlock()
-		lock.Lock()
 		y := rnd.Float64()
-		lock.Unlock()
 		mypi.shots++
 		if x*x+y*y < 1 {
 			mypi.hits++
@@ -48,11 +41,10 @@ func main() {
 	flag.Parse()
 	// odpremo kanal
 	piStream := make(chan experiment)
-	rnd = rand.New(rand.NewSource(*sPtr))
 	// razdelimo delo med gorutine in jih zaženemo
 	timeStart := time.Now()
 	for id := 0; id < *gPtr; id++ {
-		go piCalc(*iPtr / *gPtr, piStream)
+		go piCalc(*iPtr / *gPtr, *sPtr+int64(100*id), piStream)
 	}
 	// preberemo vse vrednosti iz kanala
 	for i := 0; i < *gPtr; i++ {

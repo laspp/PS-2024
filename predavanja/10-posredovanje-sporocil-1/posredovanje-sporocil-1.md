@@ -4,13 +4,13 @@ Porazdeljeni sistem je tisti, v katerem okvara računalnika, za katerega sploh n
 
 -- <cite>Leslie Lamport</cite>
 
-## Porazdeljeni sistem
+## Porazdeljeni sistem [UDS:1]
 
 - porazdeljeni sistem je skupina vozlišč, ki si prek komunikacijskih povezav izmenjujejo sporočila, da bi izvedla neko nalogo
 - vozlišče je lahko fizični stroj (strežnik, telefon) ali programski proces (brskalnik)
 - mnoge aplikacije so že po naravi porazdeljene
   - do spleta dostopamo preko brskalnika, ki teče na napravi; strežniki in naprave predstavljajo ogromen porazdeljeni sistem
-  - ko pošiljamo sporočilo iz svojega telefona na prijateljičin telefon, sporočilo potuje preko neke vrste omrežja
+  - ko pošiljamo sporočilo iz svojega telefona na prijateljičin telefon, sporočilo potuje preko omrežja
 - porazdeljeni sistem potrebujemo:
   - pri zagotavljanju visoke stopnje zanesljivosti
     - posamezno vozlišče je potrebno vsake toliko časa ponovno zagnati; če uporabljamo več vozlišč, bodo druga vozlišča prevzela njegove naloge; uporabnik ne bo opazil težave
@@ -43,14 +43,14 @@ Porazdeljeni sistem je tisti, v katerem okvara računalnika, za katerega sploh n
   - odziv sistema opazujemo s količinami kot sta
     - prepustnost - količina obdelav v časovni enoti (količina prenesenih podatkov, število obdelanih poslov)
     - odzivni čas - čas, ki je potekel od pošiljanja sporočila do prejema odgovora
-  - tipičen odziv: z večanjem obremenitve prepustnost narašča do točke, ko dosežemo kapaciteto sistema; z nadaljnjim povečevanjem obremenitve lahko prepustnost ne narašča več ali pa se sistem celo sesede 
+  - tipičen odziv: z večanjem obremenitve prepustnost narašča do točke, ko dosežemo kapaciteto sistema; z nadaljnjim povečevanjem obremenitve lahko prepustnost ne narašča več ali pa se sistem celo sesede
   - učinkovitost porazdeljenega sistema je odvisna od arhitekture, izvedbe in fizičnih omejitev, kot so pomnilnik, frekvenca, pasovna širina, latenca
   - sistem je raztegljiv, kadar povečevanje obremenitve ne poslabša učinkovitosti aplikacije, na primer, ob veliki količini zahtev vzpostavimo dodatne strežnike
 
   <img src="slike/prepustnost.png" width="30%"/>
 
-- odpornost (*angl.* resilence)
-  - porazdeljeni sistem je odporen, če lahko nadaljuje z delom tudi ko pride do napake (odpoved vozlišča, napake na omrežju)
+- odpornost (*angl.* resiliency)
+  - porazdeljeni sistem je odporen, če lahko nadaljuje z delom tudi ob napaki (odpoved vozlišča, napake na omrežju)
   - ne glede na to, kako majhna je verjetnost za napako, večji kot je porazdeljeni sistem, večja je verjetnost, da bo do napake prišlo
   - dostopnost sistema je delež časa, ko je sistem na voljo; običajno se meri s številom devetic (99.99 %)
 - vzdrževanje
@@ -60,7 +60,7 @@ Porazdeljeni sistem je tisti, v katerem okvara računalnika, za katerega sploh n
 ### Zgradba porazdeljenega sistema
 
 - z vidika strojne opreme je porazdeljeni sistem skupina naprav, ki komunicira preko omrežja
-- z gledišča izvajanja je porazdeljeni sistem skupina procesov, ki med seboj komunicirajo preko mehanizmov za medprocesorsko komunikacijo (*angl.* inter process communication, IPC), na primer TCP, HTTP)
+- z gledišča izvajanja je porazdeljeni sistem skupina procesov, ki med seboj komunicirajo preko mehanizmov za medprocesorsko komunikacijo (*angl.* inter process communication, IPC), na primer TCP, HTTP
 - s stališča razvoja programske opreme gre za skupino šibko povezanih storitev, ki komunicirajo preko programskih vmesnikov (*angl.* adapters), na primer RPC (*angl.* remote procedure call)
   - strežnik je proces, ki ponuja storitev ostalim procesom
   - odjemalec je proces, ki pošilja zahteve strežniku
@@ -68,7 +68,7 @@ Porazdeljeni sistem je tisti, v katerem okvara računalnika, za katerega sploh n
 
 <img src="slike/storitve-in-vmesniki.png" width="80%"/>
 
-## Komunikacijski sklad
+## Komunikacijski sklad [UDS:I]
 
 - komunikacija preko omrežij naredi sistem porazdeljen
 - da procesi lahko komunicirajo, morajo slediti množici pravil (način komunikacije, zapis podatkov, obdelava podatkov)
@@ -84,7 +84,7 @@ Porazdeljeni sistem je tisti, v katerem okvara računalnika, za katerega sploh n
 
     <img src="slike/tcp-sklad.png" width="80%" />
 
-## Zanesljiv prenos podatkov (TCP)
+## Zanesljiv prenos podatkov (TCP) [UDS:2-2.4]
 
 - prenos paketa podatkov od pošiljatelja do sprejemnika lahko poteka čez množico usmerjevalnikov 
 - za pravilno dostavo paketa rabimo naslove vozlišč (IPv4 $2^{32}$ in IPv6 $2^{128}$) in usmerjevalne tabele
@@ -153,7 +153,7 @@ Porazdeljeni sistem je tisti, v katerem okvara računalnika, za katerega sploh n
 - [posredovanje struktur](koda/tcp-strukture/tcp-strukture.go) ([strežnik](koda/tcp-strukture/streznik.go) in [odjemalec](koda/tcp-strukture/odjemalec.go))
   - jezik go ponuja paket `gob`, s katerim podatke, shranjene v programskih strukturah jezika go, elegantno pripravimo za prenos preko omrežja (*angl.* encode, serialize, marshall) in jih na drugi strani spet elegantno pretvorimo nazaj v programske strukture  (*angl.* decode, deserialize, unmarshall)
 
-## Nezanesljiv prenos podatkov (UDP)
+## Nezanesljiv prenos podatkov (UDP) [UDS:2.5]
 
 - s protokolom TCP pridobimo na zanesljivosti prenosov na račun manjše prepustnosti
 - kadar zanesljivosti ne potrebujemo, raje uporabimo protokol UDP (*angl.* user datagram protocol)
@@ -167,7 +167,7 @@ Porazdeljeni sistem je tisti, v katerem okvara računalnika, za katerega sploh n
   - ponudniki pretočnih vsebin
   - protokol NTP (*angl.* network time protocol) na vratih 123, s katerim vozlišča usklajujejo uro
 
-## Varnost v omrežjih
+## Varnost v omrežjih [UDS:3]
 
 - protokol TCP podatke pošilja nekodirane, vsak posrednik lahko izlušči vsebino komunikacije
 - nadgradnja protokola TCP je TLS (*angl.* transport layer security), ki vključuje

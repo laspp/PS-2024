@@ -35,10 +35,7 @@ func main() {
 	flag.Parse()
 
 	var dict sync.Map
-	records := *gwPtr
-	if *grPtr > records {
-		records = *grPtr
-	}
+	records := max(*gwPtr, *grPtr)
 	for i := 0; i < records; i++ {
 		dict.Store(i, 0)
 	}

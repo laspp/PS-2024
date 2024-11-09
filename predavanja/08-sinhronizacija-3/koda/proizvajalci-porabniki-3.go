@@ -20,11 +20,11 @@ var bufferStream chan productData
 
 func createProduct(producerId int, taskId int, product *productData) {
 	product.Id = 10*producerId + taskId
-	fmt.Println("P", producerId, product.Id)
+	fmt.Println("P   ", producerId, product.Id)
 }
 
 func consumeProduct(consumerId int, product *productData) {
-	fmt.Println("\tC", consumerId, product.Id)
+	fmt.Println("\tC   ", consumerId, product.Id)
 }
 
 func producer(id int, products int) {
@@ -33,6 +33,7 @@ func producer(id int, products int) {
 	for i := 0; i < products; i++ {
 		createProduct(id, i+1, &product)
 		// vpišemo v medpomnilnik
+		fmt.Println("P->b", id, product.Id)
 		bufferStream <- product
 	}
 }
@@ -41,6 +42,7 @@ func consumer(id int) {
 	defer wgConsumer.Done()
 	// iz medpomnilnika beremo dokler ni prazen (kanal zaprt)
 	for product := range bufferStream {
+		fmt.Println("\tb->C", id, product.Id)
 		consumeProduct(id, &product)
 	}
 }

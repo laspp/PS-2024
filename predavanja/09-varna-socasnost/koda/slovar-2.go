@@ -38,10 +38,7 @@ func main() {
 	flag.Parse()
 
 	dict := make(map[int]int)
-	records := *gwPtr
-	if *grPtr > records {
-		records = *grPtr
-	}
+	records := max(*gwPtr, *grPtr)
 	for i := 0; i < records; i++ {
 		dict[i] = 0
 	}
