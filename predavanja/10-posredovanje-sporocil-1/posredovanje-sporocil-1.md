@@ -110,7 +110,7 @@ Porazdeljeni sistem je tisti, v katerem okvara računalnika, za katerega sploh n
 - odpiranje povezave
   - tristopenjsko rokovanje: pošiljatelj pošlje naključno število (paket SYN), prejemnik ga poveča in pošlje svoje število (paket SYN/ACK), pošiljatelj poveča prejemnikovo število (paket ACK)
 
-        <img src="slike/tcp-odpiranje.png" width="40%" />
+    <img src="slike/tcp-odpiranje.png" width="40%" />
 
   - hitrejši kot je odzivni čas (bližje kot so vozlišča), prej bo povezava vzpostavljena in se bo začel prenos podatkov
 
@@ -121,7 +121,7 @@ Porazdeljeni sistem je tisti, v katerem okvara računalnika, za katerega sploh n
     - na strani prejemnika se paketi shranijo v bralni medpomnilnik
     - prejemnik ob vsaki potrditvi paketa (ACK) pošiljatelju sporoča količino prostega medpomnilnika
 
-            <img src="slike/tcp-prenos.png" width="50%" />
+      <img src="slike/tcp-prenos.png" width="50%" />
 
   - nadzor zasičenosti omrežja
     - okno zasičenosti (*angl.* congestion window) predstavlja število paketov, ki jih pošiljatelj pošilja, ne da bi prejel potrditev
