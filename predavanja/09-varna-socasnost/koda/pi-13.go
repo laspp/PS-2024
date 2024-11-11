@@ -1,6 +1,7 @@
 // računanje pi po metodi Monte Carlo
 // vzporedno, rešitev s kanali
-// seme je fiksna vrednost, pri fiksnem številu gorutin so rezultati ponovljivi
+// vsaka gorutina ima lokalen generator psevdonaključnih števil
+// seme je fiksna vrednost, unikatna za vsako gorutino, pri fiksnem številu gorutin so rezultati ponovljivi
 
 package main
 

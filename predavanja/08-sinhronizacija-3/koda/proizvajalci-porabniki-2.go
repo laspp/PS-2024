@@ -8,6 +8,7 @@ import (
 	"flag"
 	"fmt"
 	"sync"
+	"time"
 )
 
 type productData struct {
@@ -98,4 +99,5 @@ func main() {
 
 	// počakamo, da proizvajalci zaključijo
 	wgProducer.Wait()
+	time.Sleep(time.Second)
 }
