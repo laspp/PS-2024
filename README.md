@@ -38,12 +38,12 @@
 
 - Teden 06:
   - predavanja:
-    [varna sočasnost](predavanja/09-varna-socasnost/varna-socasnost.md). posredovanje sporočil
+    [varna sočasnost](predavanja/09-varna-socasnost/varna-socasnost.md), posredovanje sporočil
   - vaje:
     [metode in vmesniki](vaje/04-metode-vmesniki/Metode-vmesniki.md)
 
 ### Sistemi s porazdeljenim pomnilnikom
 
 - Teden 07:
-  - predavanja: posredovanje sporočil
+  - predavanja: posredovanje sporočil:
     [osnove](predavanja/10-posredovanje-sporocil-1/posredovanje-sporocil-1.md)
