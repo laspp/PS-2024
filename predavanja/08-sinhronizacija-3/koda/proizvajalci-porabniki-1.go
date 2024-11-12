@@ -22,11 +22,11 @@ var wgProducer, wgConsumer sync.WaitGroup
 
 func createProduct(producerId int, taskId int, product *productData) {
 	product.Id = 10*producerId + taskId
-	fmt.Println("P", producerId, product.Id)
+	fmt.Println("P   ", producerId, product.Id)
 }
 
 func consumeProduct(consumerId int, product *productData) {
-	fmt.Println("\tC", consumerId, product.Id)
+	fmt.Println("\tC   ", consumerId, product.Id)
 }
 
 func producer(id int, products int, bufferSize int) {
@@ -35,6 +35,7 @@ func producer(id int, products int, bufferSize int) {
 	for i := 0; i < products; i++ {
 		createProduct(id, i+1, &product)
 
+		fmt.Println("P->b", id, product.Id)
 		buffer[bufferIdxPut] = product
 		bufferIdxPut = (bufferIdxPut + 1) % bufferSize
 		bufferNumProducts++
@@ -48,6 +49,7 @@ func consumer(id int, bufferSize int) {
 		product = buffer[bufferIdxGet]
 		bufferIdxGet = (bufferIdxGet + 1) % bufferSize
 		bufferNumProducts--
+		fmt.Println("\tb->C", id, product.Id)
 
 		consumeProduct(id, &product)
 	}
