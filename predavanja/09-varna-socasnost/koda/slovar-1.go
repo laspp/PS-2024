@@ -15,7 +15,7 @@ var wg sync.WaitGroup
 func writeToMap(id int, steps int, dict map[int]int) {
 	defer wg.Done()
 	for i := 0; i < steps; i++ {
-		dict[id]++
+		dict[id] = i
 	}
 }
 

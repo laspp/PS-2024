@@ -17,7 +17,7 @@ func writeToMap(id int, steps int, dict map[int]int) {
 	defer wg.Done()
 	for i := 0; i < steps; i++ {
 		lock.Lock()
-		dict[id]++
+		dict[id] = i
 		lock.Unlock()
 	}
 }

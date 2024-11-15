@@ -16,8 +16,7 @@ func writeToMap(id int, steps int, dict *sync.Map) {
 	defer wg.Done()
 	dict.Store(id, 0)
 	for i := 0; i < steps; i++ {
-		val, _ := dict.Load(id)
-		dict.Store(id, val.(int)+1) // zahtevanje tipa (type assertion)
+		dict.Store(id, i)
 	}
 }
 

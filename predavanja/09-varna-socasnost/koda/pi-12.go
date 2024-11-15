@@ -1,7 +1,8 @@
 // računanje pi po metodi Monte Carlo
 // vzporedno, rešitev s kanali
 // uporabljamo samo eno strukturo rnd tipa *rand.Rand, dostop do nje zaščitimo s ključavnico
-// seme je fiksna vrednost, rezultati niso ponovljivi
+// seme je fiksna vrednost, rezultati niso ponovljivi, saj zaradi dveh kritičnih odsekov
+// določamo različne točke (x, y)
 
 package main
 
