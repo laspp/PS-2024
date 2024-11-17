@@ -40,7 +40,7 @@
     func (t *T) ImeMetode(argument T1, odgovor *T2) error
     ```
 
-  - za programski vmesnik HTTP (Restful), moramo ob strukturi podati preslikavo v format JSON (*angl.* javascript object notation)
+  - za programski vmesnik REST (Restful), moramo ob strukturi podati preslikavo v format JSON (*angl.* javascript object notation)
 
     ```go
     type Todo struct {
@@ -65,9 +65,55 @@
   - metoda je idempotentna, če se v shrambi nič ne spremeni, ko jo izvedemo dvakrat zapored
   - do dveh zaporednih izvajanj lahko pride zaradi težav z dosegljivostjo strežnika (ob izpadu omrežja ali samega strežnika odjemalec ponovi zahtevo)
 - danes pogosto uporabljane tehnologije za komunikacijo med procesi
+  - REST: najbolj uporabljana tehnologija za javne strežnike, podpirajo jo vsi brskalniki preko kode javascript, HTTP/1.1
   - RPC (*angl.* remote procedure call): za interno komunikacijo med procesi, napisanimi v istem programskem jeziku
   - gRPC: postaja nov standard, uporablja HTTP/2, zaradi binarnega zapisovanja (Protocol Buffers) je hitrejši od HTTP/1.1
-  - HTTP: najbolj uporabljana tehnologija za javne strežnike, podpirajo jo vsi brskalniki preko kode javascript, HTTP/1.1
+
+### REST
+
+- REST (*angl.* representational state transfer) so priljubljena načela za oblikovanje elegantnih in raztegljivih programskih vmesnikov za protokole HTTP
+- programske vmesnike, zgrajene po teh načelih, imenujemo RESTful
+- glavna načela:
+  - obdelave nimajo stanja, zato vsaka zahteva vsebuje vse potrebne informacije za obdelavo
+  - odzivi so označeni ali jih je dovoljeno predpomniti ali ne; če je odziv predpomnjen, lahko odjemalec ob kasnejši enaki zahtevi uporabi odgovor v predpomnilniku
+- REST sledi konceptu zahteva-odgovor, ne podpira dvosmerne komunikacije
+- za kodiranje podatkov pred prenosom (*angl.* marshalling) uporablja tekstovni protokol XML ali JSON
+- primeren za enostavne programske vmesnike
+- omejitve
+  - za hitrejšo komunikacijo s strežnikom HTTP/1.1 ohranja povezavo s strežnikom odprto
+  - novega zahtevka ni mogoče izdati, dokler odjemalec ne prejme odgovora na prejšnjega
+  - zahteve je treba pošiljati zaporedno (zaporeden prenos slik na spletni strani)
+  - izboljšave s HTTP/2 (binarni protokol, multipleksiranje povezav), HTTP/3 lasten protokol nad UDP
+- zahteva in odgovor
+  - lokacijo vira podamo z URL (*angl.* unified resource locator), na primer `http://localhost:9876/todos?task=predavanja`; vir je naveden za znakom `/`, neobvezen filter pa za znakom `?`
+  - odjemalec v glavi zahteve med drugim poda želeni format, na primer `application/json`
+  - strežnik odgovori s sporočilom
+    - v glavi so osnovne informacije: format zapisa, koda odgovora (200 - 299: uspešno, 300 - 499: neuspešno, 500 -: kode aplikacije na strežniku)
+    - v telesu se nahaja vsebina
+- najpogosteje uporabljane metode REST so POST (pisanje), GET (branje), PUT (posodabljanje) in DELETE (brisanje)
+  - določene metode lahko predpomnimo (GET)
+  - določene metode so idempotentne (GET, PUT, DELETE)
+  - tudi POST je lahko idempotenten - transakcija na strežniku: preverjanje obstoja ključa in vpisovanje
+- [primer HTTP REST](koda/rest/rest.go) ([strežnik](koda/rest/streznik.go) in [odjemalec](koda/rest/odjemalec.go))
+  - strežnik
+    - pripravimo shrambo
+    - ustvarimo multiplekser za izbiranje rokovalnika, ki bo izvedel zahtevo za izbrani vir
+      - dve opciji: prikaz osnovne spletne strani (`/`) ali klic metode (`/todos`, `/todos/`)
+      - rokovalnik mora vključevati metodo `ServeHTTP` z dvema argumentoma: prvi predstavlja odgovor, drugi pa zahtevo
+  
+        ```go
+        func (tdh *TodosHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)
+        ```
+
+      - glede na tip zahteve se izvede ustrezna operacija na shrambi
+      - ob zaključeni operaciji strežnik vrne ustrezno pripravljen odgovor
+    - zaženemo strežnik
+
+  - odjemalec `curl`
+    - za primere glej komentar na vrhu datoteke [streznik.go](koda/rest/streznik/streznik.go)
+  - odjemalec v jeziku go:
+    - zahteve ustvarjamo s funkcijami iz paketa `net/http`: `Post`, `Get`, `NewRequest/Do`
+    - pri vsaki zahtevi pravilno nastavimo naslov storitve (URL)
 
 ### RPC
 
@@ -129,7 +175,7 @@
 
 - [gRPC](https://grpc.io/)
 - vzorec klicanja oddaljenih metod, tako kot RPC
-- Google ga je zasnoval za učinkovit prenos podatkov med mikrostoritvami
+- Google ga je zasnoval za učinkovit prenos podatkov med mikro storitvami
 - moderni pristopi uporabljajo jezike za opis vmesnika (*angl.* interface definition language, IDL)
 - za kodiranje podatkov uporablja binarni protokol [Protocol Buffers](https://protobuf.dev/)
 - za prenos podatkov uporablja protokol HTTP/2, možnost overovitve pošiljatelja
@@ -200,49 +246,3 @@
       ```go
       _, err := grpcClient.Create(contextCRUD, &lecturesCreate)
       ```
-
-### REST
-
-- REST (*angl.* representational state transfer) so priljubljena načela za oblikovanje elegantnih in raztegljivih programskih vmesnikov za protokole HTTP
-- programske vmesnike, zgrajene po teh načelih, imenujemo RESTful
-- glavna načela:
-  - obdelave nimajo stanja, zato vsaka zahteva vsebuje vse potrebne informacije za obdelavo
-  - odzivi so označeni ali jih je dovoljeno predpomniti ali ne; če je odziv predpomnjen, lahko odjemalec ob kasnejši enaki zahtevi uporabi odgovor v predpomnilniku
-- za razliko od RPC in gRPC, ki omogočata dvosmerno komunikacijo, REST uporablja koncept zahteva-odgovor
-- za kodiranje podatkov pred prenosom (*angl.* marshalling) uporablja tekstovni protokol XML ali JSON
-- primeren za enostavne programske vmesnike
-- omejitve
-  - za hitrejšo komunikacijo s strežnikom HTTP/1.1 ohranja povezavo s strežnikom odprto
-  - novega zahtevka ni mogoče izdati, dokler odjemalec ne prejme odgovora na prejšnjega
-  - zahteve je treba pošiljati zaporedno (zaporeden prenos slik na spletni strani)
-  - izboljšave s HTTP/2 (binarni protokol, multipleksiranje povezav), HTTP/3 lasten protokol nad UDP
-- zahteva in odgovor
-  - lokacijo vira podamo z URL (*angl.* unified resource locator), na primer `http://localhost:9876/todos?task=predavanja`; vir je naveden za znakom `/`, neobvezen filter pa za znakom `?`
-  - odjemalec v glavi zahteve med drugim poda želeni format, na primer `application/json`
-  - strežnik odgovori s sporočilom
-    - v glavi so osnovne informacije: format zapisa, koda odgovora (200 - 299: uspešno, 300 - 499: neuspešno, 500 -: kode aplikacije na strežniku)
-    - v telesu se nahaja vsebina
-- najpogosteje uporabljane metode REST so POST (pisanje), GET (branje), PUT (posodabljanje) in DELETE (brisanje)
-  - določene metode lahko predpomnimo (GET)
-  - določene metode so idempotentne (GET, PUT, DELETE)
-  - tudi POST je lahko idempotenten - transakcija na strežniku: preverjanje obstoja ključa in vpisovanje
-- [primer HTTP REST](koda/rest/rest.go) ([strežnik](koda/rest/streznik.go) in [odjemalec](koda/rest/odjemalec.go))
-  - strežnik
-    - pripravimo shrambo
-    - ustvarimo multiplekser za izbiranje rokovalnika, ki bo izvedel zahtevo za izbrani vir
-      - dve opciji: prikaz osnovne spletne strani (`/`) ali klic metode (`/todos`, `/todos/`)
-      - rokovalnik mora vključevati metodo `ServeHTTP` z dvema argumentoma: prvi predstavlja odgovor, drugi pa zahtevo
-  
-        ```go
-        func (tdh *TodosHandler) ServeHTTP(w http.ResponseWriter, r *http.Request)
-        ```
-
-      - glede na tip zahteve se izvede ustrezna operacija na shrambi
-      - ob zaključeni operaciji strežnik vrne ustrezno pripravljen odgovor
-    - zaženemo strežnik
-
-  - odjemalec `curl`
-    - za primere glej komentar na vrhu datoteke [streznik.go](koda/rest/streznik/streznik.go)
-  - odjemalec v jeziku go:
-    - zahteve ustvarjamo s funkcijami iz paketa `net/http`: `Post`, `Get`, `NewRequest/Do`
-    - pri vsaki zahtevi pravilno nastavimo naslov storitve (URL)
