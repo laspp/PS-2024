@@ -1,6 +1,6 @@
 # Posredovanje sporočil
 
-## Programski vmesniki
+## Programski vmesniki [UDS:5]
 
 ### Operacije CRUD
 
@@ -40,7 +40,7 @@
     func (t *T) ImeMetode(argument T1, odgovor *T2) error
     ```
 
-  - za programski vmesnik REST (Restful), moramo ob strukturi podati preslikavo v format JSON (*angl.* javascript object notation)
+  - za programski vmesnik RESTful, moramo ob strukturi podati preslikavo v format JSON (*angl.* javascript object notation)
 
     ```go
     type Todo struct {
@@ -114,7 +114,7 @@
   - strežnik odgovori s sporočilom
     - v glavi so osnovne informacije: format zapisa, koda odgovora (200 - 299: uspešno, 300 - 499: neuspešno, 500 -: kode aplikacije na strežniku)
     - v telesu se nahaja vsebina
-- najpogosteje uporabljane metode programski vmesnikov RESTful so POST (pisanje), GET (branje), PUT (posodabljanje) in DELETE (brisanje)
+- najpogosteje uporabljane metode programskih vmesnikov RESTful so POST (pisanje), GET (branje), PUT (posodabljanje) in DELETE (brisanje)
   - določene metode lahko predpomnimo (GET)
   - določene metode so idempotentne (GET, PUT, DELETE)
   - tudi POST je lahko idempotenten - transakcija na strežniku: preverjanje obstoja ključa in vpisovanje
