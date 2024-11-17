@@ -1,5 +1,5 @@
 // Komunikacija po protokolu TCP (gob)
-//		s paketom gob pred pošiljanjem strukturo prevtorimo v []byte, ob sprejemu pa []byte v strukturo
+//		s paketom gob pred pošiljanjem strukturo pretvorimo v []byte, ob sprejemu pa []byte v strukturo
 //
 // 		odjemalec pošlje strežniku sporočilo s časovnim žigom
 //		strežnik sporočilo dopolni, zamenja časovni žig in ga pošlje odjemalcu

@@ -1,5 +1,5 @@
 // Komunikacija po protokolu TCP
-//		s paketom gob pred pošiljanjem strukturo prevtorimo v []byte, ob sprejemu pa []byte v strukturo
+//		s paketom gob pred pošiljanjem strukturo pretvorimo v []byte, ob sprejemu pa []byte v strukturo
 // odjemalec
 
 package main
@@ -28,7 +28,7 @@ func Client(url string, message string) {
 		panic(err)
 	}
 
-	// sprejememo odgovor
+	// sprejmemo odgovor
 	var msgRecv MessageAndTime
 	err = gob.NewDecoder(connection).Decode(&msgRecv)
 	if err != nil {

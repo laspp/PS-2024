@@ -150,8 +150,8 @@ func read(url string, task string) ([]byte, error) {
 	if err != nil {
 		return []byte{}, err
 	}
-	bodyReader, err := io.ReadAll(resp.Body)
-	return bodyReader, err
+	body, err := io.ReadAll(resp.Body)
+	return body, err
 }
 
 // posodobimo zapis

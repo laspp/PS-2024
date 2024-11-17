@@ -29,7 +29,7 @@ func Client(url string, message string) {
 		panic(err)
 	}
 
-	// sprejememo odgovor
+	// sprejmemo odgovor
 	bMsgRecv := make([]byte, 1024)
 	var msgLen int
 	msgLen, err = connection.Read(bMsgRecv)

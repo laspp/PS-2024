@@ -18,7 +18,7 @@ func Server(url string) {
 	storage := storage.NewTodoStorage()
 	storageHandler := NewTodosHandler(storage)
 
-	// prirpavimo http multiplekser
+	// pripravimo http multiplekser
 	// multiplekser glede na pot v url določi, kateri rokovalnik bo prevzel zahtevo
 	mux := http.NewServeMux()
 	// povežemo poti in rokovalnike

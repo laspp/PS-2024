@@ -12,13 +12,13 @@
 // pri uporabi SLURMa lahko s stikalom --nodelist=[vozlišče] določimo vozlišče, kjer naj se program zažene
 //
 // odjemalca lahko nadomestimo z orodjem curl iz ukazne vrstice:
-// 		1. curl -i -X POST -H "Content-Type: application/json" -d "{\"task\": \"predavanja\", \"completed\": false}" http://localhost:9876/todos
-// 		2. curl -i -X GET http://localhost:9876/todos/predavanja
-// 		3. curl -i -X POST -H "Content-Type: application/json" -d "{\"task\": \"vaje\", \"completed\": false}" http://localhost:9876/todos
-// 		4. curl -i -X GET http://localhost:9876/todos
-// 		5. curl -i -X PUT -H "Content-Type: application/json" -d "{\"task\": \"predavanja\", \"completed\": true}" http://localhost:9876/todos/predavanja
-// 		6. curl -i -X DELETE http://localhost:9876/todos/vaje
-// 		7. curl -i -X GET http://localhost:9876/todos
+// 	1. curl --include --request POST --header "Content-Type: application/json" --data "{\"task\": \"predavanja\", \"completed\": false}" http://localhost:9876/todos
+// 	2. curl --include --request GET http://localhost:9876/todos/predavanja
+// 	3. curl --include --request POST --header "Content-Type: application/json" --data "{\"task\": \"vaje\", \"completed\": false}" http://localhost:9876/todos
+// 	4. curl --include --request GET http://localhost:9876/todos
+// 	5. curl --include --request PUT --header "Content-Type: application/json" --data "{\"task\": \"predavanja\", \"completed\": true}" http://localhost:9876/todos/predavanja
+// 	6. curl --include --request DELETE http://localhost:9876/todos/vaje
+// 	7. curl --include --request GET http://localhost:9876/todos
 
 package main
 

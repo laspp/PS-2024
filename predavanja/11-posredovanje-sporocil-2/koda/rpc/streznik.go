@@ -15,7 +15,7 @@ import (
 func Server(url string, connHTTP bool) {
 	// ustvarimo shrambo
 	storage := storage.NewTodoStorage()
-	// prijavimo metode za oddaljno klicanje
+	// prijavimo metode za oddaljeno klicanje
 	err := rpc.Register(storage)
 	if err != nil {
 		fmt.Println("Format of storage isn't correct. ", err)

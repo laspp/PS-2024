@@ -1,5 +1,5 @@
 // Komunikacija po protokolu TCP
-//		s paketom gob pred pošiljanjem strukturo prevtorimo v []byte, ob sprejemu pa []byte v strukturo
+//		s paketom gob pred pošiljanjem strukturo pretvorimo v []byte, ob sprejemu pa []byte v strukturo
 // strežnik
 
 package main
@@ -41,7 +41,7 @@ func handleRequest(conn net.Conn) {
 	// na koncu zapremo povezavo
 	defer conn.Close()
 
-	// sprejememo sporočilo
+	// sprejmemo sporočilo
 	var msgRecv MessageAndTime
 	err := gob.NewDecoder(conn).Decode(&msgRecv)
 	if err != nil {

@@ -41,7 +41,7 @@ func handleRequest(conn net.Conn) {
 	// na koncu zapremo povezavo
 	defer conn.Close()
 
-	// sprejememo sporočilo
+	// sprejmemo sporočilo
 	bMsgRecv := make([]byte, 1024)
 	n, err := conn.Read(bMsgRecv)
 	if err != nil {
