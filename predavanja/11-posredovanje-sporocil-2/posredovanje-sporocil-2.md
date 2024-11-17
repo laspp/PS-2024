@@ -65,18 +65,42 @@
   - metoda je idempotentna, če se v shrambi nič ne spremeni, ko jo izvedemo dvakrat zapored
   - do dveh zaporednih izvajanj lahko pride zaradi težav z dosegljivostjo strežnika (ob izpadu omrežja ali samega strežnika odjemalec ponovi zahtevo)
 - danes pogosto uporabljane tehnologije za komunikacijo med procesi
-  - REST: najbolj uporabljana tehnologija za javne strežnike, podpirajo jo vsi brskalniki preko kode javascript, HTTP/1.1
+  - RESTful: najbolj uporabljana tehnologija za javne strežnike, podpirajo jo vsi brskalniki preko kode javascript, HTTP/1.1
   - RPC (*angl.* remote procedure call): za interno komunikacijo med procesi, napisanimi v istem programskem jeziku
   - gRPC: postaja nov standard, uporablja HTTP/2, zaradi binarnega zapisovanja (Protocol Buffers) je hitrejši od HTTP/1.1
 
-### REST
+### Vzorec RPC
+
+- vzorec RPC (*angl.* remote procedure call)
+- vzorec klicanja oddaljenih metod; programer oddaljene metode kliče na podoben način kot lokalne
+  - strežnik nudi storitve v obliki metod, ki jih je mogoče klicati oddaljeno
+  - odjemalec lahko pokliče metodo na strežniku, kot bi šlo za lokalni klic
+  - metoda vključuje argumente (vhod in izhod)
+  - koda posamezne metode se dejansko izvede na strežniku
+  - na odjemalcu kličemo metode na enak način kot na strežniku, le da metoda na odjemalcu (*angl.* stub) vključuje le mehanizme za klic metode na strežniku
+    - metoda na odjemalcu vključuje kodiranje (*angl.* marshalling), prenos argumentov na strežnik in zahtevo za izvajanje
+    - metoda na strežniku argumente dekodira (*angl.* unmarshalling) in zažene metodo z dekodiranimi argumenti; rezultate izvajanja kodira in pošlje nazaj odjemalcu
+    - metoda na odjemalcu dekodira sporočilo, ga zapiše v zahtevane strukture in vrne kot rezultat
+  - za razliko od metod, ki se dejansko izvajajo na odjemalcu, pride pri izvajanju na strežniku lahko do napak: pri prenosu argumentov, med izvajanjem, pri prenosu rezultatov
+    - kje se je zataknilo, kako se odzvati (ponoven prenos, koliko časa čakati, ...)
+- zgodovinski razvoj
+  - SunRPC, osnova za porazdeljene podatkovne sisteme, 1980
+  - CORBA (*angl.* common object request broker architecture), 1990
+  - Microsoft DCOM (*angl.* distributed component object model), 1996
+  - Java RMI (*angl. remote method invocation), 1997
+  - SOAP (*angl.* simple object access protocol), običajno v navezi z XML (*angl.* extended markup language), 1998
+  - AJAX (*angl.* asynchronous javascript and XML), 1999
+  - REST (*angl.* representational state transfer), v navezi z JSON (*angl.* javascript object notation), 2000
+  - Google gRPC (*.angl.* generic remote procedure call), 2015
+
+### RESTful
 
 - REST (*angl.* representational state transfer) so priljubljena načela za oblikovanje elegantnih in raztegljivih programskih vmesnikov za protokole HTTP
 - programske vmesnike, zgrajene po teh načelih, imenujemo RESTful
 - glavna načela:
   - obdelave nimajo stanja, zato vsaka zahteva vsebuje vse potrebne informacije za obdelavo
   - odzivi so označeni ali jih je dovoljeno predpomniti ali ne; če je odziv predpomnjen, lahko odjemalec ob kasnejši enaki zahtevi uporabi odgovor v predpomnilniku
-- REST sledi konceptu zahteva-odgovor, ne podpira dvosmerne komunikacije
+- programski vmesniki RESTful sledijo konceptu zahteva-odgovor, ne podpirajo dvosmerne komunikacije
 - za kodiranje podatkov pred prenosom (*angl.* marshalling) uporablja tekstovni protokol XML ali JSON
 - primeren za enostavne programske vmesnike
 - omejitve
@@ -90,11 +114,11 @@
   - strežnik odgovori s sporočilom
     - v glavi so osnovne informacije: format zapisa, koda odgovora (200 - 299: uspešno, 300 - 499: neuspešno, 500 -: kode aplikacije na strežniku)
     - v telesu se nahaja vsebina
-- najpogosteje uporabljane metode REST so POST (pisanje), GET (branje), PUT (posodabljanje) in DELETE (brisanje)
+- najpogosteje uporabljane metode programski vmesnikov RESTful so POST (pisanje), GET (branje), PUT (posodabljanje) in DELETE (brisanje)
   - določene metode lahko predpomnimo (GET)
   - določene metode so idempotentne (GET, PUT, DELETE)
   - tudi POST je lahko idempotenten - transakcija na strežniku: preverjanje obstoja ključa in vpisovanje
-- [primer HTTP REST](koda/rest/rest.go) ([strežnik](koda/rest/streznik.go) in [odjemalec](koda/rest/odjemalec.go))
+- [primer RESTful](koda/rest/rest.go) ([strežnik](koda/rest/streznik.go) in [odjemalec](koda/rest/odjemalec.go))
   - strežnik
     - pripravimo shrambo
     - ustvarimo multiplekser za izbiranje rokovalnika, ki bo izvedel zahtevo za izbrani vir
@@ -108,38 +132,13 @@
       - glede na tip zahteve se izvede ustrezna operacija na shrambi
       - ob zaključeni operaciji strežnik vrne ustrezno pripravljen odgovor
     - zaženemo strežnik
-
   - odjemalec `curl`
     - za primere glej komentar na vrhu datoteke [streznik.go](koda/rest/streznik/streznik.go)
   - odjemalec v jeziku go:
     - zahteve ustvarjamo s funkcijami iz paketa `net/http`: `Post`, `Get`, `NewRequest/Do`
     - pri vsaki zahtevi pravilno nastavimo naslov storitve (URL)
 
-### RPC
-
-- vzorec RPC (*angl.* remote procedure call)
-
-- vzorec klicanja oddaljenih metod; programer oddaljene metode kliče na podoben način kot lokalne
-  - strežnik nudi storitve v obliki metod, ki jih je mogoče klicati oddaljeno
-  - odjemalec lahko pokliče metodo na strežniku, kot bi šlo za lokalni klic
-  - metoda vključuje argumente (vhod in izhod)
-  - koda posamezne metode se dejansko izvede na strežniku
-  - na odjemalcu kličemo metode na enak način kot na strežniku, le da metoda na odjemalcu (*angl.* stub) vključuje le mehanizme za klic metode na strežniku
-    - metoda na odjemalcu vključuje kodiranje (*angl.* marshalling), prenos argumentov na strežnik in zahtevo za izvajanje
-    - metoda na strežniku argumente dekodira (*angl.* unmarshalling) in zažene metodo z dekodiranimi argumenti; rezultate izvajanja kodira in pošlje nazaj odjemalcu
-    - metoda na odjemalcu dekodira sporočilo, ga zapiše v zahtevane strukture in vrne kot rezultat
-  - za razliko od metod, ki se dejansko izvajajo na odjemalcu, pride pri izvajanju na strežniku lahko do napak: pri prenosu argumentov, med izvajanjem, pri prenosu rezultatov
-    - kje se je zataknilo, kako se odzvati (ponoven prenos, koliko časa čakati, ...)
-
-- zgodovinski razvoj
-  - SunRPC, osnova za porazdeljene podatkovne sisteme, 1980
-  - CORBA (*angl.* common object request broker architecture), 1990
-  - Microsoft DCOM (*angl.* distributed component object model), 1996
-  - Java RMI (*angl. remote method invocation), 1997
-  - SOAP (*angl.* simple object access protocol), običajno v navezi z XML (*angl.* extended markup language), 1998
-  - AJAX (*angl.* asynchronous javascript and XML), 1999
-  - REST (*angl.* representational state transfer), v navezi z JSON (*angl.* javascript object notation), 2000
-  - Google gRPC (*.angl.* generic remote procedure call), 2015
+### go rpc
 
 - paket `rpc` omogoča objavo in dostop do oddaljenih metod preko omrežja
   - za serializacijo podatkov uporablja interni protokol jezika go - [gob](https://pkg.go.dev/encoding/gob)
