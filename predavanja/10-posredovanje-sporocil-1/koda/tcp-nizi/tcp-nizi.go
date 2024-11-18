@@ -2,7 +2,7 @@
 // 		niz pred pošiljanjem pretvorimo v []byte, ob prejemu pa []byte v niz
 //
 // 		odjemalec pošlje strežniku sporočilo, dopolnjeno s časovnim žigom
-//		strežnik sporočilo dopolni, zamenja časovni žig in ga pošlje odjmelcu
+//		strežnik sporočilo dopolni, zamenja časovni žig in ga pošlje odjemalcu
 //		pred pošiljanjem počaka 5 s, da lažje pokažemo hkratno streženje več odjemalcem
 //
 // zaženemo strežnik
