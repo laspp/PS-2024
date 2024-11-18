@@ -179,7 +179,7 @@ Porazdeljeni sistem je tisti, v katerem okvara računalnika, za katerega sploh n
   - overovitev (*angl.* authentication)
     - strežnik in odjemalec se želita prepričati, da je na drugi strani pravi sogovornik
     - certifikati, s katerimi lahko overimo sogovornika, vključujejo javni ključ, obdobje veljavnosti, podatke o izdajatelju (*angl.* certification authority, CA)
-      - sogovornikov certifikat si moramo namestiti z orodji operacijskega sistema
+      - sogovornikov certifikat in certifikat izdajatelja si moramo namestiti z orodji operacijskega sistema
       - strežnik pri vzpostavljanju povezave TLS odjemalcu pošlje certifikat s celotno verigo izdajateljev; odjemalec pregleduje certifikate po verigi navzgor, dokler ne najde izdajatelja, ki mu zaupa; potem pregleda veljavnost certifikatov po verigi navzdol do certifikata strežnika; če je veljaven, je strežnik overovljen
       - paziti moramo, da certifikat ne poteče (marsikatera spletna stran ima s tem težave)
   - integriteto
