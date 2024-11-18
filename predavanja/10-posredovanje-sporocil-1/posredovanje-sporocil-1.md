@@ -180,7 +180,7 @@ Porazdeljeni sistem je tisti, v katerem okvara računalnika, za katerega sploh n
     - strežnik in odjemalec se želita prepričati, da je na drugi strani pravi sogovornik
     - certifikati, s katerimi lahko overimo sogovornika, vključujejo javni ključ, obdobje veljavnosti, podatke o izdajatelju (*angl.* certification authority, CA)
       - sogovornikov certifikat si moramo namestiti z orodji operacijskega sistema
-      - odjemalec pri vzpostavljanju povezave TLS pošlje certifikat; strežnik povezavo potrdi, če ima certifikat nameščen
+      - strežnik pri vzpostavljanju povezave TLS odjemalcu pošlje certifikat s celotno verigo overoviteljev; odjemalec pregleduje certifikate po verigi navzgor, dokler ne najde overovitelja, ki mu zaupa; potem pregleda veljavnost certifikatov ppo verigi navzdol do certifikata strežnika; če je veljaven, je strežnik overovljen
       - paziti moramo, da certifikat ne poteče (marsikatera spletna stran ima s tem težave)
   - integriteto
     - sporočila so opremljena z zgoščeno vrednostjo (*angl.* hash), da prejemnik lahko preveri, če je prišlo do napake pri prenosu (TCP ni 100 % zanesljiv, algoritem CRC) ali do zlonamernega spreminjanja vsebine
