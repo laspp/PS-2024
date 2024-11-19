@@ -1,6 +1,6 @@
 // prevajanje datoteke *.proto na Arnes HPC:
 //   - namestitev modulov
-//      module load protobuf
+//      module load protobuf/protobuf/23.0-GCCcore-12.2.0
 //      module load binutils/2.39-GCCcore-12.2.0
 //      go install google.golang.org/protobuf/cmd/protoc-gen-go@latest (samo ob prvi uporabi)
 //      go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest (samo ob prvi uporabi)
