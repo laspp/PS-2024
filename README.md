@@ -51,4 +51,4 @@
 
 - Teden 08:
   - predavanja: [programski vmesniki](predavanja/11-posredovanje-sporocil-2/posredovanje-sporocil-2.md)
-  - vaje:
+  - vaje: [Proizvajalci-porabniki (2. domača naloga)](vaje/05-proizvajalci-porabniki/Proizvajalci-porabniki.md)
