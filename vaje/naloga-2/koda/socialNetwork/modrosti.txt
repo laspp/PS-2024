@@ -16185,8 +16185,6 @@ table, etc.
 %
 Your life would be very empty if you had nothing to regret.
 %
-Your lucky color has faded.
-%
 Your lucky number has been disconnected.
 %
 Your lucky number is 3552664958674928.  Watch for it everywhere.
