@@ -101,7 +101,7 @@
 
 #### Algoritem za razširjanje FIFO
 
--psevdokoda
+- psevdokoda
 
   ```go
   // inicializacija procesa
@@ -126,16 +126,16 @@
   }
   ```
 
-- lokalne strukture
-  - `sent` je število sporočil, ki jih je poslal proces `i`
-  - `delivered[j]` hrani število sporočil, ki jih je proces `i` prejel od procesa `j`
-  - `buffer` hrani sporočila dokler jih algoritem ne posreduje aplikaciji
-- pošiljanje
-  - vsako sporočilo `{i, sent, m}` je označeno z oznako pošiljatelja (`i`), zaporedno številko poslanega sporočila (`sent`) in vsebino (`m`)
-- sprejem
-  - sporočilo damo v tabelo `buffer`
-  - v tabeli pogledamo, če ima sporočilo od kateregakoli pošiljatelja (`k`) pričakovano zaporedno številko `delivered[k]`
-  - če obstaja, sporočilo posredujemo aplikaciji, ga izbrišemo iz tabele in povečamo pričakovano zaporedno številko naslednjega sporočila
+  - lokalne strukture
+    - `sent` je število sporočil, ki jih je poslal proces `i`
+    - `delivered[j]` hrani število sporočil, ki jih je proces `i` prejel od procesa `j`
+    - `buffer` hrani sporočila dokler jih algoritem ne posreduje aplikaciji
+  - pošiljanje
+    - vsako sporočilo `{i, sent, m}` je označeno z oznako pošiljatelja (`i`), zaporedno številko poslanega sporočila (`sent`) in vsebino (`m`)
+  - sprejem
+    - sporočilo damo v tabelo `buffer`
+    - v tabeli pogledamo, če ima sporočilo od kateregakoli pošiljatelja (`k`) pričakovano zaporedno številko `delivered[k]`
+    - če obstaja, sporočilo posredujemo aplikaciji, ga izbrišemo iz tabele in povečamo pričakovano zaporedno številko naslednjega sporočila
 
 #### Algoritem za vzročno razširjanje
 
