@@ -19,7 +19,7 @@ func Server(url string) {
 	// pripravimo strežnik gRPC
 	grpcServer := grpc.NewServer()
 
-	// pripravimo strukuro za streženje metod CRUD na shrambi TodoStorage
+	// pripravimo strukturo za streženje metod CRUD na shrambi TodoStorage
 	crudServer := NewServerCRUD()
 
 	// streženje metod CRUD na shrambi TodoStorage povežemo s strežnikom gRPC
@@ -42,16 +42,16 @@ func Server(url string) {
 	}
 }
 
-// stuktura za strežnik CRUD za shrambo TodoStorage
+// struktura za strežnik CRUD za shrambo TodoStorage
 type serverCRUD struct {
 	protobufStorage.UnimplementedCRUDServer
-	todoStore storage.TodoStorage
+	todoStore *storage.TodoStorage
 }
 
 // pripravimo nov strežnik CRUD za shrambo TodoStorage
 func NewServerCRUD() *serverCRUD {
 	todoStorePtr := storage.NewTodoStorage()
-	return &serverCRUD{protobufStorage.UnimplementedCRUDServer{}, *todoStorePtr}
+	return &serverCRUD{protobufStorage.UnimplementedCRUDServer{}, todoStorePtr}
 }
 
 // metode strežnika CRUD za shrambo TodoStorage

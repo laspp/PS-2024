@@ -1,9 +1,9 @@
 // prevajanje datoteke *.proto na Arnes HPC:
 //   - namestitev modulov
-//      module load protobuf/protobuf/23.0-GCCcore-12.2.0
+//      module load protobuf/23.0-GCCcore-12.2.0
 //      module load binutils/2.39-GCCcore-12.2.0
-//      go install google.golang.org/protobuf/cmd/protoc-gen-go@latest (samo ob prvi uporabi)
-//      go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest (samo ob prvi uporabi)
+//      go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.31.0 # samo ob prvi uporabi
+//      go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.0 # samo ob prvi uporabi
 //      export PATH="$PATH:$(go env GOPATH)/bin"
 //   - prevajanje
 //      srun protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative protobufStorage.proto

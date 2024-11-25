@@ -187,6 +187,7 @@
 #### Protocol Buffers
 
 - gRPC privzeto uporablja protokol [Protocol Buffers](https://protobuf.dev/overview) za kodiranje (*angl.* marshalling) strukturiranih podatkov
+  - nesrečno poimenovanje: Buffers v imenu so bili ključni v času, ko še ni bilo jezika za opis vmesnika in je programer vmesnik zgradil v medpomnilniku med izvajanjem programa
   - pripravimo opisno datoteko, ki vključuje strukture in metode
   - prevajalnik `protoc` nam iz opisne datoteke pripravi paket, s katerim elegantno izvajamo klice metod na strežniku
     - podrobnosti o namestitvi paketa najdete v komentarju k datoteki [protobufStorage.proto](koda/grpc/protobufStorage/protobufStorage.proto)
@@ -234,7 +235,7 @@
       contextCRUD, cancel := context.WithTimeout(context.Background(), time.Second)
       ```
 
-    - vzpostavimo vmesnik gRPC,
+    - vzpostavimo vmesnik gRPC
 
       ```go
       grpcClient := protobufStorage.NewCRUDClient(conn)
