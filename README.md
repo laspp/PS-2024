@@ -51,4 +51,4 @@
 
 - Teden 08:
   - predavanja: [programski vmesniki](predavanja/11-posredovanje-sporocil-2/posredovanje-sporocil-2.md)
-  - vaje:
+  - vaje: [posredovanje sporočil](vaje/06-posredovanje-sporocil/Posredovanje-sporocil.md)
