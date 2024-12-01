@@ -137,7 +137,7 @@
 
 - pravila zagotavljajo, da je za dogodek $X$, ki se je zgodil pred dogodkom $Y$, logični časovni žig $T_X$ manjši od logičnega časovnega žiga $T_Y$ (dogodek $D_{A2}$ se je zgodil pred $D_{B2}$)
 - dva nepovezana dogodka imata lahko isti logični časovni žig (dogodka $D_{A1}$ in $D_{C1}$)
-- strog vrstni red dogodkov lahko dobimo, če števcu pripnemo oznako procesa (za dogodka $D_{A1}$ in $D_{C1}$ bi potem imeli števca 1A in 1C)
+- dogodke lahko strogo uredimo, če števcu pripnemo oznako procesa (za dogodka $D_{A1}$ in $D_{C1}$ bi potem imeli števca 1A in 1C)
 - vrstni red še vedno ne odraža vzročne povezave (dogodka $D_{B1}$ in $D_{C1}$)
 - Lamportova ura predpostavlja proces z zaustavitvijo, s shranjevanjem števcev na disk pa enostavno lahko podpremo tudi obnovljivi proces
 - z Lamportovo uro ne moremo določiti vzročne povezanosti vseh dogodkov ali ugotoviti, da sta dogodka sočasna

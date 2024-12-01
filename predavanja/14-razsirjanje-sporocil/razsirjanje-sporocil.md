@@ -3,7 +3,6 @@
 - pošiljatelj sporočilo pošilja vsem procesom v skupini, tudi sebi
 - skupina je lahko statična ali dinamična
 - pomemben element v kompleksnejših porazdeljenih algoritmih
-- koordinacija med procesi ni potrebna
 
 ## Modeli dostave sporočil
 
@@ -63,7 +62,7 @@
 - vrstni red sporočil, ki jih pošiljajo različna vozlišča, je poljuben
 - primer
   - veljavni vrstni red: ($m_1$, $m_2$, $m_3$), ($m_1$, $m_3$, $m_2$) ali ($m_2$, $m_1$, $m_3$)
-  - vzročnost na sliki ne velja, saj proces $C$ prej sprejme $m_2$ kot $m_1$, ki je bil oddan prej
+  - vzročnost na sliki ne velja, saj proces $C$ sprejme $m_2$ prej, kot $m_1$
 
   <img src="slike/razsirjanje-fifo.png" width="45%"/>
 
@@ -74,7 +73,7 @@
   - sporočilo iz poljubnega procesa, ki je bilo poslano pred sporočilom iz drugega poljubnega procesa, mora biti vsem procesom dostavljeno prej
   - v primeru, da sta bili sporočili poslanih hkrati, vrstni red dostave ni pomemben
 - na zgornji sliki: proces $C$ bo moral zadržati sporočilo $m_2$ dokler ne sprejme sporočila $m_1$
-- primer vzročnega razširjanje
+- primer vzročnega razširjanja
   - procesa $A$ in $B$ oddajata hkrati sporočili $m_3$ in $m_2$, zato sta vrstna reda dostave ($m_1$, $m_2$, $m_3$) in ($m_1$, $m_3$, $m_2$) oba pravilna
 
   <img src="slike/razsirjanje-vzrocno.png" width="45%"/>
