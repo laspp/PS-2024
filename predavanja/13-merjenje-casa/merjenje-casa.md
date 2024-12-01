@@ -168,3 +168,4 @@
   - primer: dogodek $D_{A2}$ se je zgodil pred dogodkom $D_{B2}$, vrstnega reda dogodkov $D_{B1}$ in $D_{C1}$ pa ne moremo določiti - vzamemo, da sta se zgodila sočasno
 - problem vektorske ure so velike zahteve po pomnilniku in pasovni širini, boljše rešitve
 - paket za vektorske ure v jeziku go: [GoVector](https://pkg.go.dev/github.com/arcaneiceman/GoVector)
+- [vektorska ura](koda/vektorska-ura/vektorska-ura.go) ([strežnik](koda/vektorska-ura/streznik.go) in [odjemalec](koda/vektorska-ura/odjemalec.go))
