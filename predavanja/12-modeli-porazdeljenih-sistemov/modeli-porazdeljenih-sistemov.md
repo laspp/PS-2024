@@ -1,4 +1,4 @@
-# Modeli porazdeljenih sistemov
+# Modeli porazdeljenih sistemov [UDS:6]
 
 - z modelom podamo pričakovanja o obnašanju sistema
 - ključni elementi obnašanja sistema so povezave v omrežju, obnašanje procesov in čas
@@ -21,7 +21,7 @@
 
 - v nadaljevanju bomo predpostavili da imamo povezave s sprejemljivimi izgubami, obnovljive procese in delno sinhrono obnašanje
 
-## Zaznavanje napak
+## Zaznavanje napak [UDS:7]
 
 - pri posredovanju sporočila se lahko zgodi troje: sporočilo ne prispe do prejemnika, prejemnik ga ne obdela, potrditev ne pride do pošiljatelja
 
@@ -79,7 +79,7 @@
   - spletna trgovina bo kupčevo kartico bremenila, ko so izdelki poslani
   - problem je rešljiv, ker spletna trgovina ob neuspešnem pošiljanju lahko vrne denar
 
-## Problem Bizantinskih generalov
+## Problem bizantinskih generalov
 
 - imamo tri ali več generalov s svojim vojskami
 - tokrat kurirji zanesljivo prenesejo sporočilo

@@ -1,8 +1,9 @@
-# Protokoli za razširjanje sporočil
+# Protokoli za razširjanje sporočil [UDS:11.1]
 
 - pošiljatelj sporočilo pošilja vsem procesom v skupini, tudi sebi
 - skupina je lahko statična ali dinamična
 - pomemben element v kompleksnejših porazdeljenih algoritmih
+- koordinacija med procesi ni potrebna
 
 ## Modeli dostave sporočil
 

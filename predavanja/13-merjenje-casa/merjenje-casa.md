@@ -1,4 +1,4 @@
-# Čas v porazdeljenih sistemih
+# Čas v porazdeljenih sistemih [UDS:8]
 
 - čas je pomemben element v vsakem programu, sploh v porazdeljenem
   - iztek časa (*angl.* timeout) pri detekciji napak
@@ -7,7 +7,7 @@
 - pri zaporednih programih je potek izvajanja programa lahko razbrati, saj se vsi ukazi izvajajo eden za drugim
 - v porazdeljenih sistemih ni skupne globalne ure, s katero bi lahko določali vrstni red dogodkov in procesi se lahko izvajajo sočasno
 
-## Fizične ure
+## Fizične ure [UDS:8.1]
 
 - na skoraj vseh računalniških sistemih ima proces dostop do fizične ure
   - realni čas (*angl.* wall-clock time) in procesorski čas (*angl.* CPU time)
@@ -93,7 +93,7 @@
   - v primeru zelo velike razlike, $1000 \text{ s} \leq |\theta|$ zazna težavo in ne naredi ničesar
 - primer: [odjemalecNTP.go](koda/odjemalecNTP.go)
 
-## Logične ure
+## Logične ure 
 
 - ure realnega časa ne znamo zanesljivo sinhronizirati med procesi na različnih vozliščih, zato z njo ne moremo zanesljivo razvrščati dogodkov
 - primer
@@ -103,7 +103,7 @@
   - zaradi zakasnitve sporočila $m_1$ pri prenosu od procesa A na C, je vrstni red na C nesmiseln
   - lahko dodamo časovni žig, vendar se zaradi omejitev protokola NTP tudi v tem primeru lahko zgodi podobno - če ura na procesu A prehiteva uro na procesu B, ima lahko sporočilo $m_1$ novejši časovni žig kot sporočilo $m_2$
 
-<img src="slike/dogodki-vrstni-red.png" width="50%"/>
+  <img src="slike/dogodki-vrstni-red.png" width="50%"/>
 
 - pri zaporednih procesih se vedno ena operacija izvede pred drugo, imamo vzročno povezava prej-potem (*angl.* happened-before)
 - dogodek $X$ se je zgodil pred dogodkom $Y$, če velja
@@ -115,7 +115,7 @@
   - ob dogodku algoritem določi logični časovni žig
   - logična ura mora zagotavljati, da bosta imela v istem zaporednem procesu dva zaporedna dogodka različna logična časovna žiga (kasnejši višjo vrednost)
 
-### Lamportova ura
+### Lamportova ura [UDS:8.2]
 
 - ideja:
   - po zajtrku pošljemo elektronsko pošto prijatelju, prijatelj jo prebere pred kosilom; zajtrkovali smo preden je prijatelj kosil
@@ -142,7 +142,7 @@
 - Lamportova ura predpostavlja proces z zaustavitvijo, s shranjevanjem števcev na disk pa enostavno lahko podpremo tudi obnovljivi proces
 - z Lamportovo uro ne moremo določiti vzročne povezanosti vseh dogodkov ali ugotoviti, da sta dogodka sočasna
 
-### Vektorska ura
+### Vektorska ura [UDS:8.3]
 
 - vektorska ura zagotavlja, da se je dogodek z nižjim časovnim žigom zgodil pred dogodkom z višjim časovnim žigom
 - vsak proces ima tabelo števcev dogodkov; števcev dogodkov je toliko, kolikor je sodelujočih procesov
@@ -158,7 +158,7 @@
     - vse števce dogodkov v tabeli nastavi na maksimum svoje vrednosti in istoležne vrednosti v prejeti tabeli
     - svoj števec dogodkov v tabeli poveča za 1
 
-<img src="slike/vektorska-ura.png" width="65%"/>
+  <img src="slike/vektorska-ura.png" width="65%"/>
 
 - logične časovne žige vektorske ure lahko delno uredimo
   - dogodek $X$ z logičnim časovnim žigom $T_X$ se je zgodil pred dogodkom $Y$ z logičnima časovnim žigom $T_Y$, če

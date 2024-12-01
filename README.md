@@ -52,3 +52,10 @@
 - Teden 08:
   - predavanja: [programski vmesniki](predavanja/11-posredovanje-sporocil-2/posredovanje-sporocil-2.md)
   - vaje: [posredovanje sporočil](vaje/06-posredovanje-sporocil/Posredovanje-sporocil.md)
+
+- Teden 09:
+  - predavanja:
+    [modeli](predavanja/12-modeli-porazdeljenih-sistemov/modeli-porazdeljenih-sistemov.md),
+    [merjenje časa: logične ure](predavanja/13-merjenje-casa/merjenje-casa.md#logične-ure),
+    [razširjanje sporočil](predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md)
+  - vaje:
