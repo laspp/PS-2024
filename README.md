@@ -56,6 +56,6 @@
 - Teden 09:
   - predavanja:
     [modeli](predavanja/12-modeli-porazdeljenih-sistemov/modeli-porazdeljenih-sistemov.md),
-    [merjenje časa: logične ure](predavanja/13-merjenje-casa/merjenje-casa.md#logične-ure),
+    [merjenje časa](predavanja/13-merjenje-casa/merjenje-casa.md),
     [razširjanje sporočil](predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md)
   - vaje:
