@@ -36,7 +36,7 @@
     - dan je lahko dolg 86.399, 86.400 ali 86.401 sekund
     - težave v programski opremi (hrošč v jedru Linux je pripeljal do živega objema, zaustavljen letalski promet v Londonu 30.6.2012)
     - danes programska oprema prestopno sekundo uvaja postopno, čez daljše časovno obdobje
-    - čas na operacijskem sistemu Linux se meri v sekundah od 1.1.1970 00:00:00, čas na operacijskih sistemih Windows pa od 1.1.1601 00:00:00 UTC in ne upošteva prestopnih sekund
+    - čas na operacijskem sistemu Linux se meri v sekundah od 1.1.1970 00:00:00, čas na operacijskih sistemih Windows pa od 1.1.1601 00:00:00 UTC; noben čas ne upošteva prestopnih sekund
     - pri uporabi časovnih žigov v porazdeljenih sistemih so prestopne sekunde pomembne
 
 - protokol NTP za periodično sinhronizacijo ure
@@ -93,7 +93,7 @@
   - v primeru zelo velike razlike, $1000 \text{ s} \leq |\theta|$ zazna težavo in ne naredi ničesar
 - primer: [odjemalecNTP.go](koda/odjemalecNTP.go)
 
-## Logične ure 
+## Logične ure
 
 - ure realnega časa ne znamo zanesljivo sinhronizirati med procesi na različnih vozliščih, zato z njo ne moremo zanesljivo razvrščati dogodkov
 - primer

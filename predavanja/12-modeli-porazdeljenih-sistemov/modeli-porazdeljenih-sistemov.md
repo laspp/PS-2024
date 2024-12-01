@@ -10,7 +10,7 @@
   - overovljena zanesljiva povezava (*angl.* authenticated reliable link) je zanesljiva povezava nadgrajena z mehanizmi za overovitev pošiljatelja (TLS)
 
 - modeli obnašanja procesov
-  - bizantinski model ali proces z napako (*angl.* arbitrary fault) predpostavlja, da lahko proces na nek način odstopa od algoritma; nepričakovano obnašanje zaradi hroščev, napak ali zlonamerih posegov; kljub napačnemu obnašanju do 1/3 procesov sistem še vedno lahko deluje pravilno (2oo3)
+  - bizantinski model ali proces z napako (*angl.* arbitrary fault) predpostavlja, da lahko proces na nek način odstopa od algoritma; nepričakovano obnašanje zaradi hroščev, napak ali zlonamernih posegov; kljub napačnemu obnašanju do 1/3 procesov sistem še vedno lahko deluje pravilno (2oo3)
   - obnovljivi proces (*angl.* crash-recovery) predpostavlja, da proces ne odstopa od algoritma, ampak se lahko kadar koli zruši in ponovno zažene, pri čemer izgubi stanje pomnilnika
   - neobnovljivi proces (*angl.* crash-stop) predpostavlja, da proces ne odstopa od algoritma, vendar se ob sesutju ne vzpostavi nazaj; primeren za modeliranje napak strojne opreme
 
@@ -21,7 +21,7 @@
 
 - v nadaljevanju bomo predpostavili da imamo povezave s sprejemljivimi izgubami, obnovljive procese in delno sinhrono obnašanje
 
-## Zaznavanje napak [UDS:7]
+## Zaznavanje napak [UDS:7, CDS:1.3, CDS:2.4]
 
 - pri posredovanju sporočila se lahko zgodi troje: sporočilo ne prispe do prejemnika, prejemnik ga ne obdela, potrditev ne pride do pošiljatelja
 
@@ -54,7 +54,7 @@
   - idealni detektor napak obstaja za procese z zaustavitvijo in sinhronim obnašanjem
   - za bizantinske procese z delno sinhronim obnašanjem idealnega detektorja napak ni
 
-## Problem dveh generalov
+## Problem dveh generalov [CDS:2.1]
 
 - generala vodita vsak svojo vojsko, rada bi zavzela mesto
 - če mesto napade en sam general, bo poražen
@@ -79,7 +79,7 @@
   - spletna trgovina bo kupčevo kartico bremenila, ko so izdelki poslani
   - problem je rešljiv, ker spletna trgovina ob neuspešnem pošiljanju lahko vrne denar
 
-## Problem bizantinskih generalov
+## Problem bizantinskih generalov [CDS:2.2]
 
 - imamo tri ali več generalov s svojim vojskami
 - tokrat kurirji zanesljivo prenesejo sporočilo

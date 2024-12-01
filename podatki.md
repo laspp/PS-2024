@@ -34,6 +34,7 @@
 - [LBS] A. B. Downey, [The little book of semaphores](https://greenteapress.com/semaphores/LittleBookOfSemaphores.pdf)
 - [IPC] R. Trobec, B. Slivnik, P. Bulić, B. Robič: [Introduction to Parallel Computing](https://ucilnica.fri.uni-lj.si/pluginfile.php/132969/mod_resource/content/1/Introduction%2Bto%2BParallel%2BComputing.pdf), Springer, 2018
 - [PPM] N. Matloff: [Programming on Parallel Machines](http://heather.cs.ucdavis.edu/~matloff/158/PLN/ParProcBook.pdf), University of California, Davis, 2017
+- [CDS] M. Kleppman: [Concurrent and Distributed System](https://www.cl.cam.ac.uk/teaching/2425/ConcDisSys/dist-sys-notes.pdf), University of Cambridge, 2024
 
 ## Izvajalca
 

@@ -10,7 +10,7 @@
 ### Dostava po najboljših močeh
 
 - razširjanje sporočil na nivoju omrežne opreme (IP multicast)
-- poskusi poslati vsem vozliščem, če je vozlišče okvarjeno, sporočila nikoli ne dobi
+- poskusi poslati vsem vozliščem; če je vozlišče okvarjeno, sporočila nikoli ne dobi
 - zagotavlja, da, če se pošiljatelj ne zruši, sporočila dobijo vsa delujoče vozlišča
 
   <img src="slike/razsirjanje-po-najboljsih-moceh.png" width="50%" />
@@ -84,7 +84,7 @@
 - *angl.* total order broadcast
 - zahteva, da so sporočila vsem procesom dostavljena v enakem vrstnem redu
 - vrstni red dostave sporočil je poljuben
-- primera popolnoma urejenega razširjanja
+- primer popolnoma urejenega razširjanja
 
   <img src="slike/razsirjanje-urejeno.png" width="100%"/>
 
@@ -187,7 +187,7 @@
   - ni enega voditelja
   - vsakemu sporočilu za posodobitev shrambe dodamo vrednost Lamportove ure
   - sporočila dostavljamo glede na vrednost Lamportove ure
-    - sporočilo dostavimo aplikaciji, samo če so ga vsi vključeni procesi potrdili
+    - sporočilo dostavimo aplikaciji samo, če so ga vsi vključeni procesi potrdili
     - proces $P_j$ pošlje potrditev procesu $P_i$ le če
       - $P_j$ ni poslal sporočila ostalim procesom
       - $P_j$ je posodobil svojo shrambo

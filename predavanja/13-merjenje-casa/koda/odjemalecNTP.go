@@ -1,7 +1,7 @@
 // Protokol NTP
 // 		protokol NTP meri čas v sekundah od 1.1.1900, čas Unix pa se meri v sekundah od 1.1.1970
 //		v telegramu NTP so časi podani v
-//			- sekundah po 1.1.1990 (...TimeSec) in
+//			- sekundah po 1.1.1900 (...TimeSec) in
 // 			- deležu sekunde (...TimeFrac / 2^32)
 
 package main
@@ -29,9 +29,9 @@ func timeUnixToNTP(timeUnix time.Time) (sec uint32, frac uint32) {
 	return
 }
 
-// struktura telegrama NTP v3, zahteva in odgovor uporabljati isti telegram
+// struktura telegrama NTP v3, zahteva in odgovor uporabljata isti telegram
 type telegram struct {
-	Settings       uint8  // prestopna sekunda (2 bits), verzija (3 bits), režim (3 bits)
+	Settings       uint8  // prestopna sekunda (2 bita), verzija (3 biti), režim (3 biti)
 	Stratum        uint8  // oznaka strežnika, nižja številka pomeni natančnejši strežnik
 	Poll           int8   // največji dovoljeni interval med zaporednimi sporočili
 	Precision      int8   // natančnost strežnikove ure (2^exponent)
