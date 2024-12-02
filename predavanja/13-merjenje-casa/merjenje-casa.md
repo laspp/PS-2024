@@ -58,13 +58,13 @@
   - primer izpisa
 
     ```bash
-    Time start  : 2023-11-12 11:12:12.763038573 +0100 CET m=+2.001302270
-    Time end    : 2023-11-12 11:12:13.763185182 +0100 CET m=+3.001448893
-    Time elapsed (UTC)      : 1.000146609s
-    Time elapsed (monotonic): 1.000146623s
+    Time start: 2024-12-02 13:09:24.048793126 +0000 UTC m=+2.001038343
+    Time end  : 2024-12-02 13:09:25.048848009 +0000 UTC m=+3.001093326
+    Time elapsed (wall-clock): 1.000054883s
+    Time elapsed (monotonic) : 1.000054983s
     ```
 
-    - razlika monotonih časov (m) je enaka izpisanemu pretečenemu času, razlika časov UTC je 14 nanosekund manjša
+    - razlika monotonih časov (m) je enaka izpisanemu pretečenemu času, razlika monotonih časov je 100 nanosekund večja
 
 ### Usklajevanje ur po protokolu NTP
 
@@ -80,9 +80,12 @@
 
 - meritev
   - odjemalec strežniku pošlje sporočilo s časovnim žigom $t_1$
+    - $t_1$ potrebujemo za izračun; če ga zapišemo v sporočilo, nam ga ni treba hraniti v pomnilniku
+    - ob pošiljanju več sporočil, ne potrebujemo nobene evidence o poslanih sporočilih
   - ob sprejemu sporočila strežnik zapiše svoj časovni žig, $t_2$
   - ob oddaji odgovora, strežnik v sporočilo poleg časovnih žigov $t_1$ in $t_2$ vpiše tudi časovni žig oddaje $t_3$
   - ob prejemu odgovora, odjemalec zabeleži časovni žig $t_4$
+  - časovni žig $t_1$ preberemo iz telegrama, tako nam ni treba hraniti časov $t_1$ ob pošiljanju
 - izračun
   - čas potovanja sporočila in odgovora je $\delta = (t_4 - t_1) - (t_3 - t_2)$
   - v trenutku, ko odjemalec prejme odgovor, je čas na strežniku $t_S = t_3 + \delta/2$

@@ -88,7 +88,7 @@ func main() {
 	time3 := timeNTPtoUnix(rsp.TxTimeSec, rsp.TxTimeFrac)
 
 	// izračunamo čas prenosa tja in nazaj
-	delta := (time4.UnixNano() - time1.UnixNano()) - (time3.UnixNano() - time2.UnixNano())
+	delta := (time4.UnixNano() - time1telegram.UnixNano()) - (time3.UnixNano() - time2.UnixNano())
 	// ocenimo razliko med časom strežnika in odjemalca
 	// theta > 0: odjemalčeva ura zaostaja
 	theta := (time3.UnixNano() + delta/2) - time4.UnixNano()
@@ -96,11 +96,12 @@ func main() {
 	fmt.Printf("Server: %v\n", *sPtr)
 	fmt.Printf("Telegram (req): %#v\n", req)
 	fmt.Printf("Telegram (res): %#v\n", rsp)
-	fmt.Printf("Tref: %v\n", timeRef)
-	fmt.Printf("T1: %v (%v)\n", time1, time1telegram)
-	fmt.Printf("T2: %v\n", time2)
-	fmt.Printf("T3: %v\n", time3)
-	fmt.Printf("T4: %v\n", time4)
+	fmt.Printf("Tref : %v\n", timeRef)
+	fmt.Printf("T1   : %v\n", time1)
+	fmt.Printf("T1tel: %v\n", time1telegram)
+	fmt.Printf("T2   : %v\n", time2)
+	fmt.Printf("T3   : %v\n", time3)
+	fmt.Printf("T4   : %v\n", time4)
 	fmt.Printf("delta: %v ns = %v s\n", delta, float64(delta)/1e9)
 	fmt.Printf("theta: %v ns = %v s\n", theta, float64(theta)/1e9)
 }
