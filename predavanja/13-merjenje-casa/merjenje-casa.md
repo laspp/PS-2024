@@ -53,7 +53,7 @@
   - znotraj procesa jo lahko uporabimo v dnevniku
   - neuporabna pri primerjavi dogodkov med procesi
 
-- časi v jeziku go: [cas.go](koda/cas.go)
+- časi v jeziku go: [cas.go](koda/fizicna-ura/cas.go)
   - paket `time`, struktura `time.Time` vključuje čas UTC in monotoni čas
   - primer izpisa
 
@@ -91,7 +91,7 @@
   - manjše razlike, $|\theta| < 125 \text{ ms}$, odjemalec prilagodi počasi, s tem da uro povečuje malce hitreje ali počasneje
   - v primeru večje razlike, $125 \text{ ms}\leq |\theta| < 1000 \text{ s}$ odjemalec svojo uro nastavi na novo vrednost
   - v primeru zelo velike razlike, $1000 \text{ s} \leq |\theta|$ zazna težavo in ne naredi ničesar
-- primer: [odjemalecNTP.go](koda/odjemalecNTP.go)
+- primer: [odjemalecNTP.go](koda/fizicna-ura/odjemalecNTP.go)
 
 ## Logične ure
 
@@ -99,7 +99,7 @@
 - primer
 
   - proces A pošlje sporočilo $m_1$ procesoma B in C
-  - proces B se odzove in polje sporočilo $m_2$ procesoma A in C
+  - proces B se odzove in pošlje sporočilo $m_2$ procesoma A in C
   - zaradi zakasnitve sporočila $m_1$ pri prenosu od procesa A na C, je vrstni red na C nesmiseln
   - lahko dodamo časovni žig, vendar se zaradi omejitev protokola NTP tudi v tem primeru lahko zgodi podobno - če ura na procesu A prehiteva uro na procesu B, ima lahko sporočilo $m_1$ novejši časovni žig kot sporočilo $m_2$
 
