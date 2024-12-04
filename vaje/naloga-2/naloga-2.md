@@ -38,7 +38,8 @@ Spodnja slika prikazuje shematski prikaz storitve indeksiranja, kjer socialno om
  - Preizkusite različne vrednosti `delay`. Za majhne vrednosti `delay` bo vrsta vedno polna, ker je generiranje zahtevkov prehitro, ne glede na količino delavcev. Za velike vrednosti pa bo vrsta večinoma prazna. Smiselne vrednosti se nahajajo v območju `[1000,10000]`.
  - Na koncu preverite, da so delavci obdelali vse zahtevke. Vrsta se mora do konca izprazniti preden se program zaključi.
  - Izpišite povprečno dolžino vrste, največjo dolžino vrste in hitrost procesiranja zahtevkov.
- - Pri zaganjanju na računskih vozliščih uporabite stikalo `--cpus-per-task`, da nastavite število procesorskih jeder, ki so na volju programu.
+ - Izpišite tudi dinamiko dodajanja in odstranjevanja delavcev. Iz tega izpisa bo razvidno kako se nadzornik odziva obrementitev.
+ - Na zagovoru delovanje vašega programa demonstrirajte na gruči Arnes. Pri zaganjanju na računskih vozliščih uporabite stikalo `--cpus-per-task`, da nastavite število procesorskih jeder, ki so na volju programu.
 
 ![Shema storitve](shema.png)
 
