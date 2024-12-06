@@ -1,6 +1,6 @@
 # Replikacija
 
-## Replikacija z voditeljem (algoritem raft)
+## Replikacija z voditeljem (algoritem raft) [UDS:9]
 
 - dva znana protokola: Paxos in Raft
   - podobne lastnosti - odpornost na napake in zmogljivost  

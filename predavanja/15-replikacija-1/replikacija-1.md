@@ -10,12 +10,12 @@
   - porazdeljeni datotečni sistemi
 - motivacija
   - imamo porazdeljeno shrambo, do katere dostopajo odjemalci, ki v shrambo pišejo ali iz nje berejo
-  - za odjemalca mora biti nepomembno ali je shramba sestavljena iz enega ali iz skupine procesov
+  - za odjemalca mora biti nepomembno ali je shramba sestavljena iz enega procesa ali iz skupine procesov
     - vsak odjemalec mora prebrati isto vrednost, ne glede na to s katerega procesa v porazdeljeni shrambi bere
   - da to dosežemo, morajo strežniki soglašati o stanju shrambe
   - soglasnost (*angl.* consensus) je dogovor o skupnem stanju sistema
     - soglasnost je trivialno doseči z enim procesom, rešitev ni odporna na napake (posamezna točka odpovedi)
-    - potrebujemo replikacijo, dovolj je, če soglaša večina procesov
+    - potrebujemo replikacijo; dovolj je, če soglaša večina procesov
   - izziv je, kako zagotoviti odpornost na napake - imeti skladne replike kljub izpadom omrežja in procesov
 - replikacija s končnim avtomatom
   - vsak proces modeliramo kot končni avtomat
@@ -32,14 +32,14 @@
   - pri zagotavljanju odpornosti na napake je determinizem nujno potreben
     - če je en končni avtomat pokvarjen, bo drugače prehajal čez stanja in imel drugačne izhode
     - če se končni avtomat (proces) ob napaki zaustavi, je za odpornost na $f$ napak dovolj sistem s $f+1$ končnim avtomatom
-    - če se ob napaki ne zaustavi (Bizantinski model) mora sistem, ki bo odporen na $f$ napak, vključevati vsaj $2f+1$ končnih avtomatov
+    - če se ob napaki ne zaustavi (bizantinski model), mora sistem, ki bo odporen na $f$ napak, vključevati vsaj $2f+1$ končnih avtomatov
   - primer
     - en proces, voditelj, s sporočili razširja operacije na shrambi
     - procesi sledilci sprejete operacije izvedejo v enakem zaporedju
     - ker je avtomat stanj determinističen, bo stanje sledilcev na koncu enako stanju voditelja
     - primer: shramba CRUD z operacijami `create(ključ,vrednost)` in `read(ključ)`, `update(ključ,vrednost)` in `delete(ključ)`
 
-## Verižna replikacija
+## Verižna replikacija [UDS:10.4]
 
 - pogosto uporabljana rešitev za replikacijo
 - dve ravnini
@@ -57,7 +57,7 @@
     - ko zahteva pride do repa, ta posodobi svoje stanje in predhodniku pošlje potrditev
     - vmesni procesi posredujejo potrditve predhodnikom
     - ko potrditev pride do glave, ta obvesti odjemalca o uspešnem vpisu
-    - v osnovni različici branje zahteve obdeluje samo rep
+    - v osnovni različici bralne zahteve obdeluje samo rep
   - če ni napak, algoritem zagotavlja strogo skladnost
   - če verigo sestavlja $p$ procesov, bo sistem deloval kljub odpovedi $p-1$ procesa
 - nadzorna ravnina

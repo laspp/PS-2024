@@ -1,6 +1,6 @@
 # Replikacija
 
-## Soglasje
+## Soglasje [UDS:10.2]
 
 - *angl.* consensus
 - o soglasju govorimo, ko
@@ -25,7 +25,7 @@
       - če se ključ in stara vrednost ujemata, staro vrednost zamenja z novo in postane voditelj; če ne, ni sprememb
       - podobno kot atomarna operacija CAS (*angl.* compare and swap) v sistemih s skupnim pomnilnikom
 
-## Modeli skladnosti
+## Modeli skladnosti [UDS:10.3]
 
 - želimo si, da shramba učinkovito streže odjemalce in da so podatki skladni
 - algoritem raft
@@ -53,7 +53,6 @@
 
 - pisanja in branja potekajo izključno preko voditelja
 - za odjemalce zgleda, kot da je shramba brez kopij; atomarne operacije na nivoju skupine, ki izvaja replikacijo
-
 - zavedati se moramo, da pisanja in branja trajajo nekaj časa
 
   <img src="slike/skladnost-stroga.png" width="45%" />
@@ -100,10 +99,10 @@
 - vedno gre za tehtanje med stopnjo skladnosti (zahteva koordinacijo med procesi) in učinkovitostjo delovanja
 - za zagotavljanje večje odzivnosti je smiselno imeti dve ravnini: nadzorno (soglasje) in podatkovno za streženje odjemalcem, kot pri verižni replikaciji
 
-## Replikacija brez sporov
+## Replikacija brez sporov [UDS:11.2]
 
 - za replikacijo potrebujemo
-  - popolnoma urejeno razširjanje podatkov, ki zagotavlja, da, kljub napakam v sistemu, vsak proces (replika) dobi zapise v enakem vrstne redu
+  - popolnoma urejeno razširjanje podatkov, ki zagotavlja, da, kljub napakam v sistemu, vsak proces (replika) dobi zapise v enakem vrstnem redu
   - deterministično funkcijo, ki glede na zahteve posodobi shrambo
 - ozko grlo je pošiljanje pisalnih zahtev preko ene replike
   - če ne zahtevamo popolne urejenosti razširjanih zapisov, bi zahteve za pisanje lahko sprejemal vsak proces
