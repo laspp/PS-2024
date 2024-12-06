@@ -97,28 +97,28 @@
 
         <img src="slike/raft-avtomat.png" width="60%" />
 
-#### Ilustracija delovanja z Raftscope
+#### Ilustracija delovanja s programom Raftscope
 
-- [raftscope](https://raft.github.io)
+- program [Raftscope](https://raft.github.io)
   - pet procesov
   - proces kandidat ima v notranjosti kroge, ki označujejo, kdo je glasoval zanj
   - obrobljen proces je voditelj
 - primer 1: izbiranje voditelja
   - na začetku vsi sledilci
-  - eden postane kandidat (nepopolna debela črna obroba označuje dovoljen čas za izvedbo volitev)
+  - eden postane kandidat (nepopolna debela siva obroba označuje dovoljen čas za izvedbo volitev)
   - kandidat pošlje sporočilo `requestVote` (zelene barve)
   - sledilci prevzamejo obdobje
   - sledilci glasujejo zanj (potrditev zelene barve, polne pike v kandidatu označujejo, kdo je glasoval zanj)
   - ko je izglasovan, postane voditelj (debel črn rob)
   - pošilja srčni utrip - prazen `appendEntry` (oranžne barve)
 - primer 2: dva kandidata
-  - ponovno zaženemo aplikacijo (tipka F5)
+  - ponovno zaženemo aplikacijo (desni klik, Reload Page)
   - zaustavimo simulacijo (tipka .)
   - povečamo verjetnost, da bomo imeli dva kandidata hkrati (tipka A)
   - nadaljujemo simulacijo (tipka .)
   - eden zmaga
 - primer 3: dva kandidata hkrati, volitve brez zmagovalca
-  - ponovno zaženemo aplikacijo (tipka F5)
+  - ponovno zaženemo aplikacijo (desni klik, Reload Page)
   - zaustavimo simulacijo (tipka .)
   - en proces ustavimo (desni klik nanj in stop)
   - povečamo verjetnost, da bomo imeli dva kandidata hkrati (tipka A)
@@ -129,7 +129,7 @@
     - lahko bi se oba kandidata pomenila, kdo bo postal voditelj, ampak algoritem raft v svoji enostavnosti tega ne podpira
     - sistem čaka, da se izteče en od dovoljenih časov
       - volitve za kandidata trajajo predolgo
-      - sledilec predolgo ne dobi sporočilo od voditelja
+      - sledilec predolgo ne dobi sporočila od voditelja
     - začne novo obdobje
 
 ### Replikacija dnevnika
@@ -172,10 +172,10 @@
 
 - tabela na desni strani
   - v polja se vpisujejo zapisi; zapis je označen s številko obdobja, operacija ni prikazana
-  - puščica predstavlja kazalec `nextIndex` in prikazuje mesto v dnevniku kamor želi voditelj sledilcu vpisati naslednji zapis
-  - pika predstavlja kazalec `matchIndex` prikazuje, do kje se sledilčevi zapisi ujemajo z voditeljevimi
+  - puščica predstavlja kazalec `nextIndex` in prikazuje mesto v dnevniku, kamor želi voditelj sledilcu vpisati naslednji zapis
+  - pika predstavlja kazalec `matchIndex` in prikazuje, do kje se sledilčevi zapisi ujemajo z voditeljevimi
 - primer 1: osnovna replikacija
-  - vzpostavimo začetno stanje (tipki F5 in L)
+  - vzpostavimo začetno stanje (desni klik, Reload Page in tipka L)
     - voditelj in en sledilec
     - odjemalec je dodal tri zahteve za vpis v shrambo
     - zapisi niso potrjeni (črtkana obroba)
@@ -186,11 +186,11 @@
   - zbudimo sledilca S3 (desni klik, resume)
     - voditelj pošlje potrebne zapise sledilcu
     - ko sledilec S3 potrdi prvi zapis, se obroba na voditelju spremeni v neprekinjeno (zapis potrjen)
-    - ob naslednjem pošiljanju zapisa je zapis potrjen tudi na vsakem odjemalcu
+    - ob naslednjem pošiljanju zapisa je zapis potrjen tudi na vsakem sledilcu
     - ko je zapis potrjen, bo obstal za vedno, proces lahko posodobi shrambo
   - če je na voditelju mesto, kamor kaže kazalec `nextIndex`, prazno, bo voditelj pošiljal srčni utrip
 - primer 2: dodajanje manjkajočih zapisov
-  - vzpostavimo začetno stanje (tipki F5 in L)
+  - vzpostavimo začetno stanje (desni klik Reload Page in tipka L)
   - dodamo sledilca S3 (desni klik, resume)
   - počakamo, da vsi potrdijo zapise
   - ko ni na poti nobenih sporočil, ustavimo simulacijo (tipka .)
@@ -250,7 +250,7 @@
   - ko se omrežje spet vzpostavi, bo stari voditelj sestopil (če ne že prej), saj bo dobil sporočilo z višjo številko obdobja
 
 - če voditelj ne uspe dostaviti zapisa (ne dobi potrditve), bo ponovno poskušal, dokler ne uspe
-  - če so operacije idempotentne, ni nič narobe, če en zapis prispe dvakrat
+  - če so operacije idempotentne, ni nič narobe, če isti zapis prispe dvakrat
 
 - ko sledilec pride nazaj v sistem
   - od voditelja prejme sporočilo z novim zapisom
