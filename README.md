@@ -57,7 +57,7 @@
   - predavanja:
     [modeli porazdeljenih sistemov](predavanja/12-modeli-porazdeljenih-sistemov/modeli-porazdeljenih-sistemov.md),
     [merjenje časa](predavanja/13-merjenje-casa/merjenje-casa.md)
-  - vaje:
+  - vaje: konzultacije
 
 <!--
 - Teden 10:
