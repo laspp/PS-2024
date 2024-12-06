@@ -56,11 +56,14 @@
 - Teden 09:
   - predavanja:
     [modeli porazdeljenih sistemov](predavanja/12-modeli-porazdeljenih-sistemov/modeli-porazdeljenih-sistemov.md),
-    [merjenje časa](predavanja/13-merjenje-casa/merjenje-casa.md),
+    [merjenje časa](predavanja/13-merjenje-casa/merjenje-casa.md)
   - vaje:
 
 <!--
 - Teden 10:
   - predavanja:
-    [razširjanje sporočil](predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md)
+    [razširjanje sporočil](predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md),
+    [replikacija podatkov in verižna replikacija](predavanja/15-replikacija-1/replikacija-1.md),
+    [replikacija podatkov: algoritem raft](predavanja/16-replikacija-2/replikacija-2.md),
+    [soglasje, skladnost in replikacija brez sporov](predavanja/17-replikacija-3/replikacija-3.md)
 -->
