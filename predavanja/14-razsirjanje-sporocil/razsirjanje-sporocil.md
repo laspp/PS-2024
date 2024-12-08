@@ -37,7 +37,7 @@
 - ko proces prvič prejme sporočilo, ga prepošlje podanemu številu naključno izbranih procesom (tipično trem)
 - protokoli ne zagotavljajo popolnoma zanesljive dostave
 - verjetnost, da sporočilo ne bo dostavljeno vsem vozliščem, je zelo majhna
-- zahtevnost $O(n)$, bistveno bolj učinkoviti od nestrpne različice
+- zahtevnost $O(n)$, bistveno bolj učinkovito od nestrpne različice
 
   <img src="slike/razsirjanje-govorice.png" width="70%" />
 
