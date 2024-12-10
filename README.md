@@ -59,11 +59,22 @@
     [merjenje časa](predavanja/13-merjenje-casa/merjenje-casa.md)
   - vaje: konzultacije
 
-<!--
 - Teden 10:
   - predavanja:
     [razširjanje sporočil](predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md),
     [replikacija podatkov in verižna replikacija](predavanja/15-replikacija-1/replikacija-1.md),
     [replikacija podatkov: algoritem raft](predavanja/16-replikacija-2/replikacija-2.md),
+
+- Teden 11:
+  - predavanja:
     [soglasje, skladnost in replikacija brez sporov](predavanja/17-replikacija-3/replikacija-3.md)
+    [(transakcije)](predavanja/18-transakcije/transakcije.md)
+<!--
+- [Božično-novoletni izziv](predavanja/izziv/izziv.md)
+
+### Grafične procesne enote
+
+- Teden 11:
+  - predavanja:
+    [grafične procesne enote](predavanja/19-gpe/gpe.md)
 -->

@@ -88,3 +88,4 @@
     - pri bralni zahtevi bo proces vrnil zapis, če ni označen kot umazan; če je označen kot umazan, bo prosil rep za zadnjo potrjeno verzijo
 
   <img src="slike/replikacija-verizna-umazan-zapis.png" width="70%" />
+- vizualizacija verižne replikacije: [https://github.com/NejcDr/Verizna_replikacija](https://github.com/NejcDr/Verizna_replikacija)

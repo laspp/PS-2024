@@ -1,4 +1,6 @@
-# Transakcije v porazdeljenih sistemih
+# (Transakcije v porazdeljenih sistemih) [UDS:12]
+
+> **Obvestilo**: Poglavje o transakcijah v šolskem letu 2024/25 ni bilo predavano, na izpitu zato ne bo vprašanj iz tega poglavja
 
 - transakcija je ovojnica okrog množice operacij
 - če so vse operacije uspešne, transakcija uspe
@@ -89,8 +91,8 @@
 - težave protokola
   - je počasen
   - če odpove koordinator ali sodelujoči proces, so vsi v transakcijo vključeni procesi blokirani
-    - tej težavi se lahko ognemo tako, da vsak proces v sistemu repliciramo; uporabimo lahko replikacijo z voditeljem
-  - protokol moramo sprogramirati za vse procese, saj lahko vsak proces uporablja svojo shrambo
+    - tej težavi se lahko ognemo tako, da pripravimo repliko vsakega procesa v sistemu; uporabimo lahko replikacijo z voditeljem
+  - protokol moramo vključiti v vse procese, saj lahko vsak proces uporablja svojo shrambo
 - sinhrona rešitev
   - procesi morajo čakati na drugo fazo
   - koordinator mora počakati na odzive vseh procesov po prvi in drugi fazi
@@ -100,11 +102,11 @@
 
 - shrambe NoSQL so osredotočene na odzivnost in raztegljivost, ne jamčijo lastnosti ACID; zadnje čase dobivajo funkcionalnosti klasičnih podatkovnih shramb SQL
 - delitev podatkov na particije za večjo raztegljivost
-- vsaka particija je replicirana na skupino vozlišč v različnih podatkovnih centrih (algoritem Paxos); vsaka particija ima sledilce in voditelja, ki tudi upravlja ključavnice za dvofazno zaklepanje (2PL)
+- vsaka particija ima več replik na skupini vozlišč v različnih podatkovnih centrih (algoritem Paxos); vsaka particija ima sledilce in voditelja, ki tudi upravlja ključavnice za dvofazno zaklepanje (2PL)
 
   <img src="slike/arhitektura-spanner.png" width="67%" />
 
-- dvofazno potrjevanje (2PC) za izvedbo transakcij, ki uporabijo podatke z več particij; transakcijo začne odjemalec, koordinator je eden od voditeljev particij; piše svoj dnevnik, ki ga posreduje sledilcem; sledilci replicirajo shrambo iz dnevnika
+- dvofazno potrjevanje (2PC) za izvedbo transakcij, ki uporabijo podatke z več particij; transakcijo začne odjemalec, koordinator je eden od voditeljev particij; piše svoj dnevnik, ki ga posreduje sledilcem; sledilci iz dnevnika pripravijo repliko shrambe
 - za izolacijo transakcij uporablja nadzor z različicami in dvofaznim zaklepanjem
 - striktno zaporedno izvajanje je na porazdeljenem sistemu bolj težavno kot na enem procesu
   - natančen fizični čas - GPS ali atomske ure v vsakem podatkovnem centru
