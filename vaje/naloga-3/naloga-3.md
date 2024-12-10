@@ -28,9 +28,15 @@ Generirajte dnevnike in jih združite s pomočjo programa `GoVector`, ki je del 
 ```
 Dnevnik vizualizirajte s pomočjo spletne aplikacije [ShiViz](https://bestchai.bitbucket.io/shiviz/) 
 
-Vizualizacija za primer [telefon](./koda/telefon.go) iz prejšnjih vaj.
+Vizualizacija za primer [telefon](./koda/telefon.go) iz prejšnjih vaj:
 ![Potek komunikacije](./telefon.png)
 
-Pri pisanju programa se lahko zgledujete po [kodi](./koda/telefon.go) iz prejšnjih vaj. Pri poslušanju za sporočila je priporočeno, da nastavite rok trajanja povezave s pomočjo metode [SetDeadline](https://pkg.go.dev/net#IPConn.SetDeadline) ali pa kako drugače poskrbite, da se proces zaključi in sprosti vrata, če po nekem času ne dobi sporočila. S tem se boste izognili težavam z zasedenostjo vrat v primeru, da pride do smrtnega objema, ko nek proces čaka na sporočilo, ki nikoli ne pride. V procesih ni potrebno uporabiti principa preverjanja utripa za ugototavljanje, če so procesi prejemniki pripravljeni oziroma živi. Glavni proces naj kar takoj začne pošiljati sporočila. 
+Pri pisanju programa se lahko zgledujete po [kodi](./koda/telefon.go) iz prejšnjih vaj. V mapi s primerom ustvarite projekt in povežite ustrezne pakete:
+```
+go mod init telefon
+go mod tidy
+```
+
+Pri poslušanju za sporočila je priporočeno, da nastavite rok trajanja povezave s pomočjo metode [SetDeadline](https://pkg.go.dev/net#IPConn.SetDeadline) ali pa kako drugače poskrbite, da se proces zaključi in sprosti vrata, če po nekem času ne dobi sporočila. S tem se boste izognili težavam z zasedenostjo vrat v primeru, da pride do smrtnega objema, ko nek proces čaka na sporočilo, ki nikoli ne pride. V procesih ni potrebno uporabiti principa preverjanja utripa za ugototavljanje, če so procesi prejemniki pripravljeni oziroma živi. Glavni proces naj kar takoj začne pošiljati sporočila. 
 
 Za zaganjanje poljubnega števila procesov na gruči Arnes se lahko zgledujete po [skripti](./koda/run_telefon.sbatch). Vrata preko katerih vaši procesi komunicirajo spremenite, da se izognete težavam, kjer vas več uporablja ista vrata za komunikacijo.
