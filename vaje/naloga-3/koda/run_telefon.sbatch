@@ -4,9 +4,7 @@
 #SBATCH --reservation=fri
 #SBATCH --output=telefon-%a.txt
 
-path=./telefonUDP
-
 module load Go
-go build $path/telefon.go
+go build .
 srun telefon -p 9000 -id $SLURM_ARRAY_TASK_ID -n $SLURM_ARRAY_TASK_COUNT
-GoVector --log_type shiviz --log_dir . --outfile Log-full.log
+~/go/bin/GoVector --log_type shiviz --log_dir . --outfile Log-Full.log

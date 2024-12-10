@@ -64,6 +64,7 @@
     [razširjanje sporočil](predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md),
     [replikacija podatkov in verižna replikacija](predavanja/15-replikacija-1/replikacija-1.md),
     [replikacija podatkov: algoritem raft](predavanja/16-replikacija-2/replikacija-2.md),
+  - vaje: [razširjanje sporočil (3. domača naloga)](vaje/07-razsirjanje-sporocil/Razsirjanje-sporocil.md)
 
 - Teden 11:
   - predavanja:
