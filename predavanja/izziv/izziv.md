@@ -16,7 +16,7 @@ Razširjanje sporočil z govoricami iz tretje naloge nadgradite z zagotavljanjem
 Podprite dve različici razširjanja sporočil z zagotavljanjem vrstnega reda dostave:
 
 - Pri **vzročnem razširjanju** uporabite koncept, podoben vektorskim uram in sledite [psevdo algoritmu](../14-razsirjanje-sporocil/razsirjanje-sporocil.md#algoritem-za-vzročno-razširjanje).
-- Pri **popolnoma urejenem razširjanju FIFO** sledite [pristopu z enim voditeljem](../14-razsirjanje-sporocil/razsirjanje-sporocil.md#popolnoma-urejeno-razširjanje-in-popolnoma-urejeno-razširjanje-fifo). Za povečanje odpornosti voditelja uporabite algoritem [raft](../16-replikacija-2/replikacija-2.md#izbiranje-voditelja), pri tem lahko uporabite obstoječo [kodo ali knjižnico za jezik go](../16-replikacija-2/replikacija-2.md#raft-v-jeziku-go).
+- Pri **popolnoma urejenem razširjanju FIFO** sledite [pristopu z enim voditeljem](../14-razsirjanje-sporocil/razsirjanje-sporocil.md#popolnoma-urejeno-razširjanje-in-popolnoma-urejeno-razširjanje-fifo). Za povečanje odpornosti voditelja uporabite algoritem [raft](../16-replikacija-2/replikacija-2.md#replikacija-z-voditeljem-algoritem-raft-uds9), pri tem lahko uporabite obstoječo [kodo ali knjižnico za jezik go](../16-replikacija-2/replikacija-2.md#raft-v-jeziku-go).
 
 Procesi naj ob zagonu preberejo konfiguracijsko datoteko, ki vključuje
 
@@ -28,7 +28,7 @@ Procesi naj ob zagonu preberejo konfiguracijsko datoteko, ki vključuje
 
 Seveda najprej zato, da porazdeljene algoritme bolje razumete in da se še bolje spoznate z jezikom go.
 
-Potem pa tudi zato, da si prislužite dodatne točke pri predmetu in si zagotovite lepšo končno oceno. Končna ocena predmeta je sestavljena iz 50 % iz sprotnih vaj in 50 % iz pisnega izpita. Pravilna in lepo predstavljena rešitev za vzročno razširjanje vam h končni oceni prinese do 10 %, prepričljiva rešitev s popolnoma urejenim razširjanjem FIFO pa 30 %.
+Potem pa tudi zato, da si prislužite dodatne točke pri predmetu in si zagotovite lepšo končno oceno. Končna ocena predmeta je sestavljena iz 50 % iz sprotnih vaj in 50 % iz pisnega izpita. Pravilna in lepo predstavljena rešitev za vzročno razširjanje vam h končni oceni prinese do 10 %, prepričljiva rešitev s popolnoma urejenim razširjanjem FIFO pa do 30 %.
 
 ## Kdaj?
 
