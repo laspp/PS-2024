@@ -28,7 +28,7 @@ Procesi naj ob zagonu preberejo konfiguracijsko datoteko, ki vključuje
 
 Seveda najprej zato, da porazdeljene algoritme bolje razumete in da se še bolje spoznate z jezikom go.
 
-Potem pa tudi zato, da si prislužite dodatne točke pri predmetu in si zagotovite lepšo končno oceno. Končna ocena predmeta je sestavljena iz 50 % iz sprotnih vaj in 50 % iz pisnega izpita. Pravilna in lepo predstavljena rešitev za vzročno razširjanje vam h končni oceni prinese do 10 %, prepričljiva rešitev s popolnoma urejenim razširjanjem FIFO pa do 30 %.
+Potem pa tudi zato, da si prislužite dodatne točke pri predmetu in si zagotovite lepšo končno oceno. Končna ocena predmeta je sestavljena iz ocene domačih nalog (50 %) in iz pisnega izpita (50 %) iz pisnega izpita. Pravilna in lepo predstavljena rešitev za vzročno razširjanje vam h končni oceni prinese do 10 %, prepričljiva rešitev s popolnoma urejenim razširjanjem FIFO pa do 40 %.
 
 ## Kdaj?
 
