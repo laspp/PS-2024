@@ -1,31 +1,44 @@
 # Božično - novoletni izziv
-<!--
+
 ## Kaj?
 
-V četrti domači nalogi boste naredili osnovne mehanizme verižne replikacije. Rešitev lahko nadgradite:
+Razširjanje sporočil z govoricami iz tretje naloge nadgradite z zagotavljanjem vrstnega reda dostave sporočil aplikaciji.
 
-- dodate podporo za streženje bralnih zahtev iz poljubnih vozlišč v verigi (verzije zapisov in umazani bit)
-- dodate nadzorno ravnino z enim procesom
-  - zaznavanje odpovedi procesov s srčnim utripom
-  - spreminjanje verige ob odpovedi ali dodajanju procesov
-  - nemoteno streženje odjemalcev po spremembi verige
-- nadzorno ravnino naredite odporno na napake
-  - dodate še sodo število procesov
-  - uporabite algoritem soglasja za določitev stanja verige (replikacija z voditeljem); procesi se morajo strinjati glede odpovedi procesov in sprememb v verigi
-  - za algoritem soglasja lahko uporabite obstoječo kodo ali knjižnico
+- Pripravite ogrodje za razširjanje sporočil, ki na vsakem procesu vzpostavi medpomnilnik za sporočila in vključuje metode za
+
+  - pošiljanje sporočil,
+  - sprejemanje in shranjevanje sporočil v medpomnilnik,
+  - izbiranje najprimernejšega sporočila in
+  - posredovanje najprimernejšega sporočila aplikaciji.
+
+- Sporočila dopolnite s potrebnimi metapodatki, ki vam bodo omogočali izbiranje najprimernejšega sporočila.
+
+Podprite dve različici razširjanja sporočil z zagotavljanjem vrstnega reda dostave:
+
+- Pri **vzročnem razširjanju** uporabite koncept, podoben vektorskim uram in sledite [psevdo algoritmu](../14-razsirjanje-sporocil/razsirjanje-sporocil.md#algoritem-za-vzročno-razširjanje).
+- Pri **popolnoma urejenem razširjanju FIFO** sledite [pristopu z enim voditeljem](../14-razsirjanje-sporocil/razsirjanje-sporocil.md#popolnoma-urejeno-razširjanje-in-popolnoma-urejeno-razširjanje-fifo). Za povečanje odpornosti voditelja uporabite algoritem [raft](../16-replikacija-2/replikacija-2.md#izbiranje-voditelja), pri tem lahko uporabite obstoječo [kodo ali knjižnico za jezik go](../16-replikacija-2/replikacija-2.md#raft-v-jeziku-go).
+
+Procesi naj ob zagonu preberejo konfiguracijsko datoteko, ki vključuje
+
+- število procesov,
+- graf časov prenašanja sporočil v obliki matrike; vrednost 0 pomeni, da ni povezave in
+- urnik odpošiljanja sporočil (proces, sporočilo, čas).
 
 ## Zakaj?
 
-Seveda najprej zato, da mehanizme bolje razumete in da se še bolje spoznate z jezikom go.
+Seveda najprej zato, da porazdeljene algoritme bolje razumete in da se še bolje spoznate z jezikom go.
 
-Potem pa tudi zato, da se z dobro lastno rešitvijo delno ali v celoti izognete ustnemu izpitu. Če boste podprli samo kakšen del, boste v naprej lahko izbrali področje, iz katerega želite vprašanje (sistemi s skupnim pomnilnikom, sistemi s porazdeljenim pomnilnikom, grafični pospeševalniki).
+Potem pa tudi zato, da si prislužite dodatne točke pri predmetu in si zagotovite lepšo končno oceno. Končna ocena predmeta je sestavljena iz 50 % iz sprotnih vaj in 50 % iz pisnega izpita. Pravilna in lepo predstavljena rešitev za vzročno razširjanje vam h končni oceni prinese do 10 %, prepričljiva rešitev s popolnoma urejenim razširjanjem FIFO pa 30 %.
 
 ## Kdaj?
 
-Do želenega termina za ustni izpit vendar najkasneje do konca zimskega izpitnega obdobja.
+Rešitve morate oddati najkasneje do srede, 15. 1. 2024, in jih uspešno zagovarjate pred prvim izpitnim rokom.
 
 ## Kako?
 
-Rešitev naložite na učilnico in jo predstavite profesorju.
+Rešitev naložite na učilnico in jo zagovarjate profesorju. Na zagovoru
 
--->
+- predstavite kodo in
+- demonstrirate pravilnost delovanja (lahko na gruči ali na vašem prenosniku)
+  - zanimivi testni primeri
+  - dogodke beležite z vektorskimi urami, dnevnik vizualizirate
