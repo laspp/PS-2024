@@ -8,8 +8,8 @@ Razširjanje sporočil z govoricami iz tretje naloge nadgradite z zagotavljanjem
 
   - pošiljanje sporočil,
   - sprejemanje in shranjevanje sporočil v medpomnilnik,
-  - izbiranje najprimernejšega sporočila in
-  - posredovanje najprimernejšega sporočila aplikaciji.
+  - izbiranje sporočila glede na zahteve vrstnega reda dostave in
+  - posredovanje izbranega sporočila aplikaciji.
 
 - Sporočila dopolnite s potrebnimi metapodatki, ki vam bodo omogočali izbiranje najprimernejšega sporočila.
 
@@ -28,11 +28,11 @@ Procesi naj ob zagonu preberejo konfiguracijsko datoteko, ki vključuje
 
 Seveda najprej zato, da porazdeljene algoritme bolje razumete in da se še bolje spoznate z jezikom go.
 
-Potem pa tudi zato, da si prislužite dodatne točke pri predmetu in si zagotovite lepšo končno oceno. Končna ocena predmeta je sestavljena iz ocene domačih nalog (50 %) in iz pisnega izpita (50 %) iz pisnega izpita. Pravilna in lepo predstavljena rešitev za vzročno razširjanje vam h končni oceni prinese do 10 %, prepričljiva rešitev s popolnoma urejenim razširjanjem FIFO pa do 40 %.
+Potem pa tudi zato, da si zagotovite lepšo končno oceno. Končna ocena predmeta je sestavljena iz ocene domačih nalog (50 %) in iz pisnega izpita (50 %). Pravilna in lepo predstavljena rešitev za vzročno razširjanje vam h končni oceni prinese do 10 %, prepričljiva rešitev s popolnoma urejenim razširjanjem FIFO pa do 30 %.
 
 ## Kdaj?
 
-Rešitve morate oddati najkasneje do srede, 15. 1. 2024, in jih uspešno zagovarjate pred prvim izpitnim rokom.
+Rešitve morate oddati najkasneje do srede, 15. 1. 2024, in jih uspešno zagovarjati pred prvim izpitnim rokom.
 
 ## Kako?
 
@@ -41,4 +41,4 @@ Rešitev naložite na učilnico in jo zagovarjate profesorju. Na zagovoru
 - predstavite kodo in
 - demonstrirate pravilnost delovanja (lahko na gruči ali na vašem prenosniku)
   - zanimivi testni primeri
-  - dogodke beležite z vektorskimi urami, dnevnik vizualizirate
+  - dogodke beležite z vektorskimi urami, dnevnik vizualizirate, ...
