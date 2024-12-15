@@ -140,9 +140,10 @@
   - dnevnik je urejen seznam zapisov
   - vsak zapis vključuje
     - deterministično operacijo nad shrambo (za replikacijo shrambe)
-    - oznako voditelja
+    - oznako voditelja (da sledilci lahko usmerjajo odjemalce)
+    - številko trenutnega obdobja (za nadzor nad gradnjo dnevnika)
     - številko zapisa v dnevniku (za nadzor nad gradnjo dnevnika)
-    - številko obdobja, v katerem je voditelj zadnjič zmagal (za nadzor nad gradnjo dnevnika)
+    - številko predhodnega obdobja in zapisa (za nadzor nad gradnjo dnevnika)
 - lokalni dnevnik razširja na sledilce
 - vsak sledilec gradi svoj dnevnik iz prejetih sporočil
 - proces lahko zapise, ki so soglasno usklajeni med vsemi procesi, uporabi za posodobitev shrambe
@@ -154,15 +155,15 @@
 ### Algoritem
 
 - odjemalec pošlje voditelju zahtevo za operacijo nad shrambo
-- voditelj pripravi dnevniški zapis, ki vključuje operacijo in kontrolne parametre (številko zapisa, številko obdobja)
-- nato zapis razširi (pošlje) sledilcem
-- če po preteku določenega časa ni novih operacij, voditelj pošlje prazen zapis (srčni utrip)
+- voditelj pripravi dnevniški zapis, ki vključuje operacijo in kontrolne parametre (oznako voditelja, številko zapisa, številko obdobja)
+- voditelj nato zapis razširi (pošlje) sledilcem
+  - voditelj lahko v potrjevanje pošlje nov zapis šele potem, ko je prejšnji potrjen
+  - če po preteku določenega časa ni novih operacij, voditelj pošlje prazen zapis (srčni utrip)
 - sledilec zapis doda v svoj dnevnik in voditelju potrdi sprejem
-- ko voditelj prejme potrditve od večine sledilcev, privzame, da je zapis potrjen in operacijo iz zapisa izvede na svoji shrambi
+- ko voditelj prejme dovolj potrditev (večina), privzame, da je zapis potrjen in operacijo iz zapisa izvede na svoji shrambi
 - voditelj pošlje potrditev odjemalcem
-- sledilcem sporoči, da je zapis potrjen, tako, da pri razširjanju naslednjega zapisa ali srčnega utripa uporabi številko zadnjega potrjenega zapisa
-- sledilec po prejemu sporočila potrdi svoj zapis in izvede operacijo na svoji shrambi
-- voditelj lahko v potrjevanje pošlje nov zapis šele potem, ko je prejšnji potrjen
+- voditelj potrditev zapisa sporoči sledilcem ob razširjanju naslednjega zapisa ali srčnega utripa tako, s tem, ko poveča številko zapisa
+- sledilec ob prejemu sporočila potrdi svoj zapis in izvede operacijo na svoji shrambi
 - nov voditelj začne razširjati zapise šele potem, ko ima vse svoje zapise potrjene
   - ob zmagi na volitvah v dnevnik doda zapis z operacijo nop (*angl.* no operation)
   - ko je ta potrjena, začne razširjati ostale zapise
@@ -254,11 +255,10 @@
 
 - ko sledilec pride nazaj v sistem
   - od voditelja prejme sporočilo z novim zapisom
-  - sporočilo vključuje podatke o prejšnjem zapisu - številko zapisa in številko obdobja
-  - če sledilec ne najde zapisa z istimi podatki kot so za prejšnji zapis navedeni v sporočilu, sporočilo zavrne, da ne ustvari luknje v dnevniku
+  - če sledilec ne najde zapisa z istimi podatki, kot so za prejšnji zapis navedeni v sporočilu, sporočilo zavrne, da ne ustvari luknje v dnevniku
   - voditelj zato sledilcu pošlje sporočilo s predhodnim zapisom
-  - postopek ponavljata, dokler številka zapisa in številka obdobja nista sprejemljiva za sledilca
-  - v primeru, da ima sledilec v dnevniku že kakšne zapise, novejše od točke ujemanja, jih pobriše in zamenja z zapisi, ki jih dobi od trenutnega voditelja
+  - postopek ponavljata, dokler številka obdobja in številka zapisa nista sprejemljiva za sledilca
+  - v primeru, da ima sledilec v dnevniku že nepotrjene zapise, novejše od točke ujemanja, jih pobriše in zamenja z zapisi, ki jih dobi od trenutnega voditelja
   - zapise lahko prejema zaporedno ali v paketu, odvisno od izvedbe
 
 ### Dopolnitve, potrebne za produkcijski sistem
@@ -268,10 +268,12 @@
   - procesi v sistemu se morajo uskladiti za spremembo zgradbe sistema
     - dodajanje in odstranjevanje procesov mora iti preko mehanizma soglasja
     - dodamo ukaze, ki se ne nanašajo na samo shrambo
+
 - velikost dnevnika
   - ko ima dnevnik ogromno zapisov, bi posodabljanje shrambe iz nič trajalo zelo dolgo
   - občasno je treba narediti varnostno sliko shrambe (*angl.* checkpoint, snapshot)
   - potem lahko vse zapise v dnevniku, ki so bili s soglasjem potrjeni pred izdelavo varnostne slike, pobrišemo
+
 - komunikacija z odjemalci
   - odjemalec komunicira z voditeljem
   - če voditelj ni znan ali se je spremenil, ga mora vsak proces v sistemu znati preusmeriti na voditelja

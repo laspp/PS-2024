@@ -32,12 +32,12 @@
   - shramba, odporna na napake
   - vpis v shrambo se ne zgodi v trenutku
     - odjemalec zahtevo posreduje preko voditelja
-    - voditelj zahtevo razširi med ostale procese
+    - voditelj zahtevo razširi med sledilce
     - ko dobi večinsko potrditev, obvesti odjemalca o uspešnem vpisu
-    - vse, kar vemo, je, da se je vpis zgodil nekje med oddajo zahteve in sprejemom potrditve
-    - v sistemu s skupnim pomnilnikom z vsakim branjem po vpisu preberemo novo vrednost; v sistemih s porazdeljenim pomnilnikom na to ne smemo računati
+    - vemo, da se je vpis zgodil nekje med oddajo zahteve in sprejemom potrditve
+    - v sistemu s skupnim pomnilnikom z branjem, ki sledi vpisu, preberemo novo vrednost; v sistemih s porazdeljenim pomnilnikom na to ne smemo računati
   - tudi branje se ne zgodi v trenutku
-    - pred vsakim branjem mora preveriti, če je še voditelj, šele nato lahko odgovori odjemalcu
+    - pred vsakim branjem mora proces preveriti, če je še voditelj; šele nato lahko odgovori odjemalcu
     - voditelj predstavlja ozko grlo
   - pri branju ne spreminjamo stanja shrambe, zato bi lahko bralne zahteve stregli tudi drugi procesi v skupini
     - s porazdeljevanjem branja dobimo bolj odziven sistem
@@ -74,7 +74,7 @@
 - dovolimo, da odjemalec komunicira s katerimkoli procesom v skupini, ki izvaja replikacijo z voditeljem
   - imamo dva sledilca, pri vpisovanju številke 7 sledilec 1 zaostaja za sledilcem 2
   - odjemalec 2 najprej bere preko sledilca 2, ko ta odpove, začne brati preko sledilca 1; ob prvem branju iz sledilca 1 bo lahko videl starejšo sliko, kot jo ima trenutno
-- odjemalec zagotovo ve samo to, da če se vpisovanja v shrambo zaključijo, bo s časoma (na koncu) shramba na vseh sledilcih enaka kot na voditelju
+- če se vpisovanja v shrambo zaključijo, bo s časoma (na koncu) shramba na vseh sledilcih enaka kot na voditelju
 
   <img src="slike/skladnost-koncna.png" width="60%" />
 
