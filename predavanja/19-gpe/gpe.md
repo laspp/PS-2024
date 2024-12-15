@@ -145,7 +145,7 @@
   - blok niti
     - bloke niti na računske enote enakomerno razvršča glavni razvrščevalnik na napravi
     - vse niti v bloku se izvajajo na isti računski enoti
-    - na isti računski enoti se hkrati lahko izvaja več različnih blokov niti, števil oje omejeno z arhitekturo GPE
+    - na isti računski enoti se hkrati lahko izvaja več različnih blokov niti, število je omejeno z arhitekturo GPE
     - blok niti se na računski enoti izvaja neodvisno od ostalih blokov
     - vrstni red izvajanja blokov ni podan: predvideti moramo, da se bloki lahko izvajajo celo zaporedno
     - blok niti se na računski enoti izvaja dokler z izvajanjem ne zaključijo vse niti v bloku
@@ -156,7 +156,7 @@
     - snop je osnovna enota, s katero upravlja računska enota
     - niti v snopu izvajajo isti ukaz
       - koncept SIMT (*angl.* single instruction multiple threads)
-      - vsaka nit ima svoj programski števec in zasebne registre, zato se lahko neodvisno vejijo in izvajajo
+      - vsaka nit ima svoj programski števec in zasebne registre, zato se niti lahko neodvisno vejijo in izvajajo
       - izvajanje niti v snopu je učinkovito, če vse hkrati izvajajo isti ukaz
       - če niti v snopu vejijo, se začnejo izvajati zaporedno, dokler se vse ne vrnejo na isti ukaz
     - preklapljanje med snopi
