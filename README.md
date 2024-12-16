@@ -71,7 +71,7 @@
     [soglasje, skladnost in replikacija brez sporov](predavanja/17-replikacija-3/replikacija-3.md),
     [(transakcije)](predavanja/18-transakcije/transakcije.md)
 
-- [Božično-novoletni izziv](predavanja/izziv/izziv.md)
+- [Božično-novoletni izziv](izziv/izziv.md)
 
 ### Grafične procesne enote
 
