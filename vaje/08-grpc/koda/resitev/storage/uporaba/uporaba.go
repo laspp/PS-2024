@@ -4,8 +4,8 @@
 package main
 
 import (
+	"api/storage"
 	"fmt"
-	"primer/storage"
 )
 
 func main() {

@@ -4,9 +4,9 @@
 package main
 
 import (
+	"api/grpc/protobufStorage"
 	"context"
 	"fmt"
-	"primer/grpc/protobufStorage"
 	"time"
 
 	"google.golang.org/grpc"
