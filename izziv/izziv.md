@@ -2,10 +2,9 @@
 
 ## Kaj?
 
-Razširjanje sporočil z govoricami iz tretje naloge nadgradite z zagotavljanjem vrstnega reda dostave sporočil aplikaciji.
+Razširjanje sporočil nadgradite z zagotavljanjem vrstnega reda dostave sporočil aplikaciji:
 
 - Pripravite ogrodje za razširjanje sporočil, ki na vsakem procesu vzpostavi medpomnilnik za sporočila in vključuje metode za
-
   - pošiljanje sporočil,
   - sprejemanje in shranjevanje sporočil v medpomnilnik,
   - izbiranje sporočila glede na zahteve vrstnega reda dostave in
@@ -13,16 +12,20 @@ Razširjanje sporočil z govoricami iz tretje naloge nadgradite z zagotavljanjem
 
 - Sporočila dopolnite s potrebnimi metapodatki, ki vam bodo omogočali izbiranje najprimernejšega sporočila.
 
-Podprite dve različici razširjanja sporočil z zagotavljanjem vrstnega reda dostave:
+- Za komunikacijo lahko uporabite protokol UDP, protokol TCP, ali eno od rešitev za oddaljeno klicanje metod.
 
-- Pri **vzročnem razširjanju** uporabite koncept, podoben vektorskim uram in sledite [psevdo algoritmu](../14-razsirjanje-sporocil/razsirjanje-sporocil.md#algoritem-za-vzročno-razširjanje).
-- Pri **popolnoma urejenem razširjanju FIFO** sledite [pristopu z enim voditeljem](../14-razsirjanje-sporocil/razsirjanje-sporocil.md#popolnoma-urejeno-razširjanje-in-popolnoma-urejeno-razširjanje-fifo). Za povečanje odpornosti voditelja uporabite algoritem [raft](../16-replikacija-2/replikacija-2.md#replikacija-z-voditeljem-algoritem-raft-uds9), pri tem lahko uporabite obstoječo [kodo ali knjižnico za jezik go](../16-replikacija-2/replikacija-2.md#raft-v-jeziku-go).
+Podprite eno od spodnjih različic za razširjanja sporočil z zagotavljanjem vrstnega reda dostave:
 
-Procesi naj ob zagonu preberejo konfiguracijsko datoteko, ki vključuje
+- Pri **vzročnem razširjanju** nadgradite razširjanje z govoricami z mehanizmom, podobnim vektorskim uram. Sledite [psevdo algoritmu](../predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md#algoritem-za-vzročno-razširjanje).
 
-- število procesov,
-- graf časov prenašanja sporočil v obliki matrike; vrednost 0 pomeni, da ni povezave in
-- urnik odpošiljanja sporočil (proces, sporočilo, čas).
+- Pri **popolnoma urejenem razširjanju FIFO** sledite [pristopu z enim voditeljem](../predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md#popolnoma-urejeno-razširjanje-in-popolnoma-urejeno-razširjanje-fifo). Za povečanje odpornosti uporabite algoritem [raft](../predavanja/16-replikacija-2/replikacija-2.md#replikacija-z-voditeljem-algoritem-raft-uds9), pri tem lahko izhajate iz obstoječe [kode ali knjižnice za jezik go](../predavanja/16-replikacija-2/replikacija-2.md#raft-v-jeziku-go). Popolnoma urejeno razširjanje FIFO si lahko predstavljamo kot skupino procesov v shemi raft, kjer ni zunanjih odjemalcev - odjemalci so kar procesi v shemi raft (sledilci, kandidati, voditelj) in voditelju pošiljajo sporočila. Naloga voditelja je, da prejeta sporočila v zahtevanem vrstnem redu razširi na vse sledilce.  
+
+Procesi naj ob zagonu preberejo konfiguracijsko datoteko (primer bo objavljen v naslednjih dneh), ki vključuje
+
+- število procesov ($P$),
+- urnik prenašanja sporočil med procesi (čas, pošiljatelj, prejemniki, časovni razmik med pošiljanji).
+
+Da bodo procesi kolikor toliko časovno usklajeni, bomo vse procese zaganjali na enem vozlišču. Procese oštevilčite od $0..P-1$. Ob vzpostavitvi naj vsi procesi vprašajo proces $0$ za njegov začetni čas. Med izvajanjem naj potem vsi procesi sledijo urniku pošiljanja glede na začetni čas procesa $0$.
 
 ## Zakaj?
 
