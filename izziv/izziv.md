@@ -20,7 +20,7 @@ Podprite eno od spodnjih različic za razširjanja sporočil z zagotavljanjem vr
 
 - Pri **popolnoma urejenem razširjanju FIFO** sledite [pristopu z enim voditeljem](../predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md#popolnoma-urejeno-razširjanje-in-popolnoma-urejeno-razširjanje-fifo). Za povečanje odpornosti uporabite algoritem [raft](../predavanja/16-replikacija-2/replikacija-2.md#replikacija-z-voditeljem-algoritem-raft-uds9), pri tem lahko izhajate iz obstoječe [kode ali knjižnice za jezik go](../predavanja/16-replikacija-2/replikacija-2.md#raft-v-jeziku-go). Popolnoma urejeno razširjanje FIFO si lahko predstavljamo kot skupino procesov v shemi raft, kjer ni zunanjih odjemalcev - odjemalci so kar procesi v shemi raft (sledilci, kandidati, voditelj) in voditelju pošiljajo sporočila. Naloga voditelja je, da prejeta sporočila v zahtevanem vrstnem redu razširi na vse sledilce.  
 
-Procesi naj ob zagonu preberejo konfiguracijsko datoteko (primer [izziv.json](izziv.json))), ki vključuje
+Procesi naj ob zagonu preberejo konfiguracijsko datoteko (primer [izziv.json](izziv.json)), ki vključuje
 
 - število procesov (`processes`),
 - urnik prenašanja sporočil med procesi, ki vključuje poljubno število zapisov z naslednjimi podatki:
