@@ -16,16 +16,21 @@ Razširjanje sporočil nadgradite z zagotavljanjem vrstnega reda dostave sporoč
 
 Podprite eno od spodnjih različic za razširjanja sporočil z zagotavljanjem vrstnega reda dostave:
 
-- Pri **vzročnem razširjanju** nadgradite razširjanje z govoricami z mehanizmom, podobnim vektorskim uram. Sledite [psevdo algoritmu](../predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md#algoritem-za-vzročno-razširjanje).
+- Pri **vzročnem razširjanju** nadgradite razširjanje z govoricami z mehanizmom, podobnim vektorskim uram. Sledite [psevdo algoritmu](../predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md#algoritem-za-vzročno-razširjanje). Da zagotovimo deterministično obnašanje procesov, naj pošiljatelj iz konfiguracijske datoteke prebere oznake prejemnikov sporočila.
 
 - Pri **popolnoma urejenem razširjanju FIFO** sledite [pristopu z enim voditeljem](../predavanja/14-razsirjanje-sporocil/razsirjanje-sporocil.md#popolnoma-urejeno-razširjanje-in-popolnoma-urejeno-razširjanje-fifo). Za povečanje odpornosti uporabite algoritem [raft](../predavanja/16-replikacija-2/replikacija-2.md#replikacija-z-voditeljem-algoritem-raft-uds9), pri tem lahko izhajate iz obstoječe [kode ali knjižnice za jezik go](../predavanja/16-replikacija-2/replikacija-2.md#raft-v-jeziku-go). Popolnoma urejeno razširjanje FIFO si lahko predstavljamo kot skupino procesov v shemi raft, kjer ni zunanjih odjemalcev - odjemalci so kar procesi v shemi raft (sledilci, kandidati, voditelj) in voditelju pošiljajo sporočila. Naloga voditelja je, da prejeta sporočila v zahtevanem vrstnem redu razširi na vse sledilce.  
 
-Procesi naj ob zagonu preberejo konfiguracijsko datoteko (primer bo objavljen v naslednjih dneh), ki vključuje
+Procesi naj ob zagonu preberejo [konfiguracijsko datoteko](izziv.md), ki vključuje
 
-- število procesov ($P$),
-- urnik prenašanja sporočil med procesi (čas, pošiljatelj, prejemniki, časovni razmik med pošiljanji).
+- število procesov (`processes`),
+- urnik prenašanja sporočil med procesi, ki vključuje
+  - oznako pošiljatelja (`sender`),
+  - seznam prejemnikov (`receivers`),
+  - sporočilo (`message`),
+  - čas začetka pošiljanja sporočila (`timestart`) v sekundah - ob tem času pošiljatelj sporočilo pošlje prvemu procesu v tabeli `receivers`,
+  - časovni zamik (`delay`) pred pošiljanjem sporočila naslednjemu procesu v seznamu `receivers` (podan v sekundah).
 
-Da bodo procesi kolikor toliko časovno usklajeni, bomo vse procese zaganjali na enem vozlišču. Procese oštevilčite od $0..P-1$. Ob vzpostavitvi naj vsi procesi vprašajo proces $0$ za njegov začetni čas. Med izvajanjem naj potem vsi procesi sledijo urniku pošiljanja glede na začetni čas procesa $0$.
+Da bodo procesi kolikor toliko časovno usklajeni, bomo vse procese zaganjali na enem vozlišču. Procese oštevilčimo od 0..`processes`-1. Ob vzpostavitvi naj vsi procesi vprašajo proces $0$ za njegov začetni čas. Med izvajanjem naj potem vsi procesi sledijo urniku pošiljanja glede na začetni čas procesa $0$.
 
 ## Zakaj?
 
