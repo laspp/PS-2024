@@ -1,6 +1,7 @@
 // računanje razlike vektorjev
 // 		argumenti: število blokov, število niti in dolžina vektorjev
 // 		elementi vektorjev so inicializirani naključno
+// rešitev z uporabo enotnega pomnilnika
 
 package main
 
@@ -34,42 +35,26 @@ func main() {
 	}
 	defer dev.Close()
 
-	// rezerviramo pomnilnik na gostitelju
-	hc := make([]float32, *vectorSizePtr)
-	ha := make([]float32, *vectorSizePtr)
-	hb := make([]float32, *vectorSizePtr)
+	// rezerviramo pomnilnik
+	sizeFloat32 := uint64(unsafe.Sizeof(float32(0.0)))
 
-	// rezerviramo pomnilnik na napravi
-	sizeFloat32 := int(unsafe.Sizeof(float32(0.0)))
-	sizeMem := uint64(*vectorSizePtr * sizeFloat32)
-
-	dc, err := cuda.DeviceMemAlloc(sizeMem)
+	c, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), sizeFloat32)
 	if err != nil {
 		panic(err)
 	}
-	da, err := cuda.DeviceMemAlloc(sizeMem)
+	a, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), sizeFloat32)
 	if err != nil {
 		panic(err)
 	}
-	db, err := cuda.DeviceMemAlloc(sizeMem)
+	b, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), sizeFloat32)
 	if err != nil {
 		panic(err)
 	}
 
 	// nastavimo vrednosti vektorjev a in b na gostitelju
 	for i := 0; i < *vectorSizePtr; i++ {
-		ha[i] = rand.Float32()
-		hb[i] = rand.Float32()
-	}
-
-	// prenesemo vektorja a in b iz gostitelja na napravo
-	err = da.MemcpyToDevice(uintptr(unsafe.Pointer(&ha[0])), sizeMem)
-	if err != nil {
-		panic(err)
-	}
-	err = db.MemcpyToDevice(uintptr(unsafe.Pointer(&hb[0])), sizeMem)
-	if err != nil {
-		panic(err)
+		a.Arr[i] = rand.Float32()
+		b.Arr[i] = rand.Float32()
 	}
 
 	// zaženemo kodo na napravi
@@ -79,7 +64,7 @@ func main() {
 	}
 	gridSize := cuda.Dim3{X: uint32(numBlocks), Y: 1, Z: 1}
 	blockSize := cuda.Dim3{X: uint32(*numThreadsPtr), Y: 1, Z: 1}
-	err = cudago.VectorSubtract(gridSize, blockSize, dc.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	err = cudago.VectorSubtract(gridSize, blockSize, c.Ptr, a.Ptr, b.Ptr, int32(*vectorSizePtr))
 	if err != nil {
 		panic(err)
 	}
@@ -90,13 +75,10 @@ func main() {
 		panic(err)
 	}
 
-	// vektor c prekopiramo iz naprave na gostitelja
-	err = dc.MemcpyFromDevice(uintptr(unsafe.Pointer(&hc[0])), sizeMem)
-
 	// preverimo rezultat
 	ok := true
 	for i := 0; i < *vectorSizePtr; i++ {
-		if ha[i]-hb[i] != hc[i] {
+		if a.Arr[i]-b.Arr[i] != c.Arr[i] {
 			ok = false
 		}
 	}

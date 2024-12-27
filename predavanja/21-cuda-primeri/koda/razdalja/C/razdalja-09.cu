@@ -2,7 +2,7 @@
 // 		argumenti: število blokov, število niti in dolžina vektorjev
 // 		elementi vektorjev so inicializirani naključno
 // na napravi izračunamo vsote kvadratov za vsak blok:
-//		redukcija po drevesu, korak se zmanjšuje, v snopu ne potrebujemo sinhornizacije
+//		redukcija po drevesu, korak se zmanjšuje, v snopu ne potrebujemo sinhronizacije
 //		atomarno seštevanje in enotni pomnilnik
 
 #include <stdio.h>

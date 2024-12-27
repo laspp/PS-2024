@@ -1,4 +1,8 @@
-//#include <cuda.h>
+// dobra rešitev, neodvisna od tega števila blokov 
+// število blokov lahko vnesemo kot argument ali pa jih izračunamo pred klicem ščepca
+
+#include <cuda.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
