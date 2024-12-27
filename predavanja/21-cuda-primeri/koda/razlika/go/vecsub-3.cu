@@ -1,12 +1,10 @@
 // slaba rešitev: ne deluje, če je elementov več kot niti
 
-#include <cuda.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-__global__ void vectorSubtract(float *c, const float *a, const float *b, int len) {
+__global__ void vectorSubtract3(float *c, const float *a, const float *b, int len) {
 	// določimo globalni indeks elementov
 	int gid = blockDim.x * blockIdx.x + threadIdx.x;	
 	// preprečimo pisanje v nealocirani pomnilnik

@@ -64,7 +64,7 @@ func main() {
 	}
 	gridSize := cuda.Dim3{X: uint32(numBlocks), Y: 1, Z: 1}
 	blockSize := cuda.Dim3{X: uint32(*numThreadsPtr), Y: 1, Z: 1}
-	err = cudago.VectorSubtract(gridSize, blockSize, c.Ptr, a.Ptr, b.Ptr, int32(*vectorSizePtr))
+	err = cudago.VectorSubtract4(gridSize, blockSize, c.Ptr, a.Ptr, b.Ptr, int32(*vectorSizePtr))
 	if err != nil {
 		panic(err)
 	}

@@ -2,19 +2,19 @@
 package cudago
 
 import (
-    "github.com/InternatBlackhole/cudago/cuda"
 	"unsafe"
+
+	"github.com/InternatBlackhole/cudago/cuda"
 )
 
+// here just to force usage of unsafe package
+var __hello_useless_var__ unsafe.Pointer = nil
 
 const (
 	KeyHello = "hello"
 )
 
-
 type helloArgs struct {
-    void unsafe.Pointer
-
 }
 
 /*var (
@@ -22,13 +22,7 @@ type helloArgs struct {
 
 )*/
 
-
-
-
-
-
-
-func Hello(grid, block cuda.Dim3, void unsafe.Pointer) error {
+func Hello(grid, block cuda.Dim3) error {
 	err := autoloadLib_hello()
 	if err != nil {
 		return err
@@ -37,14 +31,11 @@ func Hello(grid, block cuda.Dim3, void unsafe.Pointer) error {
 	if err != nil {
 		return err
 	}
-	params := helloArgs{
-	    void: void,
-	
-	}
-	return kern.Launch(grid, block, unsafe.Pointer(&params.void))
+
+	return kern.Launch(grid, block)
 }
 
-func HelloEx(grid, block cuda.Dim3, sharedMem uint64, stream *cuda.Stream, void unsafe.Pointer) error {
+func HelloEx(grid, block cuda.Dim3, sharedMem uint64, stream *cuda.Stream) error {
 	err := autoloadLib_hello()
 	if err != nil {
 		return err
@@ -53,19 +44,14 @@ func HelloEx(grid, block cuda.Dim3, sharedMem uint64, stream *cuda.Stream, void 
 	if err != nil {
 		return err
 	}
-	params := helloArgs{
-	    void: void,
-	
-	}
-	return kern.LaunchEx(grid, block, sharedMem, stream, unsafe.Pointer(&params.void))
+
+	return kern.LaunchEx(grid, block, sharedMem, stream)
 }
-
-
 
 var loaded_hello = false
 
+var pathToCompile_hello = "./hello.cu"
 
-var pathToCompile_hello = "/d/hpc/home/urosl/ps/PS-2024/predavanja/20-cuda/koda/go/hello.cu"
 func autoloadLib_hello() error {
 	var code []byte
 	if loaded_hello {
@@ -82,4 +68,3 @@ func autoloadLib_hello() error {
 	loaded_hello = true
 	return nil
 }
-

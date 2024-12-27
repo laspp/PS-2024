@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"pozdrav-gpe/cudago"
-	"unsafe"
 
 	"github.com/InternatBlackhole/cudago/cuda"
 )
@@ -25,8 +24,7 @@ func main() {
 	gridSize := cuda.Dim3{X: uint32(*bPtr), Y: 1, Z: 1}
 	blockSize := cuda.Dim3{X: uint32(*tPtr), Y: 1, Z: 1}
 
-	var void *struct{}
-	err = cudago.Hello(gridSize, blockSize, unsafe.Pointer(void))
+	err = cudago.Hello(gridSize, blockSize)
 	if err != nil {
 		panic(err)
 	}

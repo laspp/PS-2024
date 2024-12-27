@@ -1,12 +1,10 @@
 // slaba rešitev: indeks niti je lahko večji od velikosti tabele
 
-#include <cuda.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-__global__ void vectorSubtract(float *c, const float *a, const float *b, int len) {
+__global__ void vectorSubtract1(float *c, const float *a, const float *b, int len) {
 	int gid = threadIdx.x;	
 	c[gid] = a[gid] - b[gid];
 }

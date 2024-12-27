@@ -1,12 +1,10 @@
 // slaba rešitev: podpora samo za en blok niti
 
-#include <cuda.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-__global__ void vectorSubtract(float *c, const float *a, const float *b, int len) {
+__global__ void vectorSubtract2(float *c, const float *a, const float *b, int len) {
 	int gid = threadIdx.x;	
 	// preprečimo pisanje v nealocirani pomnilnik
 	if (gid < len)
