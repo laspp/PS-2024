@@ -78,7 +78,7 @@ func main() {
 	}
 
 	// vektor c prekopiramo iz naprave na gostitelja
-	err = dc.MemcpyFromDevice(uintptr(unsafe.Pointer(&hc[0])), memSize)
+	err = dc.MemcpyFromDevice(uintptr(unsafe.Pointer(&hc[0])), uint64(memSize))
 
 	// preverimo rezultat
 	ok := true
