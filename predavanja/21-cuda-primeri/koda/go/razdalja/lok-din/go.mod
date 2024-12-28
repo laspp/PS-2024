@@ -1,4 +1,4 @@
-module razlika
+module razdalja
 
 go 1.22.1
 

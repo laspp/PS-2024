@@ -37,19 +37,21 @@ func main() {
 
 	// rezerviramo pomnilnik
 	sizeFloat32 := uint64(unsafe.Sizeof(float32(0.0)))
-
 	c, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), sizeFloat32)
 	if err != nil {
 		panic(err)
 	}
+	defer c.Free()
 	a, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), sizeFloat32)
 	if err != nil {
 		panic(err)
 	}
+	defer a.Free()
 	b, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), sizeFloat32)
 	if err != nil {
 		panic(err)
 	}
+	defer b.Free()
 
 	// nastavimo vrednosti vektorjev a in b na gostitelju
 	for i := 0; i < *vectorSizePtr; i++ {
@@ -69,7 +71,7 @@ func main() {
 		panic(err)
 	}
 
-	// počakamo, da vse niti na napravi zaključijo
+	// počakamo, da se procesiranje zahtev na napravi zaključi
 	err = cuda.CurrentContextSynchronize()
 	if err != nil {
 		panic(err)
