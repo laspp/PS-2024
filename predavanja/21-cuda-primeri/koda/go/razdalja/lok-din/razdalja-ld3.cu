@@ -1,11 +1,12 @@
 // na napravi izračunamo vsote kvadratov za vsak blok:
-//		redukcija po drevesu, korak se povečuje
+//		uporabimo skupni pomnilnik, dinamična rezervacija
+//		redukcija po drevesu, korak se zmanjšuje
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-__global__ void vectorDistance5(float *p, const float *a, const float *b, int len) {
+__global__ void vectorDistanceLD3(float *p, const float *a, const float *b, int len) {
 	// skupni pomnilnik niti v bloku
 	extern __shared__ float part[];
 	part[threadIdx.x] = 0.0;
@@ -23,11 +24,11 @@ __global__ void vectorDistance5(float *p, const float *a, const float *b, int le
 	__syncthreads();
 
 	// izračunamo delno vsoto za blok niti
-    int idxStep;
-	for(idxStep = 1; idxStep < blockDim.x ; idxStep *= 2) {
-		if (threadIdx.x % (idxStep*2) == 0)
+	int idxStep;
+	for(idxStep = blockDim.x/2; idxStep > 0 ; idxStep /= 2)	{
+		if (threadIdx.x < idxStep)
 			part[threadIdx.x] += part[threadIdx.x+idxStep];
-		__syncthreads();
+        __syncthreads();
 	}
 
     if (threadIdx.x == 0)

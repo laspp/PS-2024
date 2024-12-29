@@ -1,11 +1,12 @@
 // na napravi izračunamo vsote kvadratov za vsak blok:
+//		uporabimo skupni pomnilnik, dinamična rezervacija
 //		redukcija po drevesu, korak se zmanjšuje, v snopu ne potrebujemo sinhronizacije
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-__global__ void vectorDistance7(float *p, const float *a, const float *b, int len) {
+__global__ void vectorDistanceLD4(float *p, const float *a, const float *b, int len) {
 	// skupni pomnilnik niti v bloku
 	extern __shared__ float part[];
 	part[threadIdx.x] = 0.0;

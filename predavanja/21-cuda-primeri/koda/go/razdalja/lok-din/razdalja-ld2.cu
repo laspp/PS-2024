@@ -1,12 +1,12 @@
 // na napravi izračunamo vsote kvadratov za vsak blok:
-//		redukcija po drevesu, korak se zmanjšuje, v snopu ne potrebujemo sinhronizacije
-//		atomarno seštevanje
+//		uporabimo skupni pomnilnik, dinamična rezervacija
+//		redukcija po drevesu, korak se povečuje
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-__global__ void vectorDistance8a(float *sPtr, const float *a, const float *b, int len) {
+__global__ void vectorDistanceLD2(float *p, const float *a, const float *b, int len) {
 	// skupni pomnilnik niti v bloku
 	extern __shared__ float part[];
 	part[threadIdx.x] = 0.0;
@@ -24,20 +24,15 @@ __global__ void vectorDistance8a(float *sPtr, const float *a, const float *b, in
 	__syncthreads();
 
 	// izračunamo delno vsoto za blok niti
-	int idxStep;
-	for(idxStep = blockDim.x >> 1; idxStep > 32 ; idxStep >>= 1) {
-		if (threadIdx.x < idxStep)
+    int idxStep;
+	for(idxStep = 1; idxStep < blockDim.x ; idxStep *= 2) {
+		if (threadIdx.x % (idxStep*2) == 0)
 			part[threadIdx.x] += part[threadIdx.x+idxStep];
-        __syncthreads();
-	}
-	for( ; idxStep > 0 ; idxStep >>= 1 ) {
-		if (threadIdx.x < idxStep)
-			part[threadIdx.x] += part[threadIdx.x+idxStep];
-		__syncwarp();
+		__syncthreads();
 	}
 
     if (threadIdx.x == 0)
-		atomicAdd(sPtr, part[0]);
+        p[blockIdx.x] = part[0];
 }
 
 #ifdef __cplusplus

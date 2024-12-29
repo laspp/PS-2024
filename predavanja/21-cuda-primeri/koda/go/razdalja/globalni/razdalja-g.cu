@@ -1,11 +1,11 @@
 // nadgrajen ščepec vectorSubtract4
-// računanju razlike je dodano še kvadriranje
+// namesto razlike v vektor c zapišemo njen kvadrat
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-__global__ void vectorDistance2(float *c, const float *a, const float *b, int len) {
+__global__ void vectorDistanceG(float *c, const float *a, const float *b, int len) {
 	// določimo globalni indeks elementov
 	int gid = blockIdx.x * blockDim.x + threadIdx.x;
 	float diff;

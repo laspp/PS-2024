@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-__global__ void vectorDistance3(float *p, const float *a, const float *b, int len) {
+__global__ void vectorDistanceLS(float *p, const float *a, const float *b, int len) {
 	// skupni pomnilnik niti v bloku
 	__shared__ float part[1024];
 	part[threadIdx.x] = 0.0;

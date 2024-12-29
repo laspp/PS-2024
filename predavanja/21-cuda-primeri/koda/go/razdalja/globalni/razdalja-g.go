@@ -1,8 +1,9 @@
 // računanje razlike vektorjev
 // 		argumenti: število blokov, število niti in dolžina vektorjev
 // 		elementi vektorjev so inicializirani naključno
-// srun --reservation=fri --partition=gpu --gpus=1 go run main.go -b 0 -t 1024 -s 268435456
-// srun --reservation=fri --partition=gpu --gpus=1 go run -gcflags '-N' main.go -b 0 -t 1024 -s 268435456
+// nadgradimo računanje razlike vektorjev
+// 		na napravi razliko elementov kvadriramo in shranimo v vektor c
+//		na gostitelju seštejemo vse elemente vektorja c
 
 package main
 
@@ -44,36 +45,27 @@ func main() {
 	}
 	defer dev.Close()
 
-	// prirpavimo dogodke za merjenje časa
-	startDevice, err := cuda.NewEvent()
-	if err != nil {
-		panic(err)
-	}
-	stopDevice, err := cuda.NewEvent()
-	if err != nil {
-		panic(err)
-	}
-
 	// rezerviramo pomnilnik na gostitelju
-	hs := make([]float32, 1)
+	hc := make([]float32, *vectorSizePtr)
 	ha := make([]float32, *vectorSizePtr)
 	hb := make([]float32, *vectorSizePtr)
 
-	// rezerviramo pomnilnik na napravi
-	sizeFloat32 := int(unsafe.Sizeof(float32(0.0)))
-	sizeMem := uint64(*vectorSizePtr * sizeFloat32)
+	// velikosti struktur v bajtih
+	bytesFloat32 := int(unsafe.Sizeof(float32(0.0)))
+	bytesVector := uint64(*vectorSizePtr * bytesFloat32)
 
-	ds, err := cuda.DeviceMemAlloc(uint64(sizeFloat32))
+	// rezerviramo pomnilnik na napravi
+	dc, err := cuda.DeviceMemAlloc(bytesVector)
 	if err != nil {
 		panic(err)
 	}
-	defer ds.Free()
-	da, err := cuda.DeviceMemAlloc(sizeMem)
+	defer dc.Free()
+	da, err := cuda.DeviceMemAlloc(bytesVector)
 	if err != nil {
 		panic(err)
 	}
 	defer da.Free()
-	db, err := cuda.DeviceMemAlloc(sizeMem)
+	db, err := cuda.DeviceMemAlloc(bytesVector)
 	if err != nil {
 		panic(err)
 	}
@@ -86,37 +78,25 @@ func main() {
 	}
 
 	// merjenje časa na napravi - začetek
-	err = startDevice.Record(nil)
+	startDevice := time.Now()
+
+	// prenesemo vektorja a in b iz gostitelja na napravo
+	err = da.MemcpyToDevice(uintptr(unsafe.Pointer(&ha[0])), bytesVector)
+	if err != nil {
+		panic(err)
+	}
+	err = db.MemcpyToDevice(uintptr(unsafe.Pointer(&hb[0])), bytesVector)
 	if err != nil {
 		panic(err)
 	}
 
-	// prenesemo vektorja a in b iz gostitelja na napravo
-	err = da.MemcpyToDevice(uintptr(unsafe.Pointer(&ha[0])), sizeMem)
-	if err != nil {
-		panic(err)
-	}
-	err = db.MemcpyToDevice(uintptr(unsafe.Pointer(&hb[0])), sizeMem)
-	if err != nil {
-		panic(err)
-	}
+	// merjenje časa izvajanja ščepca na napravi - začetek
+	startKernel := time.Now()
 
 	// zaženemo kodo na napravi
 	gridSize := cuda.Dim3{X: uint32(numBlocks), Y: 1, Z: 1}
 	blockSize := cuda.Dim3{X: uint32(*numThreadsPtr), Y: 1, Z: 1}
-	err = cudago.VectorDistance8aEx(gridSize, blockSize, uint64(*numThreadsPtr*sizeFloat32), nil, ds.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
-	if err != nil {
-		panic(err)
-	}
-
-	// skalar s prekopiramo iz naprave na gostitelja
-	err = ds.MemcpyFromDevice(uintptr(unsafe.Pointer(&hs[0])), uint64(sizeFloat32))
-
-	// dokončamo izračun razdalje za napravo
-	distDevice := math.Sqrt(float64(hs[0]))
-
-	// merjenje časa na napravi - konec
-	err = stopDevice.Record(nil)
+	err = cudago.VectorDistanceG(gridSize, blockSize, dc.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
 	if err != nil {
 		panic(err)
 	}
@@ -126,6 +106,22 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	// merjenje časa izvajanja ščepca na napravi - konec
+	timeKernel := time.Since(startKernel)
+
+	// vektor c prekopiramo iz naprave na gostitelja
+	err = dc.MemcpyFromDevice(uintptr(unsafe.Pointer(&hc[0])), bytesVector)
+
+	// dokončamo izračun razdalje za napravo
+	distDevice := float64(0.0)
+	for i := 0; i < *vectorSizePtr; i++ {
+		distDevice += float64(hc[i])
+	}
+	distDevice = math.Sqrt(distDevice)
+
+	// merjenje časa na napravi - konec
+	timeDevice := time.Since(startDevice)
 
 	// preverimo rezultat
 	startHost := time.Now()
@@ -138,12 +134,8 @@ func main() {
 	distHost = math.Sqrt(distHost)
 	timeHost := time.Since(startHost)
 
-	// rezultata izpišemo
-	timeDevice, err := cuda.EventElapsedTime(startDevice, stopDevice)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("naprava:      %f (%f ms)\ngostitelj:    %f (%f ms)\nnapaka (rel): %e\n",
-		distDevice, timeDevice, distHost, float64(timeHost)/1e6, math.Abs(distDevice/distHost-1))
-
+	// izpišemo rezultate
+	fmt.Printf("naprava:      %f (%v ms/%v us)\n", distDevice, timeDevice.Milliseconds(), timeKernel.Microseconds())
+	fmt.Printf("gostitelj:    %f (%v ms)\n", distHost, timeHost.Milliseconds())
+	fmt.Printf("napaka (rel): %e\n", math.Abs(distDevice/distHost-1))
 }
