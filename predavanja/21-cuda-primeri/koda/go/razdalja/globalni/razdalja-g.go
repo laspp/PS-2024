@@ -4,6 +4,8 @@
 // nadgradimo računanje razlike vektorjev
 // 		na napravi razliko elementov kvadriramo in shranimo v vektor c
 //		na gostitelju seštejemo vse elemente vektorja c
+//
+// srun --reservation=fri --partition=gpu --gpus=1 go run urejanje-g.go -t 1024 -s 8388608
 
 package main
 

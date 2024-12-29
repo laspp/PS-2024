@@ -46,25 +46,25 @@ __device__ void copyToShared(int *as, int *a) {
 	int i1Start = (2 * blockDim.x) * blockIdx.x;
 	as[threadIdx.x] = a[i1Start + threadIdx.x];	
 	as[blockDim.x + threadIdx.x] = a[i1Start + blockDim.x + threadIdx.x];
-	__syncthreads();
 }
 
 __device__ void copyFromShared(int *a, int *as) {
 	int i1Start = (2 * blockDim.x) * blockIdx.x;
 	a[i1Start + threadIdx.x] = as[threadIdx.x];	
 	a[i1Start + blockDim.x + threadIdx.x] = as[blockDim.x + threadIdx.x];
-	__syncthreads();
 }
 
 __global__ void bitonicSortStart(int *a, int len) {
 	extern __shared__ int as[];
 	copyToShared(as, a);
+	__syncthreads();
 	for (int k = 2; k <= 2 * blockDim.x; k <<= 1) 
 		for (int j = k/2; j > 0; j >>= 1) {
 			bitonicSortShared(as, len, k, j);
 			__syncthreads();
 	}
 	copyFromShared(a, as);
+	__syncthreads();
 }
 
 __global__ void bitonicSortMiddle(int *a, int len, int k, int j) {
@@ -74,11 +74,13 @@ __global__ void bitonicSortMiddle(int *a, int len, int k, int j) {
 __global__ void bitonicSortFinish(int *a, int len, int k) {
 	extern __shared__ int as[];
 	copyToShared(as, a);
+	__syncthreads();
 	for (int j = blockDim.x; j > 0; j >>= 1) {
 		bitonicSortShared(as, len, k, j);
 		__syncthreads();
 	}
 	copyFromShared(a, as);
+	__syncthreads();
 }
 
 int main(int argc, char **argv) {
