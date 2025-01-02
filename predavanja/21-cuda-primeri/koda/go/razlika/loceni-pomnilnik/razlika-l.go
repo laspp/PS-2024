@@ -25,6 +25,12 @@ func main() {
 		panic("Wrong arguments")
 	}
 
+	// izračunamo potrebno število blokov
+	numBlocks := *numBlocksPtr
+	if numBlocks == 0 {
+		numBlocks = (*vectorSizePtr-1) / *numThreadsPtr + 1
+	}
+
 	var err error
 
 	// inicializiramo napravo
@@ -40,20 +46,20 @@ func main() {
 	hb := make([]float32, *vectorSizePtr)
 
 	// rezerviramo pomnilnik na napravi
-	sizeFloat32 := int(unsafe.Sizeof(float32(0.0)))
-	sizeMem := uint64(*vectorSizePtr * sizeFloat32)
+	bytesFloat32 := int(unsafe.Sizeof(float32(0.0)))
+	bytesVector := uint64(*vectorSizePtr * bytesFloat32)
 
-	dc, err := cuda.DeviceMemAlloc(sizeMem)
+	dc, err := cuda.DeviceMemAlloc(bytesVector)
 	if err != nil {
 		panic(err)
 	}
 	defer dc.Free()
-	da, err := cuda.DeviceMemAlloc(sizeMem)
+	da, err := cuda.DeviceMemAlloc(bytesVector)
 	if err != nil {
 		panic(err)
 	}
 	defer da.Free()
-	db, err := cuda.DeviceMemAlloc(sizeMem)
+	db, err := cuda.DeviceMemAlloc(bytesVector)
 	if err != nil {
 		panic(err)
 	}
@@ -66,20 +72,16 @@ func main() {
 	}
 
 	// prenesemo vektorja a in b iz gostitelja na napravo
-	err = da.MemcpyToDevice(uintptr(unsafe.Pointer(&ha[0])), sizeMem)
+	err = da.MemcpyToDevice(unsafe.Pointer(&ha[0]), bytesVector)
 	if err != nil {
 		panic(err)
 	}
-	err = db.MemcpyToDevice(uintptr(unsafe.Pointer(&hb[0])), sizeMem)
+	err = db.MemcpyToDevice(unsafe.Pointer(&hb[0]), bytesVector)
 	if err != nil {
 		panic(err)
 	}
 
 	// zaženemo kodo na napravi
-	numBlocks := *numBlocksPtr
-	if numBlocks == 0 {
-		numBlocks = (*vectorSizePtr-1) / *numThreadsPtr + 1
-	}
 	gridSize := cuda.Dim3{X: uint32(numBlocks), Y: 1, Z: 1}
 	blockSize := cuda.Dim3{X: uint32(*numThreadsPtr), Y: 1, Z: 1}
 	err = cudago.VectorSubtract1(gridSize, blockSize, dc.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
@@ -88,7 +90,7 @@ func main() {
 	}
 
 	// vektor c prekopiramo iz naprave na gostitelja
-	err = dc.MemcpyFromDevice(uintptr(unsafe.Pointer(&hc[0])), sizeMem)
+	err = dc.MemcpyFromDevice(unsafe.Pointer(&hc[0]), bytesVector)
 
 	// počakamo, da se procesiranje zahtev na napravi zaključi
 	err = cuda.CurrentContextSynchronize()

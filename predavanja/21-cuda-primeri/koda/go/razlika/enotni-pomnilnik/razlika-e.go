@@ -26,6 +26,12 @@ func main() {
 		panic("Wrong arguments")
 	}
 
+	// izračunamo potrebno število blokov
+	numBlocks := *numBlocksPtr
+	if numBlocks == 0 {
+		numBlocks = (*vectorSizePtr-1) / *numThreadsPtr + 1
+	}
+
 	var err error
 
 	// inicializiramo napravo
@@ -36,18 +42,18 @@ func main() {
 	defer dev.Close()
 
 	// rezerviramo pomnilnik
-	sizeFloat32 := uint64(unsafe.Sizeof(float32(0.0)))
-	c, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), sizeFloat32)
+	bytesFloat32 := uint64(unsafe.Sizeof(float32(0.0)))
+	c, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), bytesFloat32)
 	if err != nil {
 		panic(err)
 	}
 	defer c.Free()
-	a, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), sizeFloat32)
+	a, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), bytesFloat32)
 	if err != nil {
 		panic(err)
 	}
 	defer a.Free()
-	b, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), sizeFloat32)
+	b, err := cuda.ManagedMemAlloc[float32](uint64(*vectorSizePtr), bytesFloat32)
 	if err != nil {
 		panic(err)
 	}
@@ -60,10 +66,6 @@ func main() {
 	}
 
 	// zaženemo kodo na napravi
-	numBlocks := *numBlocksPtr
-	if numBlocks == 0 {
-		numBlocks = (*vectorSizePtr-1) / *numThreadsPtr + 1
-	}
 	gridSize := cuda.Dim3{X: uint32(numBlocks), Y: 1, Z: 1}
 	blockSize := cuda.Dim3{X: uint32(*numThreadsPtr), Y: 1, Z: 1}
 	err = cudago.VectorSubtract4(gridSize, blockSize, c.Ptr, a.Ptr, b.Ptr, int32(*vectorSizePtr))

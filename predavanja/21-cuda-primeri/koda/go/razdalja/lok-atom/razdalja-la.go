@@ -82,11 +82,11 @@ func main() {
 	startDevice := time.Now()
 
 	// prenesemo vektorja a in b iz gostitelja na napravo
-	err = da.MemcpyToDevice(uintptr(unsafe.Pointer(&ha[0])), bytesVector)
+	err = da.MemcpyToDevice(unsafe.Pointer(&ha[0]), bytesVector)
 	if err != nil {
 		panic(err)
 	}
-	err = db.MemcpyToDevice(uintptr(unsafe.Pointer(&hb[0])), bytesVector)
+	err = db.MemcpyToDevice(unsafe.Pointer(&hb[0]), bytesVector)
 	if err != nil {
 		panic(err)
 	}
@@ -112,7 +112,7 @@ func main() {
 	timeKernel := time.Since(startKernel)
 
 	// skalar s prekopiramo iz naprave na gostitelja
-	err = ds.MemcpyFromDevice(uintptr(unsafe.Pointer(&hs[0])), bytesPartialSum)
+	err = ds.MemcpyFromDevice(unsafe.Pointer(&hs[0]), bytesPartialSum)
 
 	// dokončamo izračun razdalje za napravo
 	distDevice := math.Sqrt(float64(hs[0]))

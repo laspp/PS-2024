@@ -61,7 +61,7 @@ func main() {
 	startDevice := time.Now()
 
 	// prenesemo tabelo a iz gostitelja na napravo
-	err = da.MemcpyToDevice(uintptr(unsafe.Pointer(&ha[0])), bytesTable)
+	err = da.MemcpyToDevice(unsafe.Pointer(&ha[0]), bytesTable)
 	if err != nil {
 		panic(err)
 	}
@@ -91,7 +91,7 @@ func main() {
 	timeKernel := time.Since(startKernel)
 
 	// prenesemo tabelo a iz naprave na gostitelja
-	err = da.MemcpyFromDevice(uintptr(unsafe.Pointer(&ha[0])), bytesTable)
+	err = da.MemcpyFromDevice(unsafe.Pointer(&ha[0]), bytesTable)
 	if err != nil {
 		panic(err)
 	}

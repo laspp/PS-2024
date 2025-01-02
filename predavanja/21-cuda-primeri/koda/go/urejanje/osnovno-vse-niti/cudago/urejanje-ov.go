@@ -115,59 +115,62 @@ const Urejanje_ov_ptxCode = `//
 )
 {
 	.reg .pred 	%p<6>;
-	.reg .b32 	%r<22>;
+	.reg .b32 	%r<25>;
 	.reg .b64 	%rd<7>;
 
 
 	ld.param.u64 	%rd4, [bitonicSortOV_param_0];
-	ld.param.u32 	%r9, [bitonicSortOV_param_1];
 	ld.param.u32 	%r10, [bitonicSortOV_param_2];
 	ld.param.u32 	%r11, [bitonicSortOV_param_3];
 	mov.u32 	%r1, %ntid.x;
 	mov.u32 	%r12, %ctaid.x;
 	mov.u32 	%r13, %tid.x;
-	mad.lo.s32 	%r21, %r12, %r1, %r13;
-	setp.ge.s32 	%p1, %r21, %r9;
+	mad.lo.s32 	%r24, %r12, %r1, %r13;
+	ld.param.u32 	%r14, [bitonicSortOV_param_1];
+	shr.u32 	%r15, %r14, 31;
+	add.s32 	%r16, %r14, %r15;
+	shr.s32 	%r3, %r16, 1;
+	setp.ge.s32 	%p1, %r24, %r3;
 	@%p1 bra 	$L__BB0_7;
 
 	cvta.to.global.u64 	%rd1, %rd4;
-	shl.b32 	%r3, %r11, 1;
-	mov.u32 	%r14, %nctaid.x;
-	mul.lo.s32 	%r4, %r14, %r1;
+	shl.b32 	%r4, %r11, 1;
+	mov.u32 	%r17, %nctaid.x;
+	mul.lo.s32 	%r5, %r17, %r1;
 	bra.uni 	$L__BB0_2;
 
 $L__BB0_4:
-	setp.le.s32 	%p4, %r6, %r7;
+	setp.le.s32 	%p4, %r7, %r8;
 	@%p4 bra 	$L__BB0_6;
 	bra.uni 	$L__BB0_5;
 
 $L__BB0_2:
-	div.s32 	%r15, %r21, %r11;
-	mul.lo.s32 	%r16, %r15, %r11;
-	sub.s32 	%r17, %r21, %r16;
-	mad.lo.s32 	%r18, %r3, %r15, %r17;
-	xor.b32  	%r19, %r18, %r11;
-	and.b32  	%r20, %r18, %r10;
-	setp.eq.s32 	%p2, %r20, 0;
-	mul.wide.s32 	%rd5, %r18, 4;
+	div.s32 	%r18, %r24, %r11;
+	mul.lo.s32 	%r19, %r18, %r11;
+	sub.s32 	%r20, %r24, %r19;
+	mad.lo.s32 	%r21, %r4, %r18, %r20;
+	xor.b32  	%r22, %r21, %r11;
+	and.b32  	%r23, %r21, %r10;
+	setp.eq.s32 	%p2, %r23, 0;
+	mul.wide.s32 	%rd5, %r21, 4;
 	add.s64 	%rd2, %rd1, %rd5;
-	ld.global.u32 	%r6, [%rd2];
-	mul.wide.s32 	%rd6, %r19, 4;
+	ld.global.u32 	%r7, [%rd2];
+	mul.wide.s32 	%rd6, %r22, 4;
 	add.s64 	%rd3, %rd1, %rd6;
-	ld.global.u32 	%r7, [%rd3];
+	ld.global.u32 	%r8, [%rd3];
 	@%p2 bra 	$L__BB0_4;
 
-	setp.lt.s32 	%p3, %r6, %r7;
+	setp.lt.s32 	%p3, %r7, %r8;
 	@%p3 bra 	$L__BB0_5;
 	bra.uni 	$L__BB0_6;
 
 $L__BB0_5:
-	st.global.u32 	[%rd2], %r7;
-	st.global.u32 	[%rd3], %r6;
+	st.global.u32 	[%rd2], %r8;
+	st.global.u32 	[%rd3], %r7;
 
 $L__BB0_6:
-	add.s32 	%r21, %r21, %r4;
-	setp.lt.s32 	%p5, %r21, %r9;
+	add.s32 	%r24, %r24, %r5;
+	setp.lt.s32 	%p5, %r24, %r3;
 	@%p5 bra 	$L__BB0_2;
 
 $L__BB0_7:
