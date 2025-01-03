@@ -175,7 +175,7 @@ const char *_ConvertSMVer2ArchName(int major, int minor)
   // If we don't find the values, we default use the previous one
   // to run properly
   printf(
-      "MapSMtoArchName for SM %d.%d is undefined."
+      "  MapSMtoArchName for SM %d.%d is undefined."
       "  Default to use %s\n",
       major, minor, nGpuArchNameSM[index - 1].name);
   return nGpuArchNameSM[index - 1].name;

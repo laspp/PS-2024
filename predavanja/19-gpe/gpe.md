@@ -186,38 +186,38 @@
     srun --partition=gpu --gpus=1 nvidia-smi --query
     ```
 
-  - program za izpis podatkov o napravi: [naprava.c](koda/naprava.c)
+  - program za izpis podatkov o napravi:
+    - jezik go: [naprava.go](koda/go/naprava.go)
+    - jezik C: [naprava.c](koda/C/naprava.c)
+
   - primer izpisa
 
     ```C
-    ======= Device 0: "NVIDIA H100 PCIe" =======
+    Device 0: Tesla V100S-PCIE-32GB
 
-    cudaDeviceGetProperties:
-        CUDA Architecture:                             Hopper, 9.0
+      CUDA architecture:                            Volta, 7.0
 
-        GPU clock rate (MHz):                          1755
-        Memory clock rate (MHz):                       1593
-        Memory bus width (bits):                       5120
-        Peak memory bandwidth (GB/s):                  2039
+      GPU clock rate (MHz):                         1597
+      Memory clock rate (MHz):                      1107
+      Memory bus width (bits):                      4096
+      Peak memory bandwidth (GB/s):                 1134
 
-        Number of MPs:                                 114
-        Number of cores per MP:                        128
-        Total number of cores:                         14592
+      Number of MPs:                                80
+      Number of cores per MP:                       64
+      Total number of cores:                        5120
 
-        Total amount of global memory (GB):            79
-        Total amount of shared memory per MP (kB):     228
-        Total amount of shared memory per block (kB):  48
-        Maximum number of registers per MP:            65536
-        Total number of registers available per block: 65536
+      Total amount of global memory (GB):           32
+      Size of L2 cache (MB):                        6
+      Total amount of shared memory per MP (kB):    96
+      Total amount of shared memory per block (kB): 48
+      Maximum number of registers per MP:           65536
+      Maximum number of registers per block:        65536
 
-        Maximum number of threads per MP:              2048
-        Maximum number of threads per block:           1024
-        Warp size:                                     32
+      Maximum number of threads per MP:             2048
+      Maximum number of threads per block:          1024
+      Max number of blocks per MP:                  32
+      Warp size:                                    32
 
-        Max dimension size of a thread block (x,y,z):  (1024, 1024, 64)
-        Max dimension size of a grid size    (x,y,z):  (2147483647, 65535, 65535)
-
-    cudaDeviceGetAttribute:
-        Size of L2 cache in MB:                        50
-        Maximum number of blocks per MP:               32    
+      Max dimension size of a thread block (x,y,z): (1024,1024,64)
+      Max dimension size of a grid (x,y,z):         (2147483647,65535,65535)
     ```
