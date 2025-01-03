@@ -1,3 +1,5 @@
+// ščepec izpiše podatke o niti
+
 #ifdef __cplusplus
 extern "C" {
 #endif

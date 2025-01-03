@@ -48,76 +48,6 @@
 
 - ščepec lahko kliče tudi druge funkcije na napravi, ki jih označimo s ključno besedo `__device__`
 
-## (Programski vmesnik jezika C)
-
-### Klic ščepca
-
-- ščepec zaženemo na gostitelju, kjer med ime in argumente vrinemo trojne trikotne oklepaje
-- med trojne trikotne oklepaje vpišemo organizacijo niti v mreži - število blokov in število niti v vsaki dimenziji
-- za opis večdimenzionalne organizacije niti jezik CUDA C ponuja strukturo `dim3`
-
-    ```C
-    dim3 gridSize(numBlocks, 1, 1);
-    dim3 blockSize(numThreads, 1, 1);
-    pozdrav<<<gridSize, blockSize>>>();
-    ```
-
-### Prvi program na grafičnem pospeševalniku
-
-- [pozdrav-gpe.cu](koda/C/pozdrav-gpe.cu)
-- naložimo modul: `module load CUDA`
-- kodo prevedemo s prevajalnikom za CUDA C: `srun --partition=gpu --gpus=1 nvcc -o pozdrav-gpe pozdrav-gpe.cu`
-- zaženemo program: `srun --partition=gpu --gpus=1 ./pozdrav-gpe 2 4`
-
-### Rezervacija pomnilnika in prenašanje podatkov
-
-- gostitelj ima dostop samo do globalnega pomnilnika naprave
-
-#### Eksplicitno prenašanje podatkov
-
-- na gostitelju pomnilnik rezerviramo s funkcijo `malloc` in vanj vpišemo podatke
-- globalni pomnilnik na napravi rezerviramo s klicem funkcije
-  
-  ```C
-  cudaError_t cudaMalloc(void** dPtr, size_t count)
-  ```
-
-  - funkcija rezervira `count` bajtov in vrne naslov v globalnem pomnilniku naprave v kazalcu `dPtr`
-- za prenašanje podatkov med globalnim pomnilnikom naprave in pomnilnikom gostitelja uporabimo funkcijo
-  
-  ```C
-  cudaError_t cudaMemcpy(void* dst, const void* src, size_t count, cudaMemcpyKind kind)
-  ```
-
-  - funkcija kopira `count` bajtov iz naslova `src` na naslov `dst` v smeri določeni s `kind`, ki je 
-    - za prenos podatkov iz gostitelja na napravo `cudaMemcpyHostToDevice` in
-    - za prenos podatkov iz naprave na gostitelja `cudaMemcpyDeviceToHost`
-  - funkcija je blokirajoča - izvajanje programa se nadaljuje šele po končanem prenosu podatkov
-- pomnilnik na napravi sprostimo s klicem funkcije
-
-  ```C
-  cudaError_t cudaFree(void *devPtr)
-  ```
-
-- pomnilnik na gostitelju sprostimo s klicem funkcije `free`
-
-#### Enotni pomnilnik
-
-- novejše različice CUDA podpirajo enotni pomnilnik
-- prenos podatkov izvaja CUDA po potrebi
-- programer nima nadzora, večkrat manj učinkovito od eksplicitnega prenašanja
-- enotni pomnilnik rezerviramo s klicem funkcije
-
-  ```C
-  cudaError_t = cudaMallocManaged(void **hdPtr, count);
-  ```
-
-- enotni pomnilnik sprostimo s klicem funkcije
-
-  ```C
-  cudaError_t cudaFree(void *hdPtr)
-  ```
-
 ## Programski vmesnik ovojnice CudaGo
 
 ### Namestitev ovojnice CudaGo
@@ -227,3 +157,74 @@ dev, err := cuda.Init(device int)
   - do elementov rezine dostopamo kot `m.Arr[index]`
 
 - enotni pomnilnik sprostimo s klicem metode `m.Free()`
+
+## (Programski vmesnik jezika C)
+
+### Klic ščepca
+
+- ščepec zaženemo na gostitelju, kjer med ime in argumente vrinemo trojne trikotne oklepaje
+- med trojne trikotne oklepaje vpišemo organizacijo niti v mreži - število blokov in število niti v vsaki dimenziji
+- za opis večdimenzionalne organizacije niti jezik CUDA C ponuja strukturo `dim3`
+
+    ```C
+    dim3 gridSize(numBlocks, 1, 1);
+    dim3 blockSize(numThreads, 1, 1);
+    pozdrav<<<gridSize, blockSize>>>();
+    ```
+
+### Prvi program na grafičnem pospeševalniku
+
+- [pozdrav-gpe.cu](koda/C/pozdrav-gpe.cu)
+- naložimo modul: `module load CUDA`
+- kodo prevedemo s prevajalnikom za CUDA C: `srun --partition=gpu --gpus=1 nvcc -o pozdrav-gpe pozdrav-gpe.cu`
+- zaženemo program: `srun --partition=gpu --gpus=1 ./pozdrav-gpe 2 4`
+
+### Rezervacija pomnilnika in prenašanje podatkov
+
+- gostitelj ima dostop samo do globalnega pomnilnika naprave
+
+#### Eksplicitno prenašanje podatkov
+
+- na gostitelju pomnilnik rezerviramo s funkcijo `malloc` in vanj vpišemo podatke
+- globalni pomnilnik na napravi rezerviramo s klicem funkcije
+  
+  ```C
+  cudaError_t cudaMalloc(void** dPtr, size_t count)
+  ```
+
+  - funkcija rezervira `count` bajtov in vrne naslov v globalnem pomnilniku naprave v kazalcu `dPtr`
+- za prenašanje podatkov med globalnim pomnilnikom naprave in pomnilnikom gostitelja uporabimo funkcijo
+  
+  ```C
+  cudaError_t cudaMemcpy(void* dst, const void* src, size_t count, cudaMemcpyKind kind)
+  ```
+
+  - funkcija kopira `count` bajtov iz naslova `src` na naslov `dst` v smeri določeni s `kind`, ki je 
+    - za prenos podatkov iz gostitelja na napravo `cudaMemcpyHostToDevice` in
+    - za prenos podatkov iz naprave na gostitelja `cudaMemcpyDeviceToHost`
+  - funkcija je blokirajoča - izvajanje programa se nadaljuje šele po končanem prenosu podatkov
+- pomnilnik na napravi sprostimo s klicem funkcije
+
+  ```C
+  cudaError_t cudaFree(void *devPtr)
+  ```
+
+- pomnilnik na gostitelju sprostimo s klicem funkcije `free`
+
+#### Enotni pomnilnik
+
+- novejše različice CUDA podpirajo enotni pomnilnik
+- prenos podatkov izvaja CUDA po potrebi
+- programer nima nadzora, večkrat manj učinkovito od eksplicitnega prenašanja
+- enotni pomnilnik rezerviramo s klicem funkcije
+
+  ```C
+  cudaError_t = cudaMallocManaged(void **hdPtr, count);
+  ```
+
+- enotni pomnilnik sprostimo s klicem funkcije
+
+  ```C
+  cudaError_t cudaFree(void *hdPtr)
+  ```
+

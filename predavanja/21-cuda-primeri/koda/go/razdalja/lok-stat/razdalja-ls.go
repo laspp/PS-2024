@@ -1,7 +1,11 @@
 // računanje razlike vektorjev
-// 		argumenti: število blokov, število niti in dolžina vektorjev
-// 		elementi vektorjev so inicializirani naključno
+// 		argumenti: število blokov, število niti, dolžina vektorjev, oznaka ščepca
 // uporabimo lokalni pomnilnik na napravi, ki ga rezerviramo statično
+// 		za vsak blok računamo delne vsote na napravi
+//		delne vsote prenesemo na gostitelja in jih seštejemo
+// izvajanje:
+//		source ../../cudago-init.sh
+// 		srun --partition=gpu --gpus=1 go run razdalja-ls.go
 
 package main
 
@@ -20,9 +24,9 @@ import (
 func main() {
 
 	// preberemo argumente iz ukazne vrstice
-	numBlocksPtr := flag.Int("b", 1, "num blocks")
-	numThreadsPtr := flag.Int("t", 1, "num threads")
-	vectorSizePtr := flag.Int("s", 1, "vector size")
+	numBlocksPtr := flag.Int("b", 0, "num blocks")
+	numThreadsPtr := flag.Int("t", 1024, "num threads")
+	vectorSizePtr := flag.Int("s", 268435456, "vector size")
 	flag.Parse()
 	if *numBlocksPtr < 0 || *numThreadsPtr <= 0 || *vectorSizePtr <= 0 {
 		panic("Wrong arguments")

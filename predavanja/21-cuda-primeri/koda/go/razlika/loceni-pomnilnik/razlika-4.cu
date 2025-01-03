@@ -1,5 +1,5 @@
-// dobra rešitev, neodvisna od tega števila blokov 
-// število blokov lahko vnesemo kot argument ali pa jih izračunamo pred klicem ščepca
+// računanje razlike elementov dveh vektorjev
+// dobra rešitev, neodvisna od števila blokov 
 
 #ifdef __cplusplus
 extern "C" {

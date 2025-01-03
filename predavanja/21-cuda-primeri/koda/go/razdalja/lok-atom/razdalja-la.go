@@ -1,8 +1,11 @@
 // računanje razlike vektorjev
-// 		argumenti: število blokov, število niti in dolžina vektorjev
-// 		elementi vektorjev so inicializirani naključno
-// uporabimo lokalni pomnilnik na napravi, ki ga rezerviramo dinamično
+// 		argumenti: število blokov, število niti, dolžina vektorjev, oznaka ščepca
+// uporabimo lokalni pomnilnik na napravi, ki ga rezerviramo statično
 // delne vsote seštevamo z atomarnim ukazom
+// izboljševanje dve rešitvi: VectorDistanceLA1Ex ... VectorDistanceLA4Ex
+// izvajanje:
+//		source ../../cudago-init.sh
+// 		srun --partition=gpu --gpus=1 go run razdalja-la.go
 
 package main
 
@@ -21,9 +24,11 @@ import (
 func main() {
 
 	// preberemo argumente iz ukazne vrstice
-	numBlocksPtr := flag.Int("b", 1, "num blocks")
-	numThreadsPtr := flag.Int("t", 1, "num threads")
-	vectorSizePtr := flag.Int("s", 1, "vector size")
+	numBlocksPtr := flag.Int("b", 0, "num blocks")
+	numThreadsPtr := flag.Int("t", 1024, "num threads")
+	vectorSizePtr := flag.Int("s", 268435456, "vector size")
+	kernelPtr := flag.Int("k", 0, "kernel")
+
 	flag.Parse()
 	if *numBlocksPtr < 0 || *numThreadsPtr <= 0 || *vectorSizePtr <= 0 {
 		panic("Wrong arguments")
@@ -97,7 +102,12 @@ func main() {
 	// zaženemo kodo na napravi
 	gridSize := cuda.Dim3{X: uint32(numBlocks), Y: 1, Z: 1}
 	blockSize := cuda.Dim3{X: uint32(*numThreadsPtr), Y: 1, Z: 1}
-	err = cudago.VectorDistanceLA1Ex(gridSize, blockSize, bytesLocalMemory, nil, ds.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	switch *kernelPtr {
+	case 2:
+		err = cudago.VectorDistanceLA2Ex(gridSize, blockSize, bytesLocalMemory, nil, ds.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	default:
+		err = cudago.VectorDistanceLA1Ex(gridSize, blockSize, bytesLocalMemory, nil, ds.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	}
 	if err != nil {
 		panic(err)
 	}

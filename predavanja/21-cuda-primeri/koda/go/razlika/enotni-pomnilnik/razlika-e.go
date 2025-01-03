@@ -1,7 +1,11 @@
 // računanje razlike vektorjev
-// 		argumenti: število blokov, število niti in dolžina vektorjev
-// 		elementi vektorjev so inicializirani naključno
-// rešitev z uporabo enotnega pomnilnika
+// 		argumenti: število blokov, število niti, dolžina vektorjev in oznaka ščepca
+//		število blokov lahko nastavimo ali pa jih izračunamo (-b 0) glede na velikost vektorja in število niti
+//		enotni pomnilnik: ogrodje CUDA poskrbi za prenos podatkov
+//		koda na napravi: VectorSubtract4 je enaka kot pri rešitvi z ločenim pomnilnikom
+// izvajanje:
+//		source ../../cudago-init.sh
+// 		VectorSubtract4: srun --partition=gpu --gpus=1 go run razlika-e.go -b 0 -t 128 -s 200
 
 package main
 
@@ -21,6 +25,7 @@ func main() {
 	numBlocksPtr := flag.Int("b", 1, "num blocks")
 	numThreadsPtr := flag.Int("t", 1, "num threads")
 	vectorSizePtr := flag.Int("s", 1, "vector size")
+	kernelPtr := flag.Int("k", 0, "kernel")
 	flag.Parse()
 	if *numBlocksPtr < 0 || *numThreadsPtr <= 0 || *vectorSizePtr <= 0 {
 		panic("Wrong arguments")
@@ -68,7 +73,10 @@ func main() {
 	// zaženemo kodo na napravi
 	gridSize := cuda.Dim3{X: uint32(numBlocks), Y: 1, Z: 1}
 	blockSize := cuda.Dim3{X: uint32(*numThreadsPtr), Y: 1, Z: 1}
-	err = cudago.VectorSubtract4(gridSize, blockSize, c.Ptr, a.Ptr, b.Ptr, int32(*vectorSizePtr))
+	switch *kernelPtr {
+	default:
+		err = cudago.VectorSubtract4(gridSize, blockSize, c.Ptr, a.Ptr, b.Ptr, int32(*vectorSizePtr))
+	}
 	if err != nil {
 		panic(err)
 	}

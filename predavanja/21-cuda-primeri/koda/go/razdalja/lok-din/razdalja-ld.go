@@ -1,10 +1,13 @@
 // računanje razlike vektorjev
-// 		argumenti: število blokov, število niti in dolžina vektorjev
-// 		elementi vektorjev so inicializirani naključno
-// uporabimo lokalni pomnilnik na napravi, ki ga rezerviramo dinamično
-//
-// srun --reservation=fri --partition=gpu --gpus=1 go run main.go -b 0 -t 1024 -s 268435456
-// srun --reservation=fri --partition=gpu --gpus=1 go run -gcflags '-N' main.go -b 0 -t 1024 -s 268435456
+// 		argumenti: število blokov, število niti, dolžina vektorjev, oznaka ščepca
+// uporabimo lokalni pomnilnik na napravi, ki ga rezerviramo statično
+// 		za vsak blok računamo delne vsote na napravi
+//		delne vsote prenesemo na gostitelja in jih seštejemo
+// izboljševanje rešitve: VectorDistanceLD1Ex ... VectorDistanceLD4Ex
+// izvajanje:
+//		source ../../cudago-init.sh
+// 		srun --partition=gpu --gpus=1 go run razdalja-ld.go
+// 		srun --partition=gpu --gpus=1 go run -gcflags '-N' razdalja-ld.go
 
 package main
 
@@ -23,9 +26,10 @@ import (
 func main() {
 
 	// preberemo argumente iz ukazne vrstice
-	numBlocksPtr := flag.Int("b", 1, "num blocks")
-	numThreadsPtr := flag.Int("t", 1, "num threads")
-	vectorSizePtr := flag.Int("s", 1, "vector size")
+	numBlocksPtr := flag.Int("b", 0, "num blocks")
+	numThreadsPtr := flag.Int("t", 1024, "num threads")
+	vectorSizePtr := flag.Int("s", 268435456, "vector size")
+	kernelPtr := flag.Int("k", 0, "kernel")
 	flag.Parse()
 	if *numBlocksPtr < 0 || *numThreadsPtr <= 0 || *vectorSizePtr <= 0 {
 		panic("Wrong arguments")
@@ -99,7 +103,16 @@ func main() {
 	// zaženemo kodo na napravi
 	gridSize := cuda.Dim3{X: uint32(numBlocks), Y: 1, Z: 1}
 	blockSize := cuda.Dim3{X: uint32(*numThreadsPtr), Y: 1, Z: 1}
-	err = cudago.VectorDistanceLD1Ex(gridSize, blockSize, bytesLocalMemory, nil, dp.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	switch *kernelPtr {
+	case 1:
+		err = cudago.VectorDistanceLD1Ex(gridSize, blockSize, bytesLocalMemory, nil, dp.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	case 2:
+		err = cudago.VectorDistanceLD2Ex(gridSize, blockSize, bytesLocalMemory, nil, dp.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	case 3:
+		err = cudago.VectorDistanceLD3Ex(gridSize, blockSize, bytesLocalMemory, nil, dp.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	default:
+		err = cudago.VectorDistanceLD4Ex(gridSize, blockSize, bytesLocalMemory, nil, dp.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	}
 	if err != nil {
 		panic(err)
 	}

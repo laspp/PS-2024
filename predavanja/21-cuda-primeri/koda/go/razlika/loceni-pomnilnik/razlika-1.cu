@@ -1,3 +1,4 @@
+// računanje razlike elementov dveh vektorjev
 // slaba rešitev: indeks niti je lahko večji od velikosti tabele
 
 #ifdef __cplusplus

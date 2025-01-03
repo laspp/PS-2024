@@ -1,3 +1,10 @@
+// bitonično urejanje
+// 		argumenti: število niti, velikost tabele
+// delajo vse niti
+// izvajanje
+//		source ../../cudago-init.sh
+// 		srun --partition=gpu --gpus=1 go run urejanje-ov.go
+
 package main
 
 import (
@@ -15,8 +22,8 @@ import (
 func main() {
 
 	// preberemo argumente iz ukazne vrstice
-	numThreadsPtr := flag.Int("t", 1, "num threads")
-	tableSizePtr := flag.Int("s", 1, "table size")
+	numThreadsPtr := flag.Int("t", 256, "num threads")
+	tableSizePtr := flag.Int("s", 16777216, "table size")
 	flag.Parse()
 	if *numThreadsPtr <= 0 || *tableSizePtr <= 0 ||
 		*tableSizePtr < *numThreadsPtr ||

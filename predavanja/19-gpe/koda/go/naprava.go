@@ -1,7 +1,8 @@
 // informacije o napravi
+//
 // izvajanje:
 //		source cudago-init.sh
-//      srun --partition=gpu --gpus=1 go run naprava
+//      srun --partition=gpu --gpus=1 go run naprava.go
 
 package main
 

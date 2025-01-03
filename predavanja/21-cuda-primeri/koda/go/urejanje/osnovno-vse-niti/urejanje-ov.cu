@@ -1,5 +1,5 @@
 // bitonično urejanje
-// dela samo polovica niti
+// delajo vse niti
 
 #ifdef __cplusplus
 extern "C" {

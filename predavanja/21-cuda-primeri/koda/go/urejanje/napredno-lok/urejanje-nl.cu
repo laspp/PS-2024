@@ -1,4 +1,5 @@
 // bitonično urejanje
+// več ščepcev, en ščepec lahko izvaja več notranjih zank, uporabimo skupni pomnilnik
 
 #ifdef __cplusplus
 extern "C" {

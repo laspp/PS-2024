@@ -1,6 +1,16 @@
 // računanje razlike vektorjev
-// 		argumenti: število blokov, število niti in dolžina vektorjev
-// 		elementi vektorjev so inicializirani naključno
+// 		argumenti: število blokov, število niti, dolžina vektorjev in oznaka ščepca
+//		število blokov lahko nastavimo ročno ali pa jih izračunamo (-b 0) glede na velikost vektorja in število niti
+//		ločeni pomnilnik: sami poskrbimo za prenos podatkov
+//		koda na napravi: izbolješevanje od VectorSubtract1 do VectorSubtract4 (vrstica 97)
+// izvajanje:
+//		source ../../cudago-init.sh
+// 		VectorSubtract1: srun --partition=gpu --gpus=1 go run razlika-l.go -b 1 -t 128 -s 128/100
+// 		VectorSubtract2: srun --partition=gpu --gpus=1 go run razlika-l.go -b 1 -t 128 -s 100/200
+// 		VectorSubtract2: srun --partition=gpu --gpus=1 go run razlika-l.go -b 2 -t 128 -s 200
+// 		VectorSubtract3: srun --partition=gpu --gpus=1 go run razlika-l.go -b 2 -t 128 -s 200
+// 		VectorSubtract4: srun --partition=gpu --gpus=1 go run razlika-l.go -b 1 -t 128 -s 200
+// 		VectorSubtract4: srun --partition=gpu --gpus=1 go run razlika-l.go -b 0 -t 128 -s 200
 
 package main
 
@@ -20,6 +30,7 @@ func main() {
 	numBlocksPtr := flag.Int("b", 1, "num blocks")
 	numThreadsPtr := flag.Int("t", 1, "num threads")
 	vectorSizePtr := flag.Int("s", 1, "vector size")
+	kernelPtr := flag.Int("k", 0, "kernel")
 	flag.Parse()
 	if *numBlocksPtr < 0 || *numThreadsPtr <= 0 || *vectorSizePtr <= 0 {
 		panic("Wrong arguments")
@@ -84,7 +95,16 @@ func main() {
 	// zaženemo kodo na napravi
 	gridSize := cuda.Dim3{X: uint32(numBlocks), Y: 1, Z: 1}
 	blockSize := cuda.Dim3{X: uint32(*numThreadsPtr), Y: 1, Z: 1}
-	err = cudago.VectorSubtract1(gridSize, blockSize, dc.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	switch *kernelPtr {
+	case 1:
+		err = cudago.VectorSubtract1(gridSize, blockSize, dc.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	case 2:
+		err = cudago.VectorSubtract2(gridSize, blockSize, dc.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	case 3:
+		err = cudago.VectorSubtract3(gridSize, blockSize, dc.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	default:
+		err = cudago.VectorSubtract4(gridSize, blockSize, dc.Ptr, da.Ptr, db.Ptr, int32(*vectorSizePtr))
+	}
 	if err != nil {
 		panic(err)
 	}
