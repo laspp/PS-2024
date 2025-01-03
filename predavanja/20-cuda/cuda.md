@@ -122,7 +122,7 @@
 
 ### Namestitev ovojnice CudaGo
 
-- v okviru diplomskega dela je Timotej Kroflič pripravil [CUDA ovojnico za jezik go](https://github.com/InternatBlackhole/cudago)
+- v okviru diplomskega dela je Timotej Kroflič pripravil [ovojnico CudaGo za jezik go](https://github.com/InternatBlackhole/cudago)
 - za namestitev ovojnice sledite navodilom na spletni strani
 - za vzpostavitev okolja na gruči Arnes v lupini izvedite spodnje ukaze
 
@@ -152,13 +152,15 @@ dev, err := cuda.Init(device int)
 
 ### Prevajanje metod in klic ščepca
 
-- pripravimo ščepec in ga prevedemo z ukazom
+- pripravimo ščepec v jeziku C in ga prevedemo z ukazom
 
   ```bash
   CudaGo -package cudago pozdrav-gpe.cu
   ```
 
-- z zgornjim ukazom prevajalnik CudaGo pripravi mapo cudago z datotekami, ki vključujejo metode, preko katerih v jeziku go kličemo ščepec
+- da ščepec lahko kličemo iz jezika go, ga označimo z `extern "C"`
+
+- z zgornjim ukazom prevajalnik CudaGo pripravi paket cudago v istoimenski mapi z datotekami, ki vključujejo metode, preko katerih v jeziku go kličemo ščepec
 - za ščepec `Kernel` nam prevajalnik CudaGo pripravi metodi `cudago.Kernel` in `cudago.KernelEx`
   - prvi argument podaja organizacijo blokov niti
   - drugi argument podaja organizacijo niti v bloku
@@ -171,7 +173,8 @@ dev, err := cuda.Init(device int)
 
 - koda na napravi - ščepec [pozdrav-gpe.cu](koda/go/pozdrav-gpe/pozdrav-gpe.cu)
 - koda na gostitelju [pozdrav-gpe.go](koda/go/pozdrav-gpe/pozdrav-gpe.go)
-- pripravimo okolje: `source cudago-init.sh`
+- pripravimo okolje: `source ../cudago-init.sh`
+- prevedemo ščepec: `CudaGo -package cudago pozdrav-gpe.cu`
 - zaženemo program: `srun --partition=gpu --gpus=1 go run pozdrav-gpe.go -b 2 -t 4`
 
 ### Delo s pomnilnikom in podatki
