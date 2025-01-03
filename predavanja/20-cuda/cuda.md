@@ -46,6 +46,12 @@
     }
     ```
 
+- ščepec lahko kliče tudi druge funkcije na napravi, ki jih označimo s ključno besedo `__device__`
+
+## (Programski vmesnik jezika C)
+
+### Klic ščepca
+
 - ščepec zaženemo na gostitelju, kjer med ime in argumente vrinemo trojne trikotne oklepaje
 - med trojne trikotne oklepaje vpišemo organizacijo niti v mreži - število blokov in število niti v vsaki dimenziji
 - za opis večdimenzionalne organizacije niti jezik CUDA C ponuja strukturo `dim3`
@@ -56,20 +62,18 @@
     pozdrav<<<gridSize, blockSize>>>();
     ```
 
-- ščepec lahko kliče tudi druge funkcije na napravi, ki jih označimo s ključno besedo `__device__`
-- če želimo poudariti, da se funkcija izvaja samo na gostitelju, jo označimo s `__host__`
+### Prvi program na grafičnem pospeševalniku
 
-- prvi program na GP
-  - [pozdrav-gpe.cu](koda/pozdrav-gpe.cu)
-  - naložimo modul: `module load CUDA`
-  - kodo prevedemo s prevajalnikom za CUDA C: `nvcc -o pozdrav-gpe pozdrav-gpe.cu`
-  - zaženemo program: `srun --gpus=1 --partition=gpu ./pozdrav-gpe 2 4`
+- [pozdrav-gpe.cu](koda/C/pozdrav-gpe.cu)
+- naložimo modul: `module load CUDA`
+- kodo prevedemo s prevajalnikom za CUDA C: `srun --partition=gpu --gpus=1 nvcc -o pozdrav-gpe pozdrav-gpe.cu`
+- zaženemo program: `srun --partition=gpu --gpus=1 ./pozdrav-gpe 2 4`
 
-## Rezervacija pomnilnika in prenašanje podatkov
+### Rezervacija pomnilnika in prenašanje podatkov
 
 - gostitelj ima dostop samo do globalnega pomnilnika naprave
 
-### Eksplicitno prenašanje podatkov
+#### Eksplicitno prenašanje podatkov
 
 - na gostitelju pomnilnik rezerviramo s funkcijo `malloc` in vanj vpišemo podatke
 - globalni pomnilnik na napravi rezerviramo s klicem funkcije
@@ -97,7 +101,7 @@
 
 - pomnilnik na gostitelju sprostimo s klicem funkcije `free`
 
-### Enotni pomnilnik
+#### Enotni pomnilnik
 
 - novejše različice CUDA podpirajo enotni pomnilnik
 - prenos podatkov izvaja CUDA po potrebi
@@ -113,3 +117,110 @@
   ```C
   cudaError_t cudaFree(void *hdPtr)
   ```
+
+## Programski vmesnik ovojnice CudaGo
+
+### Namestitev ovojnice CudaGo
+
+- v okviru diplomskega dela je Timotej Kroflič pripravil [CUDA ovojnico za jezik go](https://github.com/InternatBlackhole/cudago)
+- za namestitev ovojnice sledite navodilom na spletni strani
+- za vzpostavitev okolja na gruči Arnes v lupini izvedite spodnje ukaze
+
+  ```bash
+  module load Go
+  module load CUDA
+  export CGO_CFLAGS=$(pkg-config --cflags cudart-12.6)
+  export CGO_LDFLAGS=$(pkg-config --libs cudart-12.6)
+  export PATH="~/go/bin/:$PATH"
+
+  go install github.com/InternatBlackhole/cudago/CudaGo@latest # samo prvič
+  ```
+
+- za vzpostavitev okolja lahko uporabite skripto [cudago-init.sh](koda/go/cudago-init.sh), ki jo zaženete z ukazom `source cudago-init.sh`
+
+### Inicializacija naprave
+
+- pri delu z ovojnico CudaGo moramo najprej inicializirati napravo
+- z inicializacijo povežemo nit, ki izvaja gorutino na gostitelju, z gonilniki naprave
+- inicializacijo izvedemo z ukazom
+
+```go
+dev, err := cuda.Init(device int)
+```
+
+- povezavo ob zaključku dela z napravo sprostimo z ukazom `dev.Close()`
+
+### Prevajanje metod in klic ščepca
+
+- pripravimo ščepec in ga prevedemo z ukazom
+
+  ```bash
+  CudaGo -package cudago pozdrav-gpe.cu
+  ```
+
+- z zgornjim ukazom prevajalnik CudaGo pripravi mapo cudago z datotekami, ki vključujejo metode, preko katerih v jeziku go kličemo ščepec
+- za ščepec `Kernel` nam prevajalnik CudaGo pripravi metodi `cudago.Kernel` in `cudago.KernelEx`
+  - prvi argument podaja organizacijo blokov niti
+  - drugi argument podaja organizacijo niti v bloku
+  - tretji argument pri metodi `cudago.KernelEx` je velikost lokalnega pomnilnika v bajtih
+  - četrti argument pri metodi `cudago.KernelEx` je povezava na tok podatkov (`nil`, ker tega ne rabimo)
+  - sledijo argumenti, navedeni v ščepcu
+- večdimenzionalno organizacijo blokov in niti opišemo s strukturo `cuda.Dim3`
+
+### Zaženemo prvi program na grafičnem pospeševalniku
+
+- koda na napravi - ščepec [pozdrav-gpe.cu](koda/go/pozdrav-gpe/pozdrav-gpe.cu)
+- koda na gostitelju [pozdrav-gpe.go](koda/go/pozdrav-gpe/pozdrav-gpe.go)
+- pripravimo okolje: `source cudago-init.sh`
+- zaženemo program: `srun --partition=gpu --gpus=1 go run pozdrav-gpe.go -b 2 -t 4`
+
+### Delo s pomnilnikom in podatki
+
+- gostitelj ima dostop samo do globalnega pomnilnika naprave
+
+#### Eksplicitno prenašanje podatkov z ovojnico CudaGo
+
+- na gostitelju pomnilnik rezerviramo z ukazom `hm := make(...)` in vanj vpišemo podatke
+- globalni pomnilnik na napravi rezerviramo s klicem metode
+  
+  ```go
+  dm, err := cuda.DeviceMemAlloc(count uint64)
+  ```
+
+  - metoda rezervira `count` bajtov in vrne naslov v globalnem pomnilniku naprave v kazalcu `dm.Ptr`
+- pomnilnik na napravi sprostimo s klicem metode `dm.Free()`
+- za prenašanje podatkov iz pomnilnikom gostitelja v globalni pomnilnik naprave in uporabimo metodo
+  
+  ```go
+  err = dm.MemcpyToDevice(hmPtr *unsafe.Pointer, count uint64)
+  ```
+
+  - metoda kopira `count` bajtov iz naslova `hmPtr = unsafe.Pointer(&hm[0])` na gostitelju na naslov `dm.Ptr` na napravi
+  - funkcija je blokirajoča - izvajanje programa se nadaljuje šele po končanem prenosu podatkov
+  - funkcijo `unsafe.Pointer()` uporabimo, da kazalec pretvorimo v pravi format za prenos v kodo jezika C
+
+- za prenašanje podatkov med globalnim pomnilnikom naprave in pomnilnikom gostitelja uporabimo metodo
+  
+  ```go
+  err = dm.MemcpyFromDevice(hmPtr unsafe.Pointer, count uint64)
+  ```
+
+  - metoda kopira `count` bajtov iz naslova `dm.Ptr` na napravi na naslov `hmPtr = unsafe.Pointer(&hm[0])` na gostitelju
+  - funkcija je blokirajoča - izvajanje programa se nadaljuje šele po končanem prenosu podatkov
+
+#### Delo z enotnim pomnilnikom
+
+- novejše različice CUDA podpirajo enotni pomnilnik
+- prenos podatkov izvaja CUDA po potrebi
+- programer nima nadzora, večkrat manj učinkovito od eksplicitnega prenašanja
+- enotni pomnilnik rezerviramo s klicem funkcije
+
+  ```go
+  m, err := cuda.ManagedMemAlloc[type](count uint64, typeSize)
+  ```
+
+  - `type` je podatkovni tip rezine, `count` število elementov, `typeSize` pa velikost podatkovnega tipa v bajtih
+  - `m.Ptr`je kazalec na rezino na napravi
+  - do elementov rezine dostopamo kot `m.Arr[index]`
+
+- enotni pomnilnik sprostimo s klicem metode `m.Free()`
