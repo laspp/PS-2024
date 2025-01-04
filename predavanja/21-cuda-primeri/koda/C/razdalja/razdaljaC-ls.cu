@@ -33,7 +33,7 @@ __global__ void vectorDistance(float *p, const float *a, const float *b, int len
 	if (threadIdx.x == 0) {
         p[blockIdx.x] = 0.0;
         for (int i = 0; i < blockDim.x; i++)
-            p[blockIdx.x] += part[i];
+			p[blockIdx.x] += part[i];
     }
 }
 
