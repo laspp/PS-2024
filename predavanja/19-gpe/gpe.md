@@ -188,7 +188,7 @@
 
   - program za izpis podatkov o napravi:
     - jezik go: [naprava.go](koda/go/naprava.go)
-    - jezik C: [naprava.c](koda/C/naprava.c)
+    - jezik C: [napravaC.c](koda/C/napravaC.c)
 
   - primer izpisa
 

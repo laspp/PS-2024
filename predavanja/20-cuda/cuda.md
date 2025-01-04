@@ -174,7 +174,7 @@ dev, err := cuda.Init(device int)
 
 ### Prvi program na grafičnem pospeševalniku
 
-- [pozdrav-gpe.cu](koda/C/pozdrav-gpe.cu)
+- [pozdrav-gpeC.cu](koda/C/pozdrav-gpeC.cu)
 - naložimo modul: `module load CUDA`
 - kodo prevedemo s prevajalnikom za CUDA C: `srun --partition=gpu --gpus=1 nvcc -o pozdrav-gpe pozdrav-gpe.cu`
 - zaženemo program: `srun --partition=gpu --gpus=1 ./pozdrav-gpe 2 4`
