@@ -25,9 +25,9 @@ __global__ void vectorDistanceLD1(float *p, const float *a, const float *b, int 
 
 	// izračunamo delno vsoto za blok niti
 	if (threadIdx.x == 0) {
-        float sum = 0.0;
-        for (int i = 0; i < blockDim.x; i++)
-            sum += part[i];
+		float sum = 0.0;
+		for (int i = 0; i < blockDim.x; i++)
+			sum += part[i];
 		p[blockIdx.x] = sum;
     }
 }

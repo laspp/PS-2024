@@ -10,8 +10,8 @@
 
 __global__ void vectorSubtract(float *c, const float *a, const float *b, int len) {
 	int gid = blockDim.x * blockIdx.x + threadIdx.x;	
-    if (gid < len)
-	    c[gid] = a[gid] - b[gid];
+	if (gid < len)
+		c[gid] = a[gid] - b[gid];
 }
 
 int main(int argc, char **argv) {

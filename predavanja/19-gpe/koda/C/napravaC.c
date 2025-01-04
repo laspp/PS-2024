@@ -1,9 +1,9 @@
 // informacije o napravi
 // prevajanje:
 //      module load CUDA
-//      srun --partition=gpu --gpus=1 nvcc -o naprava naprava.c
+//      srun --partition=gpu --gpus=1 nvcc -o napravaC napravaC.c
 // izvajanje:
-//      srun --partition=gpu --gpus=1 ./naprava
+//      srun --partition=gpu --gpus=1 ./napravaC
 
 #include <stdio.h>
 #include "cuda.h"

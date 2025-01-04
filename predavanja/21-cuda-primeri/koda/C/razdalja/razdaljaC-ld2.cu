@@ -29,15 +29,15 @@ __global__ void vectorDistance(float *p, const float *a, const float *b, int len
 	__syncthreads();
 
 	// izračunamo delno vsoto za blok niti
-    int idxStep;
+	int idxStep;
 	for(idxStep = 1; idxStep < blockDim.x ; idxStep *= 2) {
 		if (threadIdx.x % (idxStep*2) == 0)
 			part[threadIdx.x] += part[threadIdx.x+idxStep];
 		__syncthreads();
 	}
 
-    if (threadIdx.x == 0)
-        p[blockIdx.x] = part[0];
+	if (threadIdx.x == 0)
+		p[blockIdx.x] = part[0];
 }
 
 int main(int argc, char **argv) {

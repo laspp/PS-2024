@@ -28,7 +28,7 @@ __global__ void vectorDistanceLA1(float *sPtr, const float *a, const float *b, i
 	for(idxStep = blockDim.x >> 1; idxStep > 32 ; idxStep >>= 1) {
 		if (threadIdx.x < idxStep)
 			part[threadIdx.x] += part[threadIdx.x+idxStep];
-        __syncthreads();
+		__syncthreads();
 	}
 	for( ; idxStep > 0 ; idxStep >>= 1 ) {
 		if (threadIdx.x < idxStep)
@@ -36,7 +36,7 @@ __global__ void vectorDistanceLA1(float *sPtr, const float *a, const float *b, i
 		__syncwarp();
 	}
 
-    if (threadIdx.x == 0)
+	if (threadIdx.x == 0)
 		atomicAdd(sPtr, part[0]);
 }
 

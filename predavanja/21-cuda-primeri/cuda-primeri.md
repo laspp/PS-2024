@@ -41,8 +41,7 @@
   $$\mathrm{dist} = \sqrt{\sum_{i=0}^{N-1} (a_i - b_i)^2 }$$
 
 - koda go: [razdalja-g.go](koda/go/razdalja/globalni/razdalja-g.go)/[razdalja-g.cu](koda/go/razdalja/globalni/razdalja-g.cu) in koda C: [razdaljaC-g.cu](koda/C/razdalja/razdaljaC-g.cu)
-  - nadgradimo rešitev [razlika-05.cu](../20-cuda/koda/razlika-5.cu)
-  - kvadrate razlik med elementi vektorjev izračunamo na napravi
+  - nadgradimo program za računanje razlik - razlik med elementi vektorjev na napravi še kvadriramo
   - zaporedno seštevanje vseh kvadratov in koren vsote izvedemo na gostitelju
 
 - koda go: [razdalja-ls.go](koda/go/razdalja/lok-stat/razdalja-ls.go)/[razdalja-ls.cu](koda/go/razdalja/lok-stat/razdalja-ls.cu) in koda C: [razdaljaC-ls.cu](koda/C/razdalja/razdaljaC-ls.cu)

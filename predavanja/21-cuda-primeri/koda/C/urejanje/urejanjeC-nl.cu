@@ -13,8 +13,8 @@
 #include "helper_cuda.h"
 
 __device__ void bitonicSort(int *a, int len, int k, int j) {
-	int gid = blockIdx.x * blockDim.x + threadIdx.x;    
-    if (gid < len/2) {
+	int gid = blockIdx.x * blockDim.x + threadIdx.x;
+	if (gid < len/2) {
 		int i1 = 2*j * (int)(gid / j) + (gid % j);	// prvi element
 		int i2 = i1 ^ j;							// drugi element
 		int dec = i1 & k;							// smer urejanja (padajoče: dec != 0)
@@ -27,8 +27,8 @@ __device__ void bitonicSort(int *a, int len, int k, int j) {
 }
 
 __device__ void bitonicSortShared(int *as, int len, int k, int j) {
-	int gid = blockIdx.x * blockDim.x + threadIdx.x;    
-    if (gid < len/2) {
+	int gid = blockIdx.x * blockDim.x + threadIdx.x;
+	if (gid < len/2) {
 		int i1 = 2*j * (int)(gid / j) + (gid % j);	// prvi element
 		int i2 = i1 ^ j;							// drugi element
 		int dec = i1 & k;							// smer urejanja (padajoče: dec != 0)

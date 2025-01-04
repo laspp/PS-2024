@@ -1,6 +1,6 @@
 // računanje razlike vektorjev
 // 		argumenti: število blokov, število niti, dolžina vektorjev, oznaka ščepca
-// uporabimo lokalni pomnilnik na napravi, ki ga rezerviramo statično
+// uporabimo lokalni pomnilnik na napravi, ki ga rezerviramo dinamično
 // 		za vsak blok računamo delne vsote na napravi
 //		delne vsote prenesemo na gostitelja in jih seštejemo
 // izboljševanje rešitve: VectorDistanceLD1Ex ... VectorDistanceLD4Ex

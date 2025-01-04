@@ -28,11 +28,11 @@ __global__ void vectorDistanceLD3(float *p, const float *a, const float *b, int 
 	for(idxStep = blockDim.x/2; idxStep > 0 ; idxStep /= 2)	{
 		if (threadIdx.x < idxStep)
 			part[threadIdx.x] += part[threadIdx.x+idxStep];
-        __syncthreads();
+		__syncthreads();
 	}
 
-    if (threadIdx.x == 0)
-        p[blockIdx.x] = part[0];
+	if (threadIdx.x == 0)
+		p[blockIdx.x] = part[0];
 }
 
 #ifdef __cplusplus

@@ -1,9 +1,9 @@
 // prvi program za GPE
 // prevajanje: 
 //		module load CUDA
-//		nvcc -o pozdrav-gpe pozdrav-gpe.cu
+//		srun --gpus=1 --partition=gpu nvcc -o pozdrav-gpeC pozdrav-gpeC.cu
 // izvajanje: 
-//		srun --gpus=1 --partition=gpu ./pozdrav-gpe 2 4
+//		srun --gpus=1 --partition=gpu ./pozdrav-gpeC 2 4
 
 #include <stdio.h>
 #include "cuda.h"
