@@ -2,6 +2,7 @@
 //
 // izvajanje:
 //		source ../cudago-init.sh
+//		CudaGo -precompile -package cudago pozdrav-gpe.cu
 //      srun --partition=gpu --gpus=1 go run pozdrav-gpe.go
 
 package main

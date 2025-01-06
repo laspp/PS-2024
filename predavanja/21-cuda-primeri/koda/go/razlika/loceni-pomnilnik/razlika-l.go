@@ -5,12 +5,15 @@
 //		koda na napravi: izbolješevanje od VectorSubtract1 do VectorSubtract4 (vrstica 97)
 // izvajanje:
 //		source ../../cudago-init.sh
-// 		VectorSubtract1: srun --partition=gpu --gpus=1 go run razlika-l.go -b 1 -t 128 -s 128/100
-// 		VectorSubtract2: srun --partition=gpu --gpus=1 go run razlika-l.go -b 1 -t 128 -s 100/200
-// 		VectorSubtract2: srun --partition=gpu --gpus=1 go run razlika-l.go -b 2 -t 128 -s 200
-// 		VectorSubtract3: srun --partition=gpu --gpus=1 go run razlika-l.go -b 2 -t 128 -s 200
-// 		VectorSubtract4: srun --partition=gpu --gpus=1 go run razlika-l.go -b 1 -t 128 -s 200
-// 		VectorSubtract4: srun --partition=gpu --gpus=1 go run razlika-l.go -b 0 -t 128 -s 200
+// 		srun --partition=gpu --gpus=1 go run razlika-l.go -k 1 -b 1 -t 128 -s 128
+// 		srun --partition=gpu --gpus=1 go run razlika-l.go -k 1 -b 1 -t 128 -s 100
+// 		srun --partition=gpu --gpus=1 go run razlika-l.go -k 2 -b 1 -t 128 -s 100
+// 		srun --partition=gpu --gpus=1 go run razlika-l.go -k 2 -b 1 -t 128 -s 200
+// 		srun --partition=gpu --gpus=1 go run razlika-l.go -k 2 -b 2 -t 128 -s 200
+// 		srun --partition=gpu --gpus=1 go run razlika-l.go -k 3 -b 2 -t 128 -s 200
+// 		srun --partition=gpu --gpus=1 go run razlika-l.go -k 3 -b 1 -t 128 -s 200
+// 		srun --partition=gpu --gpus=1 go run razlika-l.go -k 4 -b 1 -t 128 -s 200
+// 		srun --partition=gpu --gpus=1 go run razlika-l.go -k 4 -b 0 -t 128 -s 200
 
 package main
 
