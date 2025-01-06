@@ -173,7 +173,7 @@
   - največje število niti v bloku (1024)
   - največje število niti na eni računski enoti (2048)
   - največje število blokov na eni računski enoti (32)
-  - število niti v snopu (16/32)
+  - število niti v snopu (32)
   - največje število snopov na eni računski enoti (64)
   - največje število registrov na nit (255)
   - velikost skupnega pomnilnika za računsko enoto (48 - 228 kB)

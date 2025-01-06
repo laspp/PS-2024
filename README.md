@@ -78,4 +78,5 @@
 
 - Teden 11:
   - predavanja:
-    [grafične procesne enote](predavanja/19-gpe/gpe.md)
+    [grafične procesne enote](predavanja/19-gpe/gpe.md),
+    [programski vmesnik CUDA](predavanja/20-cuda/cuda.md)
