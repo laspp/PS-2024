@@ -1,4 +1,4 @@
-# Programski vmesnik CUDA
+# Programski vmesnik CUDA [IPP:6.4-6.7]
 
 - ščepec ali jedro predstavlja kodo, ki se izvaja na GPE
 - ščepec napišemo kot zaporedni program

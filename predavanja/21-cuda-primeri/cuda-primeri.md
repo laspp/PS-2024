@@ -1,4 +1,4 @@
-# CUDA - primeri programov
+# CUDA - primeri programov [IPP:6.8-6.14]
 
 ## Primer: računanje razlike vektorjev
 

@@ -79,4 +79,12 @@
 - Teden 11:
   - predavanja:
     [grafične procesne enote](predavanja/19-gpe/gpe.md),
-    [programski vmesnik CUDA](predavanja/20-cuda/cuda.md)
+    [programski vmesnik CUDA](predavanja/20-cuda/cuda.md),
+    [računanje razlike](predavanja/21-cuda-primeri/cuda-primeri.md#primer-računanje-razlike-vektorjev)
+
+<!--
+- Teden 12:
+  - predavanja:
+    [računanje razdalje](predavanja/21-cuda-primeri/cuda-primeri.md#primer-razdalja-med-vektorjema),
+    [bitonično urejanje](predavanja/21-cuda-primeri/cuda-primeri.md#primer-bitonično-urejanje)
+-->

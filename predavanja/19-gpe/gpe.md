@@ -1,4 +1,4 @@
-# Grafične procesne enote
+# Grafične procesne enote [IPP:6.1-6.3]
 
 ## Uvod
 
