@@ -40,11 +40,11 @@ Potem pa tudi zato, da si zagotovite lepšo končno oceno. Končna ocena predmet
 
 ## Kdaj?
 
-Rešitve morate oddati najkasneje do srede, 15. 1. 2024, in jih uspešno zagovarjati pred prvim izpitnim rokom.
+Rešitev morate oddati najkasneje do vključno ponedeljka, 21. 1. 2024, in jo uspešno zagovarjati pred prvim izpitnim rokom.
 
 ## Kako?
 
-Rešitev naložite na učilnico in jo zagovarjate profesorju. Na zagovoru
+Rešitev s testnimi primeri naložite na [učilnico](https://ucilnica.fri.uni-lj.si/mod/assign/view.php?id=54590) in jo zagovarjate profesorju. Na zagovoru
 
 - predstavite kodo in
 - demonstrirate pravilnost delovanja (lahko na gruči ali na vašem prenosniku)
