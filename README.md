@@ -80,12 +80,10 @@
   - predavanja:
     [grafične procesne enote](predavanja/19-gpe/gpe.md),
     [programski vmesnik CUDA](predavanja/20-cuda/cuda.md),
-    [računanje razlike](predavanja/21-cuda-primeri/cuda-primeri.md#primer-računanje-razlike-vektorjev)
+    [računanje razlike vektorjev](predavanja/21-cuda-primeri/cuda-primeri.md#primer-računanje-razlike-vektorjev)
   - vaje: [CUDA (5. domača naloga)](vaje/09-CUDA/CUDA.md)
 
-<!--
 - Teden 12:
   - predavanja:
-    [računanje razdalje](predavanja/21-cuda-primeri/cuda-primeri.md#primer-razdalja-med-vektorjema),
+    [računanje razdalje med vektorjema](predavanja/21-cuda-primeri/cuda-primeri.md#primer-razdalja-med-vektorjema),
     [bitonično urejanje](predavanja/21-cuda-primeri/cuda-primeri.md#primer-bitonično-urejanje)
--->
