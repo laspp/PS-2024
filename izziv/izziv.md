@@ -40,7 +40,7 @@ Potem pa tudi zato, da si zagotovite lepšo končno oceno. Končna ocena predmet
 
 ## Kdaj?
 
-Rešitev morate oddati najkasneje do vključno ponedeljka, 20. 1. 2025, in jo uspešno zagovarjati pred prvim izpitnim rokom.
+Rešitev morate oddati najkasneje do vključno torka, 21. 1. 2025, in jo uspešno zagovarjati pred prvim izpitnim rokom.
 
 ## Kako?
 
