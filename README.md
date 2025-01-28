@@ -90,4 +90,4 @@
 
 ### Izpiti
 
-- 1. [rok, 27. 1. 2025](izpiti/Izpit-20250127-resitve.pdf)
+- [1. rok, 27. 1. 2025](izpiti/Izpit-20250127-resitve.pdf)
