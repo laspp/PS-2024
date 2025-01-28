@@ -87,3 +87,7 @@
   - predavanja:
     [računanje razdalje med vektorjema](predavanja/21-cuda-primeri/cuda-primeri.md#primer-razdalja-med-vektorjema),
     [bitonično urejanje](predavanja/21-cuda-primeri/cuda-primeri.md#primer-bitonično-urejanje)
+
+### Izpiti
+
+- 1. [rok, 27. 1. 2025](izpiti/Izpit-20250127-resitve.pdf)
