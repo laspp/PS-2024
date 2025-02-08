@@ -91,3 +91,4 @@
 ### Izpiti
 
 - [1. rok, 27. 1. 2025](izpiti/Izpit-20250127-resitve.pdf)
+- [2. rok, 6. 2. 2025](izpiti/Izpit-20250206-resitve.pdf)
